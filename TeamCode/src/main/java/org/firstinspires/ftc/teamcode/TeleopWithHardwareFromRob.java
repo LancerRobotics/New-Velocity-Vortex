@@ -30,7 +30,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package org.firstinspires.ftc.teamcode.actualCode.PreQualifier.teleop;
+package org.firstinspires.ftc.teamcode;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -39,7 +39,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
-import org.firstinspires.ftc.teamcode.Keys;
+import org.firstinspires.ftc.teamcode.Hardware3415;
+import org.firstinspires.ftc.teamcode.Hardware3415;
 
 /**
  * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
@@ -63,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Keys;
 public class TeleopWithHardwareFromRob extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Hardware3415    robot           = new Hardware3415();              // Use a K9'shardware
+    Hardware3415 robot           = new Hardware3415();              // Use a K9'shardware
     double          beaconLeftSafePosition     = Hardware3415.LEFT_BEACON_INITIAL_STATE;                   // Servo safe position
     double          beaconRightSafePosition    = Hardware3415.RIGHT_BEACON_INITIAL_STATE;                  // Servo safe position
     double clampRightSafePosition = Hardware3415.RIGHT_CLAMP_INITIAL_STATE;
@@ -91,10 +92,10 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
 
-        robot.navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(Keys.cdim),
-                Keys.NAVX_DIM_I2C_PORT,
+        robot.navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(Hardware3415.cdim),
+                Hardware3415.NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
-                Keys.NAVX_DEVICE_UPDATE_RATE_HZ);
+                Hardware3415.NAVX_DEVICE_UPDATE_RATE_HZ);
         //Prevents robot from running before callibration is complete
         while (robot.navx_device.isCalibrating()) {
             telemetry.addData("Ready?", "No");
@@ -157,10 +158,10 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
 
             //Sets the motor powers of the wheels to the correct power based on all three of the above gyro values and
             //scales them accordingly
-            flPower = Range.scale((-x + y - z), -1, 1, -Keys.MAX_MOTOR_SPEED, Keys.MAX_MOTOR_SPEED);
-            frPower = Range.scale((-x - y - z), -1, 1, -Keys.MAX_MOTOR_SPEED, Keys.MAX_MOTOR_SPEED);
-            blPower = Range.scale((x + y - z), -1, 1, -Keys.MAX_MOTOR_SPEED, Keys.MAX_MOTOR_SPEED);
-            brPower = Range.scale((x - y - z), -1, 1, -Keys.MAX_MOTOR_SPEED, Keys.MAX_MOTOR_SPEED);
+            flPower = Range.scale((-x + y - z), -1, 1, -Hardware3415.MAX_MOTOR_SPEED, Hardware3415.MAX_MOTOR_SPEED);
+            frPower = Range.scale((-x - y - z), -1, 1, -Hardware3415.MAX_MOTOR_SPEED, Hardware3415.MAX_MOTOR_SPEED);
+            blPower = Range.scale((x + y - z), -1, 1, -Hardware3415.MAX_MOTOR_SPEED, Hardware3415.MAX_MOTOR_SPEED);
+            brPower = Range.scale((x - y - z), -1, 1, -Hardware3415.MAX_MOTOR_SPEED, Hardware3415.MAX_MOTOR_SPEED);
 
             //Sets each motor power to the correct power
             robot.fl.setPower(flPower);
@@ -171,17 +172,17 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             //Backup movement if the above method fails
             if (x == 0 && y == 0 && z == 0) {
                 if (gamepad1.dpad_right) {
-                    robot.bl.setPower(Keys.MAX_MOTOR_SPEED);
-                    robot.fl.setPower(Keys.MAX_MOTOR_SPEED);
+                    robot.bl.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    robot.fl.setPower(Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_up) {
-                    robot.bl.setPower(-Keys.MAX_MOTOR_SPEED);
-                    robot.fl.setPower(-Keys.MAX_MOTOR_SPEED);
+                    robot.bl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    robot.fl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_down) {
-                    robot.br.setPower(Keys.MAX_MOTOR_SPEED);
-                    robot.fr.setPower(Keys.MAX_MOTOR_SPEED);
+                    robot.br.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    robot.fr.setPower(Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_left) {
-                    robot.br.setPower(-Keys.MAX_MOTOR_SPEED);
-                    robot.fr.setPower(-Keys.MAX_MOTOR_SPEED);
+                    robot.br.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    robot.fr.setPower(-Hardware3415.MAX_MOTOR_SPEED);
                 }
             }
 
@@ -195,12 +196,12 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             robot.beaconPushRightButtonPressed = robot.beaconPushRightToggleReturnArray[1] == 1;
 
             if(gamepad2.a) {
-                robot.clampLeft.setPosition(Keys.LEFT_CLAMP_CLAMP);
-                robot.clampRight.setPosition(Keys.RIGHT_CLAMP_CLAMP);
+                robot.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_CLAMP);
+                robot.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_CLAMP);
             }
             else if (gamepad2.y) {
-                robot.clampLeft.setPosition(Keys.LEFT_CLAMP_UP);
-                robot.clampRight.setPosition(Keys.RIGHT_CLAMP_UP);
+                robot.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_UP);
+                robot.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_UP);
             }
 
             //Returns important data to the driver.

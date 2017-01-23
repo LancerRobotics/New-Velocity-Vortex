@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.actualCode.PreQualifier.teleop;
+package org.firstinspires.ftc.teamcode;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Keys;
 
 /**
  * This is NOT an opmode.
@@ -70,6 +68,15 @@ public class Hardware3415
     public static final String liftRightName = "lift_right";
     public static final String flywheelName  = "flywheel";
     public static final String collectorName = "collector";
+
+    /* Other Important Data */
+    public static final int NAVX_DIM_I2C_PORT = 0;
+    public static final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
+    public static final double HEADING_THRESHOLD       = 2;      // As tight as we can make it with an integer gyro
+    public static final double P_TURN_COEFF            = 0.1;     // Larger is more responsive, but also less stable
+    public static final double P_DRIVE_COEFF           = 0.15;
+    public static final double MAX_MOTOR_SPEED = 0.86;
+    public static final double WHEEL_DIAMETER = 3.93701;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
@@ -149,7 +156,7 @@ public class Hardware3415
             beaconPushRight.setPosition(beaconPushRightPositions[0]);
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
-            rollerRelease.setPosition(Keys.ROLLER_RELEASE_IN);
+            rollerRelease.setPosition(ROLLER_RELEASE_IN);
         }
     }
 
