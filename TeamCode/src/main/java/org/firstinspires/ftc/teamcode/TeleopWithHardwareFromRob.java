@@ -64,25 +64,12 @@ import org.firstinspires.ftc.teamcode.Hardware3415;
 public class TeleopWithHardwareFromRob extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Hardware3415 Balin           = new Hardware3415();              // Use a K9'shardware
-    double          beaconLeftSafePosition     = Hardware3415.LEFT_BEACON_INITIAL_STATE;                   // Servo safe position
-    double          beaconRightSafePosition    = Hardware3415.RIGHT_BEACON_INITIAL_STATE;                  // Servo safe position
-    double clampRightSafePosition = Hardware3415.RIGHT_CLAMP_INITIAL_STATE;
-    double clampLeftSafePosition = Hardware3415.LEFT_CLAMP_INITIAL_STATE;
-    double rollerRelease = Hardware3415.ROLLER_RELEASE_IN;
-    final double    BEACON_RIGHT_SPEED      = 0.01 ;                            // sets rate to move servo
-    final double    BEACON_LEFT_SPEED       = 0.01 ;                            // sets rate to move servo
-    final double    CLAMP_RIGHT_SPEED = 0.01;
-    final double    CLAMP_LEFT_SPEED = 0.01;
-    final double    ROLLER_RELEASE = 0.01;
+    Hardware3415 Balin           = new Hardware3415();
     public static double x, y, z, trueX, trueY;
     public static double frPower, flPower, brPower, blPower;
 
     @Override
     public void runOpMode() {
-        double left;
-        double right;
-
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
