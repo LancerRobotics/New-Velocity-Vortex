@@ -77,6 +77,7 @@ public class Hardware3415
     public static final double P_DRIVE_COEFF           = 0.15;
     public static final double MAX_MOTOR_SPEED = 0.86;
     public static final double WHEEL_DIAMETER = 3.93701;
+    public static final String cdim = "dim";
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
