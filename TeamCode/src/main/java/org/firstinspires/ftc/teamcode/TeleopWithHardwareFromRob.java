@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.Hardware3415;
 import org.firstinspires.ftc.teamcode.Hardware3415;
 
 /**
- * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
+ * This OpMode uses the common HardwareK9bot class to define the devices on the Balin.
  * All device access is managed through the HardwareK9bot class. (See this class for device names)
  * The code is structured as a LinearOpMode
  *
@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Hardware3415;
 public class TeleopWithHardwareFromRob extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Hardware3415 robot           = new Hardware3415();              // Use a K9'shardware
+    Hardware3415 Balin           = new Hardware3415();              // Use a K9'shardware
     double          beaconLeftSafePosition     = Hardware3415.LEFT_BEACON_INITIAL_STATE;                   // Servo safe position
     double          beaconRightSafePosition    = Hardware3415.RIGHT_BEACON_INITIAL_STATE;                  // Servo safe position
     double clampRightSafePosition = Hardware3415.RIGHT_CLAMP_INITIAL_STATE;
@@ -86,61 +86,61 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap, false);
+        Balin.init(hardwareMap, false);
 
-        // Send telemetry message to signify robot waiting;
+        // Send telemetry message to signify Balin waiting;
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
 
-        robot.navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(Hardware3415.cdim),
+        Balin.navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(Hardware3415.cdim),
                 Hardware3415.NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 Hardware3415.NAVX_DEVICE_UPDATE_RATE_HZ);
-        //Prevents robot from running before callibration is complete
-        while (robot.navx_device.isCalibrating()) {
+        //Prevents Balin from running before callibration is complete
+        while (Balin.navx_device.isCalibrating()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
-        robot.navx_device.zeroYaw();
+        Balin.navx_device.zeroYaw();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.rollerRelease.setPosition(robot.ROLLER_RELEASE_OUT);
+        Balin.rollerRelease.setPosition(Balin.ROLLER_RELEASE_OUT);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
             if (gamepad1.right_stick_button && gamepad1.left_stick_button) {
-                robot.navx_device.zeroYaw();
+                Balin.navx_device.zeroYaw();
             }
 
             //Sets controls for linear slides on forklift
             if (Math.abs(gamepad2.right_stick_y) > .15) {
-                robot.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-                robot.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
             } else {
-                robot.liftLeft.setPower(0);
-                robot.liftRight.setPower(0);
+                Balin.liftLeft.setPower(0);
+                Balin.liftRight.setPower(0);
             }
 
             //Sets controls for shooter
             if (gamepad1.left_trigger > .15) {
-                robot.shoot(1);
+                Balin.shoot(1);
             } else if (gamepad1.left_bumper) {
-                robot.shoot(0);
+                Balin.shoot(0);
             }
 
             //Sets controls for collector
             if (gamepad1.right_trigger > 0.15) {
-                robot.collector.setPower(0.99);
+                Balin.collector.setPower(0.99);
             } else if (gamepad1.right_bumper) {
-                robot.collector.setPower(-0.99);
+                Balin.collector.setPower(-0.99);
             } else {
-                robot.collector.setPower(0);
+                Balin.collector.setPower(0);
             }
 
             //Sets the gamepad values to x, y, and z
@@ -149,8 +149,8 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             x = gamepad1.left_stick_x; //rotation
 
             //Converts x and y to a different value based on the gyro value
-            trueX = ((Math.cos(Math.toRadians(360 - robot.convertYaw(robot.navx_device.getYaw())))) * x) - ((Math.sin(Math.toRadians(360 - robot.convertYaw(robot.navx_device.getYaw())))) * y); //sets trueX to rotated value
-            trueY = ((Math.sin(Math.toRadians(360 - robot.convertYaw(robot.navx_device.getYaw())))) * x) + ((Math.cos(Math.toRadians(360 - robot.convertYaw(robot.navx_device.getYaw())))) * y);
+            trueX = ((Math.cos(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * x) - ((Math.sin(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * y); //sets trueX to rotated value
+            trueY = ((Math.sin(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * x) + ((Math.cos(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * y);
 
             //Sets trueX and trueY to its respective value
             x = trueX;
@@ -164,44 +164,44 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             brPower = Range.scale((x - y - z), -1, 1, -Hardware3415.MAX_MOTOR_SPEED, Hardware3415.MAX_MOTOR_SPEED);
 
             //Sets each motor power to the correct power
-            robot.fl.setPower(flPower);
-            robot.fr.setPower(frPower);
-            robot.bl.setPower(blPower);
-            robot.br.setPower(brPower);
+            Balin.fl.setPower(flPower);
+            Balin.fr.setPower(frPower);
+            Balin.bl.setPower(blPower);
+            Balin.br.setPower(brPower);
 
             //Backup movement if the above method fails
             if (x == 0 && y == 0 && z == 0) {
                 if (gamepad1.dpad_right) {
-                    robot.bl.setPower(Hardware3415.MAX_MOTOR_SPEED);
-                    robot.fl.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.bl.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.fl.setPower(Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_up) {
-                    robot.bl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
-                    robot.fl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.bl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.fl.setPower(-Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_down) {
-                    robot.br.setPower(Hardware3415.MAX_MOTOR_SPEED);
-                    robot.fr.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.br.setPower(Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.fr.setPower(Hardware3415.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_left) {
-                    robot.br.setPower(-Hardware3415.MAX_MOTOR_SPEED);
-                    robot.fr.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.br.setPower(-Hardware3415.MAX_MOTOR_SPEED);
+                    Balin.fr.setPower(-Hardware3415.MAX_MOTOR_SPEED);
                 }
             }
 
             //Control servo toggling for beacon pushers and clamps
-            robot.beaconPushLeftToggleReturnArray = robot.servoToggle(gamepad2.left_trigger > .15, robot.beaconPushLeft, robot.beaconPushLeftPositions, robot.beaconPushLeftPos, robot.beaconPushLeftButtonPressed);
-            robot.beaconPushLeftPos = robot.beaconPushLeftToggleReturnArray[0];
-            robot.beaconPushLeftButtonPressed = robot.beaconPushLeftToggleReturnArray[1] == 1;
+            Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed);
+            Balin.beaconPushLeftPos = Balin.beaconPushLeftToggleReturnArray[0];
+            Balin.beaconPushLeftButtonPressed = Balin.beaconPushLeftToggleReturnArray[1] == 1;
 
-            robot.beaconPushRightToggleReturnArray = robot.servoToggle(gamepad2.right_trigger > .15, robot.beaconPushRight, robot.beaconPushRightPositions, robot.beaconPushRightPos, robot.beaconPushRightButtonPressed);
-            robot.beaconPushRightPos = robot.beaconPushRightToggleReturnArray[0];
-            robot.beaconPushRightButtonPressed = robot.beaconPushRightToggleReturnArray[1] == 1;
+            Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed);
+            Balin.beaconPushRightPos = Balin.beaconPushRightToggleReturnArray[0];
+            Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
             if(gamepad2.a) {
-                robot.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_CLAMP);
-                robot.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_CLAMP);
+                Balin.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_CLAMP);
+                Balin.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_CLAMP);
             }
             else if (gamepad2.y) {
-                robot.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_UP);
-                robot.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_UP);
+                Balin.clampLeft.setPosition(Hardware3415.LEFT_CLAMP_UP);
+                Balin.clampRight.setPosition(Hardware3415.RIGHT_CLAMP_UP);
             }
 
             //Returns important data to the driver.
@@ -209,15 +209,15 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             telemetry.addData("GamePad 1 Left Stick Y Actual", gamepad1.left_stick_y);
             telemetry.addData("GamePad 1 Left Stick X Actual", gamepad1.left_stick_x);
             telemetry.addData("GamePad 1 X", gamepad1.x);
-            telemetry.addData("FR Power", robot.fr.getPower());
-            telemetry.addData("FL Power", robot.fl.getPower());
-            telemetry.addData("BR Power", robot.br.getPower());
-            telemetry.addData("BL Power", robot.bl.getPower());
-            telemetry.addData("Yaw", robot.convertYaw(robot.navx_device.getYaw()));
+            telemetry.addData("FR Power", Balin.fr.getPower());
+            telemetry.addData("FL Power", Balin.fl.getPower());
+            telemetry.addData("BR Power", Balin.br.getPower());
+            telemetry.addData("BL Power", Balin.bl.getPower());
+            telemetry.addData("Yaw", Balin.convertYaw(Balin.navx_device.getYaw()));
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            robot.waitForTick(40);
+            Balin.waitForTick(40);
         }
     }
 }
