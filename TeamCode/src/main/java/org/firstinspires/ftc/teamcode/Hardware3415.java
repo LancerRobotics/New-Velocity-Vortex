@@ -280,4 +280,68 @@ public class Hardware3415
     public void shoot (double power){
         flywheel.setPower(power);
     }
+
+    public void changeDriveMode(DcMotor.RunMode mode){
+        fl.setMode(mode);
+        fr.setMode(mode);
+        bl.setMode(mode);
+        br.setMode(mode);
+    }
+    public void setDriveTarget(int targetTick){
+        br.setTargetPosition(targetTick);
+        bl.setTargetPosition(targetTick);
+        fl.setTargetPosition(targetTick);
+        fr.setTargetPosition(targetTick);
+    }
+    public void setDrivePower(double power){
+        fr.setPower(power);
+        fl.setPower(power);
+        br.setPower(power);
+        bl.setPower(power);
+
+    }
+    public boolean motorsReset(){
+        if(fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0)
+            return true;
+        return false;
+    }
+
+    public boolean motorsTarget(int targetTick){
+        if(fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick)
+            return true;
+        return false;
+    }
+    public void moveStraight(int inches, boolean backwards){
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
+        if(!backwards){
+
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick)){
+                setDrivePower(.4);
+            }
+            setDrivePower(.0);
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        else {
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick)){
+                setDrivePower(-.4);
+            }
+            setDrivePower(.0);
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+
 }
