@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.DriversAndHardware;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -41,7 +42,8 @@ public class Hardware3415
     public DcMotor liftRight = null;
     public DcMotor flywheel = null;
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
-    public static AHRS navx_device;
+    public AHRS navx_device = null;
+    public ColorSensor colorSensor = null;
 
     public static final double LEFT_BEACON_INITIAL_STATE = 156.0/255;
     public static final double LEFT_BEACON_PUSH = 1.0/255;
@@ -57,7 +59,7 @@ public class Hardware3415
     public static final double ROLLER_RELEASE_OUT = 0.0;
 
 
-    //Motor and Servo Names
+    //Motor, Servo, and Sensor Names
     public static final String servo = "servo";
     public static final String beaconPushLeftName = "beacon_left";
     public static final String beaconPushRightName = "beacon_right";
@@ -72,6 +74,7 @@ public class Hardware3415
     public static final String liftRightName = "lift_right";
     public static final String flywheelName  = "flywheel";
     public static final String collectorName = "collector";
+    public static final String colorSensorName = "color";
 
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
@@ -167,6 +170,9 @@ public class Hardware3415
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
         }
+
+        //Define all sensors
+        colorSensor = hwMap.colorSensor.get(colorSensorName);
     }
 
     /***
@@ -194,7 +200,7 @@ public class Hardware3415
         period.reset();
     }
 
-    public static float convertYaw (double yaw) {
+    public static float convertYaw(double yaw) {
         if (yaw <= 0) {
             yaw = 360 + yaw; //if yaw is negative, make it positive (makes the turn easier to visualize)
         }
