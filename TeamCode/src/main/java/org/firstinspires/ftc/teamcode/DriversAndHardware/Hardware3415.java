@@ -337,6 +337,7 @@ public class Hardware3415
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
+                waitForTick(40);
             }
             setDrivePower(.0);
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -349,6 +350,7 @@ public class Hardware3415
             }
             while(!motorsTarget(targetTick)){
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -404,8 +406,8 @@ public class Hardware3415
 
         // calculate error in -179 to +180 range  (
         robotError = targetAngle - navx_device.getYaw();
-        while (robotError > 180) robotError -= 360;
-        while (robotError <= -180) robotError += 360;
+        while (robotError > 180) robotError -= 360; waitForTick(40);
+        while (robotError <= -180) robotError += 360; waitForTick(40);
         return robotError;
     }
 
@@ -462,6 +464,7 @@ public class Hardware3415
         while (opMode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
             // Update telemetry & Allow time for other processes to run.
             opMode.telemetry.update();
+            waitForTick(40);
         }
     }
 
