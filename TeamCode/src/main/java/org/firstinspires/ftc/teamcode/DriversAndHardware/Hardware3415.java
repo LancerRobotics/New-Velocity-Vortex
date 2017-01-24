@@ -309,13 +309,13 @@ public class Hardware3415
 
     }
     public boolean motorsReset(){
-        if(fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0)
+        if(fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0)
             return true;
         return false;
     }
 
     public boolean motorsTarget(int targetTick){
-        if(fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick)
+        if(fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick && fl.getCurrentPosition() == targetTick && br.getCurrentPosition() == targetTick)
             return true;
         return false;
     }
