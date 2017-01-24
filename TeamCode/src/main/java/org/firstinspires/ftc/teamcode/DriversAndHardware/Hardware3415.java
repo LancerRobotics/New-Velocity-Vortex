@@ -473,6 +473,16 @@ public class Hardware3415
         if (opMode.opModeIsActive()) rest();
     }
 
+    public void restAndSleep(LinearOpMode opMode) {
+        if (opMode.opModeIsActive()) rest();
+        opMode.sleep(100);
+        opMode.telemetry.update();
+    }
 
-
+    //Takes in the gyro values and converts to degrees from 0-360
+    public float getYaw() {
+        float yaw = convertYaw(navx_device.getYaw());
+        return yaw;
+    }
+    
 }
