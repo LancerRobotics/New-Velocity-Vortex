@@ -29,11 +29,10 @@ public class MoveStraight extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        balin.moveStraight(12, true);
-        telemetry.addData("Encoders Reset?" , balin.motorsReset());
-        telemetry.update();
-        telemetry.addData("Current tick values", balin.fl.getCurrentPosition());
-        telemetry.update();
-        telemetry.addData("Current tick values", balin.br.getCurrentPosition());
+        balin.moveStraight(12, true, this);
+        balin.restAndSleep(this);
+        sleep(2000);
+        balin.moveStraight(12, false, this);
+        balin.restAndSleep(this);
     }
 }

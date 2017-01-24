@@ -319,7 +319,7 @@ public class Hardware3415
             return true;
         return false;
     }
-    public void moveStraight(int inches, boolean backwards){
+    public void moveStraight(int inches, boolean backwards, LinearOpMode opMode){
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -333,6 +333,10 @@ public class Hardware3415
             }
             while(!motorsTarget(targetTick)){
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
             }
             setDrivePower(.0);
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -484,5 +488,5 @@ public class Hardware3415
         float yaw = convertYaw(navx_device.getYaw());
         return yaw;
     }
-    
+
 }
