@@ -337,7 +337,7 @@ public class Hardware3415
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while(!motorsTarget(targetTick)){
+            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 opMode.telemetry.addData("Encoders Reset?" , motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
@@ -354,7 +354,7 @@ public class Hardware3415
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while(!motorsTarget(targetTick)){
+            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -406,14 +406,14 @@ public class Hardware3415
     }
 
     //Gives the DIFFERENCE between current and target angle->as robotError
-    public double getError(double targetAngle) {
+    public double getError(double targetAngle, LinearOpMode opMode) {
 
         double robotError;
 
         // calculate error in -179 to +180 range  (
         robotError = targetAngle - navx_device.getYaw();
-        while (robotError > 180) robotError -= 360; waitForTick(40);
-        while (robotError <= -180) robotError += 360; waitForTick(40);
+        while (robotError > 180 && opMode.opModeIsActive()) robotError -= 360; waitForTick(40);
+        while (robotError <= -180 && opMode.opModeIsActive()) robotError += 360; waitForTick(40);
         return robotError;
     }
 
@@ -436,7 +436,7 @@ public class Hardware3415
         double rightSpeed;
 
         //Determine turn power based on how far off the robot is from the correct angle
-        error = getError(angle);
+        error = getError(angle, opMode);
 
         //Tells the robot to move according to the angle of the robot
         if (Math.abs(error) <= HEADING_THRESHOLD) { //Allows the bot to reach an angle within the range of heading_threshold
@@ -459,7 +459,6 @@ public class Hardware3415
         opMode.telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
         opMode.telemetry.addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
         opMode.telemetry.addData("Yaw", navx_device.getYaw());
-        opMode.telemetry.update();
         return onTarget;
     }
 
