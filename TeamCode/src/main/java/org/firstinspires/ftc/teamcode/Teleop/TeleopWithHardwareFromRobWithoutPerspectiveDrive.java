@@ -72,9 +72,6 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
         Balin.init(hardwareMap, false);
 
         // Send telemetry message to signify Balin waiting;
-        telemetry.addData("Say", "Hello Driver");    //
-        telemetry.update();
-
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
 
