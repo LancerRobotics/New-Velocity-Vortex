@@ -34,16 +34,19 @@ public class TestMovement extends LinearOpMode {
         balin.init(hardwareMap, true);
         waitForStart();
 
+       while(opModeIsActive()) {
+           getRGB();
+       }
+/*
         moveUntilLine("up", 0.3);
         //Shlok method to adjust
         moveUntilLine("left", 0.3);
         moveUntilLine("right", 0.3);
 
-       /* moveAnywhere("right", 5, 0.3);
+       moveAnywhere("right", 5, 0.3);
         moveAnywhere("left", 5, 0.3);
         moveAnywhere("forward", 5, 0.3);
         moveAnywhere("backward", 5, 0.3); */
-
     }
 
     public void moveUntilLine(String direction, double power) {
@@ -120,7 +123,7 @@ public class TestMovement extends LinearOpMode {
         int[]rgb = getRGB();
 
         boolean firstWhiteLine = false;
-        if (rgb[0] >= 210 && rgb[2] >= 210 && rgb[1] >= 210) {
+        if (rgb[0] >= 1 && rgb[2] >= 1 && rgb[1] >= 1) {
             firstWhiteLine = true;
             telemetry.addLine("White line detected");
             telemetry.update();
@@ -134,10 +137,12 @@ public class TestMovement extends LinearOpMode {
 
 
     public boolean findCenterBase(boolean blueAlliance) {
+
+        //THIS DOES NOT WORK AT THE MOMENT
         boolean centerBase = false;
         if (blueAlliance) {
             int[] rgb = getRGB();
-            if (rgb[2] >= 210) {
+            if (rgb[2] >= 8) {
                 //stop robot
                 centerBase = true;
                 telemetry.addLine("Blue center tape detected");
@@ -150,7 +155,7 @@ public class TestMovement extends LinearOpMode {
         } else if (!blueAlliance) {
             int[]rgb = getRGB();
             detectColor();
-            if (rgb[0] >= 210) {
+            if (rgb[0] >= 3) {
                 //stop robot
                 centerBase = true;
                 telemetry.addLine("Red center tape detected");
