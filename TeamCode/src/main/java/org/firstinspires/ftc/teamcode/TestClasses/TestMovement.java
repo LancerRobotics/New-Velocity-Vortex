@@ -27,26 +27,29 @@ public class TestMovement extends LinearOpMode {
     int blue;
     int green;
 
+    boolean blueColor = false;
+    boolean redColor = false;
     boolean whiteLine = false;
+    boolean anyBeaconColor = false;
 
     public void runOpMode() {
 
         balin.init(hardwareMap, true);
         waitForStart();
 
+        goStraightUntilDetectBeacon(true, 0.1);
+        goStraightUntilDetectBeacon(false, 0.1);
+        /*
        while(opModeIsActive()) {
            getRGB();
        }
+       */
 /*
         moveUntilLine("up", 0.3);
         //Shlok method to adjust
         moveUntilLine("left", 0.3);
         moveUntilLine("right", 0.3);
-
-       moveAnywhere("right", 5, 0.3);
-        moveAnywhere("left", 5, 0.3);
-        moveAnywhere("forward", 5, 0.3);
-        moveAnywhere("backward", 5, 0.3); */
+ */
     }
 
     public void moveUntilLine(String direction, double power) {
@@ -133,6 +136,75 @@ public class TestMovement extends LinearOpMode {
             telemetry.update();
         }
         return firstWhiteLine;
+    }
+
+
+
+    public void goStraightUntilDetectBeacon (boolean blueAlliance, double power){
+        //Color sensor by default is on the left side of the robot
+        if(blueAlliance) {
+            while (!anyBeaconColor) {
+                balin.bl.setPower(power);
+                balin.br.setPower(power);
+                balin.fl.setPower(power);
+                balin.fr.setPower(power);
+                int[] rgb = getRGB();
+                if(rgb[2] >= 2 && rgb[0] == 0) {
+                    blueColor = true;
+                    redColor = false;
+                    anyBeaconColor = true;
+                    telemetry.addLine("Left side of beacon is blue detected, now going to hit left side of beacon!");
+
+                    //GO BACK THE DISTANCE WANTED
+                    balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_PUSH);
+                    //GO FORWARD THE SAME DISTANCE
+
+                }
+                else if (rgb[2] == 0 && rgb[0] >= 7) {
+                    blueColor = false;
+                    redColor = true;
+                    anyBeaconColor = true;
+                    telemetry.addLine("Left side of beacon is red detected, now going to hit right side of beacon!");
+
+                    //GO BACK THE DISTANCE WANTED
+                    balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_PUSH);
+                    //GO FORWARD THE DISTANCE WANTED
+
+                }
+            }
+        }
+        else {
+            while (!anyBeaconColor) {
+                balin.bl.setPower(power);
+                balin.br.setPower(power);
+                balin.fl.setPower(power);
+                balin.fr.setPower(power);
+                int[] rgb = getRGB();
+                if(rgb[2] >= 2 && rgb[0] == 0) {
+                    blueColor = true;
+                    redColor = false;
+                    anyBeaconColor = true;
+                    telemetry.addLine("Left side of beacon is blue detected, now going to hit right side of beacon!");
+
+                    //GO BACK THE DISTANCE WANTED
+                    balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_PUSH);
+                    //GO FORWARD THE SAME DISTANCE
+
+                }
+                else if (rgb[2] == 0 && rgb[0] >= 7) {
+                    blueColor = false;
+                    redColor = true;
+                    anyBeaconColor = true;
+                    telemetry.addLine("Left side of beacon is red detected, now going to hit left side of beacon!");
+
+                    //GO BACK THE DISTANCE WANTED
+                    balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_PUSH);
+                    //GO FORWARD THE DISTANCE WANTED
+
+                }
+            }
+        }
+
     }
 
 
