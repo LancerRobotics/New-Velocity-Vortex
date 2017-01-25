@@ -500,25 +500,19 @@ public class Hardware3415
         return onTarget;
     }
 
-    //Method that takes in the needed data for the turning.
-    public void gyroTurn(double speed, double angle, LinearOpMode opMode) {
-        navx_device.zeroYaw();
-        // keep looping while we are still active, and not on heading.
-        while (opMode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
-            // Update telemetry & Allow time for other processes to run.
-            opMode.telemetry.update();
-            waitForTick(40);
-        }
-    }
-
     // Method that is called to turn the robot goes from -180 to 180 degrees
     public void gyroAngle(double angle, double speed, LinearOpMode opMode) {
         //Zero's the gyro value
         navx_device.zeroYaw();
-
         //Turns the robot
-        if (opMode.opModeIsActive()) gyroTurn(speed, angle, opMode);
-
+        if (opMode.opModeIsActive())  {
+            // keep looping while we are still active, and not on heading.
+            while (opMode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
+                // Update telemetry & Allow time for other processes to run.
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+        }
         //Brakes all motors
         if (opMode.opModeIsActive()) rest();
     }
