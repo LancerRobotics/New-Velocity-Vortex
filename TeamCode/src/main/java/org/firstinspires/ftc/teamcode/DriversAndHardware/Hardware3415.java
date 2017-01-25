@@ -160,6 +160,9 @@ public class Hardware3415
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
+
+            //Define all sensors
+            colorSensor = hwMap.colorSensor.get(colorSensorName);
         }
         else {
             beaconPushLeftPos = 1;
@@ -170,9 +173,6 @@ public class Hardware3415
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
         }
-
-        //Define all sensors
-        colorSensor = hwMap.colorSensor.get(colorSensorName);
     }
 
     /***

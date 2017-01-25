@@ -32,7 +32,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -56,9 +55,9 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Teleop With Perspective Drive", group="Competition")
+@TeleOp(name="Teleop Without Perspective Drive", group="Competition")
 
-public class TeleopWithHardwareFromRob extends LinearOpMode {
+public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMode {
 
     /* Declare OpMode members. */
     Hardware3415 Balin           = new Hardware3415();
@@ -76,18 +75,8 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
 
-        Balin.navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(Balin.cdim),
-                Balin.NAVX_DIM_I2C_PORT,
-                AHRS.DeviceDataType.kProcessedData,
-                Balin.NAVX_DEVICE_UPDATE_RATE_HZ);
-        //Prevents Balin from running before callibration is complete
-        while (Balin.navx_device.isCalibrating()) {
-            telemetry.addData("Ready?", "No");
-            telemetry.update();
-        }
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
-        Balin.navx_device.zeroYaw();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -96,11 +85,6 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            if (gamepad1.right_stick_button && gamepad1.left_stick_button) {
-                Balin.navx_device.zeroYaw();
-            }
 
             //Sets controls for linear slides on forklift
             if (Math.abs(gamepad2.right_stick_y) > .15) {
@@ -131,14 +115,6 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             z = gamepad1.right_stick_x; //sideways
             y = gamepad1.left_stick_y; //forward and backward
             x = gamepad1.left_stick_x; //rotation
-
-            //Converts x and y to a different value based on the gyro value
-            trueX = ((Math.cos(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * x) - ((Math.sin(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * y); //sets trueX to rotated value
-            trueY = ((Math.sin(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * x) + ((Math.cos(Math.toRadians(360 - Balin.convertYaw(Balin.navx_device.getYaw())))) * y);
-
-            //Sets trueX and trueY to its respective value
-            x = trueX;
-            y = trueY;
 
             //Sets the motor powers of the wheels to the correct power based on all three of the above gyro values and
             //scales them accordingly
@@ -197,7 +173,6 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             telemetry.addData("FL Power", Balin.fl.getPower());
             telemetry.addData("BR Power", Balin.br.getPower());
             telemetry.addData("BL Power", Balin.bl.getPower());
-            telemetry.addData("Yaw", Balin.convertYaw(Balin.navx_device.getYaw()));
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
