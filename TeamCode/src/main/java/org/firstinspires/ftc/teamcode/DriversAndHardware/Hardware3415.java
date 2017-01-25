@@ -354,6 +354,44 @@ public class Hardware3415
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
+            while((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()){
+                setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                waitForTick(40);
+            }
+            rest();
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+    public void moveStraightWithOr(int inches, boolean backwards, LinearOpMode opMode){
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
+        if(!backwards){
+
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+                setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+            setDrivePower(.0);
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        else {
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
             while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
