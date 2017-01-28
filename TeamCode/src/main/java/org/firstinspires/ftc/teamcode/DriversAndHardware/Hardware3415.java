@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.DriversAndHardware;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -44,6 +45,8 @@ public class Hardware3415
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
+    public ColorSensor lineTrackerF = null;
+    public ColorSensor lineTrackerB = null;
 
     public static final double LEFT_BEACON_INITIAL_STATE = 156.0/255;
     public static final double LEFT_BEACON_PUSH = 1.0/255;
@@ -75,6 +78,8 @@ public class Hardware3415
     public static final String flywheelName  = "flywheel";
     public static final String collectorName = "collector";
     public static final String colorSensorName = "color";
+    public static final String lineTrackerFName = "lineTrackerF";
+    public static final String lineTrackerBName = "lineTrackerB";
 
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
@@ -163,6 +168,8 @@ public class Hardware3415
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
+            lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
+            lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
         }
         else {
             beaconPushLeftPos = 1;
@@ -426,6 +433,22 @@ public class Hardware3415
         return power;
     }
 
+    public void timeMove(int seconds, boolean backwards, LinearOpMode opMode){
+        if(!backwards){
+        fr.setPower(.4);
+        fl.setPower(.4);
+        br.setPower(.4);
+        bl.setPower(.4);
+            opMode.sleep(seconds*1000);
+        }else{
+            fr.setPower(-.4);
+            fl.setPower(-.4);
+            br.setPower(-.4);
+            bl.setPower(-.4);
+            opMode.sleep(seconds*1000);
+        }
+    }
+
     //Stops all motors on the drive train
     public void rest() {
         fr.setPower(0);
@@ -527,6 +550,46 @@ public class Hardware3415
     public float getYaw() {
         float yaw = convertYaw(navx_device.getYaw());
         return yaw;
+    }
+    public int[] getRGB() {
+        int red = colorSensor.red(); // store the values the color sensor returns
+        int blue = colorSensor.blue();
+        int green = colorSensor.green();
+
+        int[] rgb = {red, green, blue};
+        return rgb;
+    }
+    public int[] getRGBF(){
+        int red = lineTrackerF.red();
+        int blue = lineTrackerF.blue();
+        int green = lineTrackerF.green();
+        int[] rgb ={red, green, blue};
+        return rgb;
+    }
+    public int[] getRGBB(){
+        int red = lineTrackerB.red();
+        int blue = lineTrackerB.blue();
+        int green = lineTrackerB.green();
+        int[] rgb = {red, green, blue};
+        return rgb;
+    }
+    public boolean detectWhiteLine(){
+
+    }
+
+    public boolean detectAColor(){
+        int rgb[] = getRGB();
+        if(rgb[0]> 1 && rgb[2]>1){
+            return true;
+        }
+        return false;
+    }
+    public boolean BeaconColor()
+    {
+        int[] rgb = getRGB();
+        boolean color = false;
+                if()
+        return color;
     }
 
 }
