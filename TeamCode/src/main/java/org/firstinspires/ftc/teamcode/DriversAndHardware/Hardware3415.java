@@ -352,7 +352,7 @@ public class Hardware3415
                 opMode.telemetry.update();
                 waitForTick(40);
             }
-            setDrivePower(.0);
+            rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         else {
@@ -390,7 +390,7 @@ public class Hardware3415
                 opMode.telemetry.update();
                 waitForTick(40);
             }
-            setDrivePower(.0);
+            rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         else {
@@ -451,10 +451,7 @@ public class Hardware3415
 
     //Stops all motors on the drive train
     public void rest() {
-        fr.setPower(0);
-        fl.setPower(0);
-        bl.setPower(0);
-        br.setPower(0);
+        setDrivePower(0);
     }
 
     //Sets the DIRECTION the robot is going, based on the error, for gyro turn

@@ -265,6 +265,7 @@ public class TestMovement extends LinearOpMode {
             telemetry.update();
             return beaconBlue;
         } else {
+            beaconBlue = 2;
             telemetry.addLine("unable to determine beacon color");
             telemetry.update();
             return beaconBlue;
