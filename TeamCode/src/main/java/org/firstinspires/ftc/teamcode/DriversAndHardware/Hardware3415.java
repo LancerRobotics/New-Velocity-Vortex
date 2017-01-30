@@ -323,7 +323,7 @@ public class Hardware3415 {
     }
 
     public boolean motorsTarget(int targetTick) {
-        if (fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick && fl.getCurrentPosition() == targetTick && br.getCurrentPosition() == targetTick)
+        if ((fl.getCurrentPosition() < (targetTick - 100) || bl.getCurrentPosition() < (targetTick - 100) || br.getCurrentPosition() < (targetTick - 100) || fr.getCurrentPosition() < (targetTick - 100)))
             return true;
         return false;
     }
@@ -456,19 +456,19 @@ public class Hardware3415 {
                 opMode.telemetry.update();
                 waitForTick(40);
             }
-            setDrivePower(.0);
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            rest();
         } else {
             if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while ((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()) {
+            while ((fl.getCurrentPosition() < (fl.getTargetPosition() - 100) || bl.getCurrentPosition() < (bl.getTargetPosition() - 100) || br.getCurrentPosition() < (br.getTargetPosition() - 100) || fr.getCurrentPosition() < (fr.getTargetPosition() - 100)) && opMode.opModeIsActive()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
-            rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            rest();
         }
     }
 
