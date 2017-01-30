@@ -31,11 +31,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  *   As the arm servo approaches 0, the arm position moves up (away from the floor).
  *   As the claw servo approaches 0, the claw opens up (drops the game element).
  */
-public class Hardware3415
-{
+public class Hardware3415 {
     /* Public OpMode members. */
-    public DcMotor bl   = null;
-    public DcMotor fr  = null;
+    public DcMotor bl = null;
+    public DcMotor fr = null;
     public DcMotor fl = null;
     public DcMotor br = null;
     public DcMotor collector = null;
@@ -45,20 +44,20 @@ public class Hardware3415
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
-    public ColorSensor lineTrackerF = null;
-    public ColorSensor lineTrackerB = null;
+    //public ColorSensor lineTrackerF = null;
+    //public ColorSensor lineTrackerB = null;
 
-    public static final double LEFT_BEACON_INITIAL_STATE = 156.0/255;
-    public static final double LEFT_BEACON_PUSH = 1.0/255;
-    public static final double RIGHT_BEACON_INITIAL_STATE = 155.0/255;
+    public static final double LEFT_BEACON_INITIAL_STATE = 156.0 / 255;
+    public static final double LEFT_BEACON_PUSH = 1.0 / 255;
+    public static final double RIGHT_BEACON_INITIAL_STATE = 155.0 / 255;
     public static final double RIGHT_BEACON_PUSH = 0;
     public static final double LEFT_CLAMP_INITIAL_STATE = 1;
     public static final double LEFT_CLAMP_UP = 0;
-    public static final double LEFT_CLAMP_CLAMP = 70.0/255;
+    public static final double LEFT_CLAMP_CLAMP = 70.0 / 255;
     public static final double RIGHT_CLAMP_INITIAL_STATE = 0;
     public static final double RIGHT_CLAMP_UP = 1;
-    public static final double RIGHT_CLAMP_CLAMP = 180.0/255;
-    public static final double ROLLER_RELEASE_IN = 245.0/255;
+    public static final double RIGHT_CLAMP_CLAMP = 180.0 / 255;
+    public static final double ROLLER_RELEASE_IN = 245.0 / 255;
     public static final double ROLLER_RELEASE_OUT = 0.0;
 
 
@@ -75,25 +74,25 @@ public class Hardware3415
     public static final String blName = "back_left";
     public static final String liftLeftName = "lift_left";
     public static final String liftRightName = "lift_right";
-    public static final String flywheelName  = "flywheel";
+    public static final String flywheelName = "flywheel";
     public static final String collectorName = "collector";
     public static final String colorSensorName = "color";
-    public static final String lineTrackerFName = "lineTrackerF";
-    public static final String lineTrackerBName = "lineTrackerB";
+    //public static final String lineTrackerFName = "lineTrackerF";
+    //public static final String lineTrackerBName = "lineTrackerB";
 
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
     public static final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
-    public static final double HEADING_THRESHOLD       = 2;      // As tight as we can make it with an integer gyro
-    public static final double P_TURN_COEFF            = 0.1;     // Larger is more responsive, but also less stable
-    public static final double P_DRIVE_COEFF           = 0.15;
+    public static final double HEADING_THRESHOLD = 2;      // As tight as we can make it with an integer gyro
+    public static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
+    public static final double P_DRIVE_COEFF = 0.15;
     public static final double MAX_MOTOR_SPEED = 0.86;
     public static final double WHEEL_DIAMETER = 3.93701;
     public static final String cdim = "dim";
 
     /* Local OpMode members. */
-    HardwareMap hwMap  = null;
-    private ElapsedTime period  = new ElapsedTime();
+    HardwareMap hwMap = null;
+    private ElapsedTime period = new ElapsedTime();
 
     /*Toggle Stuff*/
     public static boolean beaconPushLeftButtonPressed = false;
@@ -159,7 +158,7 @@ public class Hardware3415
         rollerRelease = hwMap.servo.get(rollerReleaseName);
         clampLeft = hwMap.servo.get(clampLeftName);
         clampRight = hwMap.servo.get(clampRightName);
-        if(autonomous) {
+        if (autonomous) {
             beaconPushLeft.setPosition(LEFT_BEACON_PUSH);
             beaconPushRight.setPosition(RIGHT_BEACON_PUSH);
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
@@ -168,10 +167,9 @@ public class Hardware3415
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
-            lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
-            lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
-        }
-        else {
+            //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
+            //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
+        } else {
             beaconPushLeftPos = 1;
             beaconPushLeft.setPosition(beaconPushLeftPositions[0]);
             beaconPushRightPos = 1;
@@ -183,16 +181,15 @@ public class Hardware3415
     }
 
     /***
-     *
      * waitForTick implements a periodic delay. However, this acts like a metronome with a regular
      * periodic tick.  This is used to compensate for varying processing times for each cycle.
      * The function looks at the elapsed cycle time, and sleeps for the remaining time interval.
      *
-     * @param periodMs  Length of wait cycle in mSec.
+     * @param periodMs Length of wait cycle in mSec.
      */
     public void waitForTick(long periodMs) {
 
-        long  remaining = periodMs - (long)period.milliseconds();
+        long remaining = periodMs - (long) period.milliseconds();
 
         // sleep for the remaining portion of the regular cycle period.
         if (remaining > 0) {
@@ -211,7 +208,7 @@ public class Hardware3415
         if (yaw <= 0) {
             yaw = 360 + yaw; //if yaw is negative, make it positive (makes the turn easier to visualize)
         }
-        return (float)yaw;
+        return (float) yaw;
     }
 
     public void restAllMotors() {
@@ -225,52 +222,48 @@ public class Hardware3415
         flywheel.setPower(0);
     }
 
-    public int[] servoToggle (boolean button, Servo servo, double[] positions, int currentPos, boolean pressed) {
+    public int[] servoToggle(boolean button, Servo servo, double[] positions, int currentPos, boolean pressed) {
         //Creates a variable saying the number of servo positions
         int servoPositions = positions.length;
 
         //Checks to see if a button is pressed
-        if(button) {
+        if (button) {
             pressed = true;
         }
 
         //If the button is pressed, the servo is set to the value following the previous servo value in the values array.
         //The method also t ells us what is the current position (1, 2, or 3) of the servo and will say if the button is no longer pressed
-        if(pressed) {
-            if(servoPositions == 2) {
-                if(currentPos == 1) {
+        if (pressed) {
+            if (servoPositions == 2) {
+                if (currentPos == 1) {
                     servo.setPosition(positions[1]);
-                    if(!button) {
+                    if (!button) {
                         pressed = false;
                         currentPos = 2;
                     }
-                }
-                else if(currentPos == 2) {
+                } else if (currentPos == 2) {
                     servo.setPosition(positions[0]);
-                    if(!button) {
+                    if (!button) {
                         pressed = false;
                         currentPos = 1;
                     }
                 }
-            }
-            else if(servoPositions == 3) {
-                if(currentPos == 1) {
+            } else if (servoPositions == 3) {
+                if (currentPos == 1) {
                     servo.setPosition(positions[1]);
-                    if(!button) {
+                    if (!button) {
                         pressed = false;
                         currentPos = 2;
                     }
-                }
-                else if(currentPos == 2) {
+                } else if (currentPos == 2) {
                     servo.setPosition(positions[2]);
-                    if(!button) {
+                    if (!button) {
                         pressed = false;
                         currentPos = 3;
                     }
-                }
-                else if(currentPos == 3) {
+                } else if (currentPos == 3) {
                     servo.setPosition(positions[0]);
-                    if(!button) {
+                    if (!button) {
                         pressed = false;
                         currentPos = 1;
                     }
@@ -282,8 +275,7 @@ public class Hardware3415
         int boolPressed;
         if (pressed) {
             boolPressed = 1;
-        }
-        else {
+        } else {
             boolPressed = 0;
         }
         int returnArray[] = new int[2];
@@ -298,55 +290,97 @@ public class Hardware3415
     }
 
     //Method to run flywheel motors at the same power
-    public void shoot (double power){
+    public void shoot(double power) {
         flywheel.setPower(power);
     }
 
-    public void changeDriveMode(DcMotor.RunMode mode){
+    public void changeDriveMode(DcMotor.RunMode mode) {
         fl.setMode(mode);
         fr.setMode(mode);
         bl.setMode(mode);
         br.setMode(mode);
     }
-    public void setDriveTarget(int targetTick){
+
+    public void setDriveTarget(int targetTick) {
         br.setTargetPosition(targetTick);
         bl.setTargetPosition(targetTick);
         fl.setTargetPosition(targetTick);
         fr.setTargetPosition(targetTick);
     }
-    public void setDrivePower(double power){
+
+    public void setDrivePower(double power) {
         fr.setPower(power);
         fl.setPower(power);
         br.setPower(power);
         bl.setPower(power);
 
     }
-    public boolean motorsReset(){
-        if(fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0)
+
+    public boolean motorsReset() {
+        if (fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0)
             return true;
         return false;
     }
 
-    public boolean motorsTarget(int targetTick){
-        if(fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick && fl.getCurrentPosition() == targetTick && br.getCurrentPosition() == targetTick)
+    public boolean motorsTarget(int targetTick) {
+        if (fr.getCurrentPosition() == targetTick && bl.getCurrentPosition() == targetTick && fl.getCurrentPosition() == targetTick && br.getCurrentPosition() == targetTick)
             return true;
         return false;
     }
-    public void moveStraight(int inches, boolean backwards, LinearOpMode opMode){
-        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
-        if(!backwards){
 
-            if(motorsReset())
-            {
+    public void moveStraight1(int inches, boolean backwards, LinearOpMode opMode) {
+        fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        if (!backwards) {
+
+            if (motorsReset()) {
+                fr.setTargetPosition(targetTick);
+                fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while (!motorsTarget(targetTick)) {
+                setDrivePower(.5);
+                opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+            setDrivePower(0.0);
+            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        } else {
+            if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+                setDrivePower(.5);
+                waitForTick(40);
+            }
+            rest();
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+    }
+
+    public void newMoveStraight(int inches, boolean backwards, LinearOpMode opMode) {
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        if (!backwards) {
+
+            if (motorsReset()) {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Encoders Reset?", motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
@@ -354,14 +388,12 @@ public class Hardware3415
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-        else {
-            if(motorsReset())
-            {
+        } else {
+            if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()){
+            while ((!motorsTarget(targetTick) && opMode.opModeIsActive())) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -370,21 +402,20 @@ public class Hardware3415
         }
     }
 
-    public void moveStraightWithOr(int inches, boolean backwards, LinearOpMode opMode){
+    public void moveStraightWithOr(int inches, boolean backwards, LinearOpMode opMode) {
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
-        if(!backwards){
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        if (!backwards) {
 
-            if(motorsReset())
-            {
+            if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Encoders Reset?", motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
@@ -392,14 +423,12 @@ public class Hardware3415
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-        else {
-            if(motorsReset())
-            {
+        } else {
+            if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -408,18 +437,53 @@ public class Hardware3415
         }
     }
 
-    public int smallest (int a, int b, int c, int d) {
+    public void moveStraight(int inches, boolean backwards, LinearOpMode opMode) {
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        if (!backwards) {
+
+            if (motorsReset()) {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+                setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+            setDrivePower(.0);
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        } else {
+            if (motorsReset()) {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while ((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()) {
+                setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                waitForTick(40);
+            }
+            rest();
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+
+    public int smallest(int a, int b, int c, int d) {
         int smallest;
-        if(Math.abs(a) > Math.abs(b)) {
+        if (Math.abs(a) > Math.abs(b)) {
             smallest = Math.abs(b);
-        }
-        else {
+        } else {
             smallest = Math.abs(a);
         }
-        if(smallest > Math.abs(c)) {
+        if (smallest > Math.abs(c)) {
             smallest = Math.abs(c);
         }
-        if(smallest > Math.abs(d)) {
+        if (smallest > Math.abs(d)) {
             smallest = Math.abs(d);
         }
         return smallest;
@@ -433,19 +497,19 @@ public class Hardware3415
         return power;
     }
 
-    public void timeMove(int seconds, boolean backwards, LinearOpMode opMode){
-        if(!backwards){
-        fr.setPower(.4);
-        fl.setPower(.4);
-        br.setPower(.4);
-        bl.setPower(.4);
-            opMode.sleep(seconds*1000);
-        }else{
+    public void timeMove(int seconds, boolean backwards, LinearOpMode opMode) {
+        if (!backwards) {
+            fr.setPower(.4);
+            fl.setPower(.4);
+            br.setPower(.4);
+            bl.setPower(.4);
+            opMode.sleep(seconds * 1000);
+        } else {
             fr.setPower(-.4);
             fl.setPower(-.4);
             br.setPower(-.4);
             bl.setPower(-.4);
-            opMode.sleep(seconds*1000);
+            opMode.sleep(seconds * 1000);
         }
     }
 
@@ -470,8 +534,10 @@ public class Hardware3415
 
         // calculate error in -179 to +180 range  (
         robotError = targetAngle - navx_device.getYaw();
-        while (robotError > 180 && opMode.opModeIsActive()) robotError -= 360; waitForTick(40);
-        while (robotError <= -180 && opMode.opModeIsActive()) robotError += 360; waitForTick(40);
+        while (robotError > 180 && opMode.opModeIsActive()) robotError -= 360;
+        waitForTick(40);
+        while (robotError <= -180 && opMode.opModeIsActive()) robotError += 360;
+        waitForTick(40);
         return robotError;
     }
 
@@ -525,7 +591,7 @@ public class Hardware3415
         //Zero's the gyro value
         navx_device.zeroYaw();
         //Turns the robot
-        if (opMode.opModeIsActive())  {
+        if (opMode.opModeIsActive()) {
             // keep looping while we are still active, and not on heading.
             while (opMode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
                 // Update telemetry & Allow time for other processes to run.
@@ -548,6 +614,7 @@ public class Hardware3415
         float yaw = convertYaw(navx_device.getYaw());
         return yaw;
     }
+
     public int[] getRGB() {
         int red = colorSensor.red(); // store the values the color sensor returns
         int blue = colorSensor.blue();
@@ -556,24 +623,20 @@ public class Hardware3415
         int[] rgb = {red, green, blue};
         return rgb;
     }
-    public int[] getRGBF(){
+}
+   /* public int[] getRGBF(){
         int red = lineTrackerF.red();
         int blue = lineTrackerF.blue();
         int green = lineTrackerF.green();
         int[] rgb ={red, green, blue};
         return rgb;
-    }
-    public int[] getRGBB(){
+    }*/
+    /*public int[] getRGBB(){
         int red = lineTrackerB.red();
         int blue = lineTrackerB.blue();
         int green = lineTrackerB.green();
         int[] rgb = {red, green, blue};
         return rgb;
-    }
-    public boolean detectWhiteLine(){
-        boolean forNow = true;
-        return forNow;
-    }
 
     public boolean detectAColor(){
         int rgb[] = getRGB();
@@ -586,8 +649,7 @@ public class Hardware3415
     {
         int[] rgb = getRGB();
         boolean color = false;
-        if(color);
         return color;
     }
 
-}
+} */
