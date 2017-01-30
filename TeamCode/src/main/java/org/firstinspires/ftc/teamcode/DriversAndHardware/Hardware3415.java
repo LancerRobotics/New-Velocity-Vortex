@@ -45,8 +45,8 @@ public class Hardware3415
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
-    public ColorSensor lineTrackerF = null;
-    public ColorSensor lineTrackerB = null;
+    //public ColorSensor lineTrackerF = null;
+    //public ColorSensor lineTrackerB = null;
 
     public static final double LEFT_BEACON_INITIAL_STATE = 156.0/255;
     public static final double LEFT_BEACON_PUSH = 1.0/255;
@@ -78,8 +78,8 @@ public class Hardware3415
     public static final String flywheelName  = "flywheel";
     public static final String collectorName = "collector";
     public static final String colorSensorName = "color";
-    public static final String lineTrackerFName = "lineTrackerF";
-    public static final String lineTrackerBName = "lineTrackerB";
+    //public static final String lineTrackerFName = "lineTrackerF";
+    //public static final String lineTrackerBName = "lineTrackerB";
 
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
@@ -168,8 +168,8 @@ public class Hardware3415
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
-            lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
-            lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
+            //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
+            //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
         }
         else {
             beaconPushLeftPos = 1;
@@ -332,10 +332,51 @@ public class Hardware3415
             return true;
         return false;
     }
-    public void moveStraight(int inches, boolean backwards, LinearOpMode opMode){
+    public void moveStraight1(int inches, boolean backwards, LinearOpMode opMode){
+        fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
+        if(!backwards){
+
+            if(motorsReset())
+            {
+                fr.setTargetPosition(targetTick);
+                fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick)){
+                setDrivePower(.5);
+                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+            setDrivePower(0.0);
+            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        else {
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+                setDrivePower(.5);
+                waitForTick(40);
+            }
+            rest();
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+    }
+    public void newMoveStraight(int inches, boolean backwards, LinearOpMode opMode){
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
         if(!backwards){
 
@@ -361,7 +402,7 @@ public class Hardware3415
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()){
+            while((!motorsTarget(targetTick) && opMode.opModeIsActive())){
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -407,6 +448,45 @@ public class Hardware3415
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
+    public void moveStraight(int inches, boolean backwards, LinearOpMode opMode){
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int targetTick = (int)(inches*1140.0/(4.0*Math.PI*2.0));
+        if(!backwards){
+
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while(!motorsTarget(targetTick) && opMode.opModeIsActive()){
+                setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                opMode.telemetry.addData("Encoders Reset?" , motorsReset());
+                opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
+                opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
+                opMode.telemetry.update();
+                waitForTick(40);
+            }
+            setDrivePower(.0);
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        else {
+            if(motorsReset())
+            {
+                setDriveTarget(targetTick);
+                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            while((fl.isBusy() || bl.isBusy() || br.isBusy() || fr.isBusy()) && opMode.opModeIsActive()){
+                setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
+                waitForTick(40);
+            }
+            rest();
+            changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+
 
     public int smallest (int a, int b, int c, int d) {
         int smallest;
@@ -559,23 +639,21 @@ public class Hardware3415
         int[] rgb = {red, green, blue};
         return rgb;
     }
-    public int[] getRGBF(){
+   /* public int[] getRGBF(){
         int red = lineTrackerF.red();
         int blue = lineTrackerF.blue();
         int green = lineTrackerF.green();
         int[] rgb ={red, green, blue};
         return rgb;
-    }
-    public int[] getRGBB(){
+    }*/
+    /*public int[] getRGBB(){
         int red = lineTrackerB.red();
         int blue = lineTrackerB.blue();
         int green = lineTrackerB.green();
         int[] rgb = {red, green, blue};
         return rgb;
-    }
-    public boolean detectWhiteLine(){
+    }*/
 
-    }
 
     public boolean detectAColor(){
         int rgb[] = getRGB();
@@ -588,7 +666,7 @@ public class Hardware3415
     {
         int[] rgb = getRGB();
         boolean color = false;
-                if()
+
         return color;
     }
 
