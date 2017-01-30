@@ -574,7 +574,8 @@ public class Hardware3415
         return rgb;
     }
     public boolean detectWhiteLine(){
-
+        boolean forNow = true;
+        return forNow;
     }
 
     public boolean detectAColor(){
@@ -588,7 +589,7 @@ public class Hardware3415
     {
         int[] rgb = getRGB();
         boolean color = false;
-                if()
+        if(color);
         return color;
     }
 

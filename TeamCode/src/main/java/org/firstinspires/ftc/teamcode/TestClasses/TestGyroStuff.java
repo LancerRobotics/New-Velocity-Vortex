@@ -31,5 +31,6 @@ public class TestGyroStuff extends LinearOpMode {
     public void turnToOriginalAngle() {
         double AngleToTurnTo = Balin.navx_device.getYaw() * -1;
         Balin.gyroAngle(AngleToTurnTo, .2, this);
+        Balin.navx_device.zeroYaw();
     }
 }
