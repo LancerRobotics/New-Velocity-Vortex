@@ -323,7 +323,7 @@ public class Hardware3415 {
     }
 
     public boolean motorsTarget(int targetTick) {
-        if ((fl.getCurrentPosition() < (targetTick - 100) || bl.getCurrentPosition() < (targetTick - 100) || br.getCurrentPosition() < (targetTick - 100) || fr.getCurrentPosition() < (targetTick - 100)))
+        if ((fl.getCurrentPosition() < (targetTick - 10) || bl.getCurrentPosition() < (targetTick - 10) || br.getCurrentPosition() < (targetTick - 10) || fr.getCurrentPosition() < (targetTick - 10)))
             return true;
         return false;
     }
