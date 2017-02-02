@@ -40,7 +40,7 @@ public class Hardware3415 {
     public DcMotor collector = null;
     public DcMotor liftLeft = null;
     public DcMotor liftRight = null;
-    public DcMotor flywheel = null;
+    public DcMotor piston = null;
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
@@ -74,7 +74,7 @@ public class Hardware3415 {
     public static final String blName = "back_left";
     public static final String liftLeftName = "lift_left";
     public static final String liftRightName = "lift_right";
-    public static final String flywheelName = "flywheel";
+    public static final String pistonName = "piston";
     public static final String collectorName = "collector";
     public static final String colorSensorName = "color";
     //public static final String lineTrackerFName = "lineTrackerF";
@@ -119,7 +119,7 @@ public class Hardware3415 {
         bl = hwMap.dcMotor.get(blName);
         br = hwMap.dcMotor.get(brName);
         collector = hwMap.dcMotor.get(collectorName);
-        flywheel = hwMap.dcMotor.get(flywheelName);
+        piston = hwMap.dcMotor.get(pistonName);
         liftRight = hwMap.dcMotor.get(liftRightName);
         liftLeft = hwMap.dcMotor.get(liftLeftName);
         if (autonomous) {
@@ -130,7 +130,7 @@ public class Hardware3415 {
         liftRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        flywheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        piston.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         collector.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -147,7 +147,7 @@ public class Hardware3415 {
         bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         collector.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flywheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        piston.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -219,7 +219,7 @@ public class Hardware3415 {
         collector.setPower(0);
         liftLeft.setPower(0);
         liftRight.setPower(0);
-        flywheel.setPower(0);
+        piston.setPower(0);
     }
 
     public int[] servoToggle(boolean button, Servo servo, double[] positions, int currentPos, boolean pressed) {
@@ -289,9 +289,9 @@ public class Hardware3415 {
         liftRight.setPower(power);
     }
 
-    //Method to run flywheel motors at the same power
+    //Method to run piston motor at the same power
     public void shoot(double power) {
-        flywheel.setPower(power);
+        piston.setPower(power);
     }
 
     public void changeDriveMode(DcMotor.RunMode mode) {
