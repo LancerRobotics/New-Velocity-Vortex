@@ -316,6 +316,7 @@ public class TestMovement extends LinearOpMode {
     }
 
     public int[] getRGB() {
+        /*
         red = balin.colorSensor.red(); // store the values the color sensor returns
         blue = balin.colorSensor.blue();
         green = balin.colorSensor.green();
@@ -323,7 +324,9 @@ public class TestMovement extends LinearOpMode {
         telemetry.addData("Blue", blue);
         telemetry.addData("Green", green);
         telemetry.update();
+        */
         int[] rgb = {red, green, blue};
         return rgb;
     }
+
 }
