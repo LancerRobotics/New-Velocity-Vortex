@@ -18,7 +18,10 @@ public class MoveStraight extends LinearOpMode {
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        balin.moveStraight1(12, true, this);
+        balin.moveStraightWithOr(12, false, this);
+        balin.restAndSleep(this);
+        sleep(2000);
+        balin.moveStraightWithOr(12, true, this);
         balin.restAndSleep(this);
         sleep(2000);
        /* balin.moveStraight(12, false, this);

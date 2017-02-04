@@ -408,7 +408,6 @@ public class Hardware3415 {
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
         if (!backwards) {
-
             if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -435,6 +434,7 @@ public class Hardware3415 {
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+        restAllMotors();
     }
 
     public void moveStraight(int inches, boolean backwards, LinearOpMode opMode) {
@@ -519,6 +519,7 @@ public class Hardware3415 {
 
     //Stops all motors on the drive train
     public void rest() {
+        setDrivePower(0);
         setDrivePower(0);
     }
 
