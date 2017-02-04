@@ -205,7 +205,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is blue detected, now going to hit left side of beacon!");
 
-                    pushLeftBeacon(true, 0.1, ___, ____);
+                    pushLeftBeacon(true, 0.1, 2000, 3000);
 
                 }
                 else if (rgb[2] == 0 && rgb[0] >= 7) {
@@ -214,7 +214,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is red detected, now going to hit right side of beacon!");
 
-                    pushLeftBeacon(false, 0.1, _____, _____);
+                    pushLeftBeacon(false, 0.1, 2000, 3000);
 
                 }
             }
@@ -232,7 +232,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is blue detected, now going to hit right side of beacon!");
 
-                    pushLeftBeacon(true, 0.1, ___, _____);
+                    pushLeftBeacon(true, 0.1, 2000, 3000);
 
                 }
                 else if (rgb[2] == 0 && rgb[0] >= 7) {
@@ -241,7 +241,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is red detected, now going to hit left side of beacon!");
 
-                    pushLeftBeacon(false, 0.1, ___, ___;
+                    pushLeftBeacon(false, 0.1, 2000, 3000);
 
                 }
             }
