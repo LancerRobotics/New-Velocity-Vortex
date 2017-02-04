@@ -139,6 +139,56 @@ public class TestMovement extends LinearOpMode {
     }
 
 
+    public void pushLeftBeacon (boolean blueBeaconLeft, double power, long backTime, long forwardTime) {
+        if(blueBeaconLeft) {
+            //Go back the distance wanted!!!
+            balin.fl.setPower(-power);
+            balin.fr.setPower(-power);
+            balin.bl.setPower(-power);
+            balin.br.setPower(-power);
+            sleep(backTime);
+            balin.fl.setPower(0);
+            balin.fr.setPower(0);
+            balin.bl.setPower(0);
+            balin.br.setPower(0);
+            balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_PUSH);
+            //Go forwards the distance wanted!!!
+            balin.fl.setPower(power);
+            balin.fr.setPower(power);
+            balin.bl.setPower(power);
+            balin.br.setPower(power);
+            sleep(forwardTime);
+            balin.fr.setPower(0);
+            balin.fr.setPower(0);
+            balin.bl.setPower(0);
+            balin.br.setPower(0);
+
+        }
+        else {
+            //Go back the distance wanted!!!
+            balin.fl.setPower(-power);
+            balin.fr.setPower(-power);
+            balin.bl.setPower(-power);
+            balin.br.setPower(-power);
+            sleep(backTime);
+            balin.fl.setPower(0);
+            balin.fr.setPower(0);
+            balin.bl.setPower(0);
+            balin.br.setPower(0);
+            balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_PUSH);
+            //Go forwards the distance wanted!!!
+            balin.fl.setPower(power);
+            balin.fr.setPower(power);
+            balin.bl.setPower(power);
+            balin.br.setPower(power);
+            sleep(forwardTime);
+            balin.fr.setPower(0);
+            balin.fr.setPower(0);
+            balin.bl.setPower(0);
+            balin.br.setPower(0);
+        }
+
+    }
 
     public void goStraightUntilDetectBeacon (boolean blueAlliance, double power){
         //Color sensor by default is on the left side of the robot
@@ -155,9 +205,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is blue detected, now going to hit left side of beacon!");
 
-                    //GO BACK THE DISTANCE WANTED
-                    balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_PUSH);
-                    //GO FORWARD THE SAME DISTANCE
+                    pushLeftBeacon(true, 0.1, ___, ____);
 
                 }
                 else if (rgb[2] == 0 && rgb[0] >= 7) {
@@ -166,9 +214,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is red detected, now going to hit right side of beacon!");
 
-                    //GO BACK THE DISTANCE WANTED
-                    balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_PUSH);
-                    //GO FORWARD THE DISTANCE WANTED
+                    pushLeftBeacon(false, 0.1, _____, _____);
 
                 }
             }
@@ -186,9 +232,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is blue detected, now going to hit right side of beacon!");
 
-                    //GO BACK THE DISTANCE WANTED
-                    balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_PUSH);
-                    //GO FORWARD THE SAME DISTANCE
+                    pushLeftBeacon(true, 0.1, ___, _____);
 
                 }
                 else if (rgb[2] == 0 && rgb[0] >= 7) {
@@ -197,9 +241,7 @@ public class TestMovement extends LinearOpMode {
                     anyBeaconColor = true;
                     telemetry.addLine("Left side of beacon is red detected, now going to hit left side of beacon!");
 
-                    //GO BACK THE DISTANCE WANTED
-                    balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_PUSH);
-                    //GO FORWARD THE DISTANCE WANTED
+                    pushLeftBeacon(false, 0.1, ___, ___;
 
                 }
             }
