@@ -187,6 +187,8 @@ public class TestMovement extends LinearOpMode {
             balin.bl.setPower(0);
             balin.br.setPower(0);
         }
+        balin.beaconPushRight.setPosition(Hardware3415.RIGHT_BEACON_INITIAL_STATE);
+        balin.beaconPushLeft.setPosition(Hardware3415.LEFT_BEACON_INITIAL_STATE);
 
     }
 
@@ -199,7 +201,7 @@ public class TestMovement extends LinearOpMode {
                 balin.fl.setPower(power);
                 balin.fr.setPower(power);
                 int[] rgb = getRGB();
-                if(rgb[2] >= 2 && rgb[0] == 0) {
+                if(rgb[2] > rgb[0] ) {
                     blueColor = true;
                     redColor = false;
                     anyBeaconColor = true;
@@ -208,7 +210,7 @@ public class TestMovement extends LinearOpMode {
                     pushLeftBeacon(true, 0.1, 2000, 3000);
 
                 }
-                else if (rgb[2] == 0 && rgb[0] >= 7) {
+                else if (rgb[2] < rgb[0]) {
                     blueColor = false;
                     redColor = true;
                     anyBeaconColor = true;
@@ -216,6 +218,9 @@ public class TestMovement extends LinearOpMode {
 
                     pushLeftBeacon(false, 0.1, 2000, 3000);
 
+                }
+                else {
+                    telemetry.addLine("Can't determine color because blue value and red value are equal");
                 }
             }
         }
@@ -246,7 +251,9 @@ public class TestMovement extends LinearOpMode {
                 }
             }
         }
-
+        anyBeaconColor = false;
+        blueColor = false;
+        redColor = false;
     }
 
 
