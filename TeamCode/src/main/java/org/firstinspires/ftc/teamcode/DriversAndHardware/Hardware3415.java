@@ -400,6 +400,7 @@ public class Hardware3415 {
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+
     }
 
     public void moveStraightWithOr(int inches, boolean backwards, LinearOpMode opMode) {
@@ -434,7 +435,9 @@ public class Hardware3415 {
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         restAllMotors();
+        changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void moveStraight(int inches, boolean backwards, LinearOpMode opMode) {
