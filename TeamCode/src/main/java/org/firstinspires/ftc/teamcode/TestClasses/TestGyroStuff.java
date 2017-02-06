@@ -27,6 +27,7 @@ public class TestGyroStuff extends LinearOpMode {
         Balin.navx_device.zeroYaw();
         telemetry.addData("Ready?", "Yes. Please Turn The Bot To The Correct Orientation");
         telemetry.update();
+        waitForStart();
         turnToOriginalAngle();
     }
 
