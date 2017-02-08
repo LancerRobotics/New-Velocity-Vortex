@@ -50,10 +50,10 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
 
         while (white_line && balin.ods.getLightDetected() <= .2 && opModeIsActive()) {
-            balin.bl.setPower(-.8);
-            balin.fr.setPower(-.8);
-            balin.br.setPower(.19);
-            balin.fl.setPower(.19);
+            balin.fr.setPower(-.5);
+            balin.br.setPower(.5);
+            balin.fl.setPower(.5);
+            balin.bl.setPower(-.5);
         }
         balin.setDrivePower(0);
         sleep(1000);
@@ -66,5 +66,20 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         balin.setDrivePower(0);
         sleep(1000);
 
+    }
+    public void followWhiteLine(){
+        double adjustment = .2 - balin.ods.getLightDetected();
+        if(adjustment <=0){
+            balin.fl.setPower(.3-adjustment);
+            balin.fr.setPower(.3);
+            balin.bl.setPower(.3-adjustment);
+            balin.br.setPower(.3);
+        }
+        else{
+            balin.fl.setPower(.3);
+            balin.fr.setPower(.3+adjustment);
+            balin.bl.setPower(.3);
+            balin.br.setPower(.3+adjustment);
+        }
     }
 }
