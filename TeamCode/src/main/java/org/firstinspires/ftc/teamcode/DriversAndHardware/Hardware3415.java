@@ -404,15 +404,24 @@ public class Hardware3415 {
     }
 
     public void moveStraightWithOr(int inches, boolean backwards, LinearOpMode opMode) {
-        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        opMode.telemetry.addLine("Set to Run Using Encoder");
+        opMode.telemetry.update();
         changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        opMode.telemetry.addLine("Set to Stop And Reset Encoder");
+        opMode.telemetry.update();
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
         if (!backwards) {
-            if (motorsReset()) {
-                setDriveTarget(targetTick);
-                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            while (opMode.opModeIsActive() && !motorsReset()) {
+                opMode.telemetry.addLine("Waiting For Motors To Reset");
+                opMode.telemetry.update();
             }
+            opMode.telemetry.addLine("Setting Target");
+            opMode.telemetry.update();
+            setDriveTarget(targetTick);
+            opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
+            opMode.telemetry.update();
+            changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 opMode.telemetry.addData("Encoders Reset?", motorsReset());
@@ -424,10 +433,16 @@ public class Hardware3415 {
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } else {
-            if (motorsReset()) {
-                setDriveTarget(targetTick);
-                changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
+            while (opMode.opModeIsActive() && !motorsReset()) {
+                opMode.telemetry.addLine("Waiting For Motors To Reset");
+                opMode.telemetry.update();
             }
+            opMode.telemetry.addLine("Setting Target");
+            opMode.telemetry.update();
+            setDriveTarget(targetTick);
+            opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
+            opMode.telemetry.update();
+            changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
