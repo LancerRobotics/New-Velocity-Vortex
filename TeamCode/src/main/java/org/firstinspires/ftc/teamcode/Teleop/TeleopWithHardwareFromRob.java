@@ -113,8 +113,11 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
 
             //Sets controls for shooter
             if (gamepad1.left_trigger > .15) {
-                Balin.shoot(1);
+                Balin.shoot(.7);
             } else if (gamepad1.left_bumper) {
+                Balin.shoot(0);
+            }
+            else{
                 Balin.shoot(0);
             }
 
