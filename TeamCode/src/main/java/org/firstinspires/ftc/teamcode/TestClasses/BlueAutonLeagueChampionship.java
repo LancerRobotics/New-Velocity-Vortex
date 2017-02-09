@@ -35,10 +35,10 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
             if (balin.ods.getLightDetected() >= .2) {
                 white_line = true;
             }
-            balin.bl.setPower(1);
-            balin.fr.setPower(1);
-            balin.br.setPower(-.19);
-            balin.fl.setPower(-.19);
+            balin.bl.setPower(.9);
+            balin.fr.setPower(.9);
+            balin.br.setPower(-.35);
+            balin.fl.setPower(-.35);
             double reflectance = balin.ods.getLightDetected();
             telemetry.addData("reflectance", reflectance);
             telemetry.update();
@@ -50,14 +50,15 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
 
         while (white_line && balin.ods.getLightDetected() <= .2 && opModeIsActive()) {
-            balin.fr.setPower(-.5);
-            balin.br.setPower(.5);
-            balin.fl.setPower(.5);
-            balin.bl.setPower(-.5);
+            balin.fr.setPower(-.35);
+            balin.br.setPower(.35);
+            balin.fl.setPower(.35);
+            balin.bl.setPower(-.35);
         }
         balin.setDrivePower(0);
         sleep(1000);
-        while(balin.ods.getLightDetected()<= .35 && opModeIsActive()){
+        turnToOriginalAngle();
+       /* while(balin.ods.getLightDetected()<= .35 && opModeIsActive()){
             balin.fr.setPower(.4);
             balin.br.setPower(.4);
             balin.fl.setPower(-.4);
@@ -65,7 +66,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         }
         balin.setDrivePower(0);
         sleep(1000);
-
+*/
     }
     public void followWhiteLine(){
         double adjustment = .2 - balin.ods.getLightDetected();
@@ -82,4 +83,16 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
             balin.br.setPower(.3+adjustment);
         }
     }
+    public void turnToOriginalAngle() {
+        double AngleToTurnTo = balin.navx_device.getYaw() * -1;
+        balin.gyroAngle(AngleToTurnTo, .2, this);
+        balin.navx_device.zeroYaw();
+    }
+   /* public void detectBeaconhit{
+        if(balin.detectAColor()){
+            return
+        }
+    }
+    */
+
 }

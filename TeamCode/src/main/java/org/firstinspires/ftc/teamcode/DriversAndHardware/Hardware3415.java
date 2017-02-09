@@ -44,7 +44,7 @@ public class Hardware3415 {
     public DcMotor piston = null;
     public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
     public AHRS navx_device = null;
-    //public ColorSensor colorSensor = null;
+    public ColorSensor colorSensor = null;
     //public ColorSensor lineTrackerF = null;
     //public ColorSensor lineTrackerB = null;
     //
@@ -79,7 +79,7 @@ public class Hardware3415 {
     public static final String liftRightName = "lift_right";
     public static final String pistonName = "piston";
     public static final String collectorName = "collector";
-    //public static final String colorSensorName = "color";
+    public static final String colorSensorName = "color";
     //public static final String lineTrackerFName = "lineTrackerF";
     //public static final String lineTrackerBName = "lineTrackerB";
     public static final String odsName = "ods";
@@ -129,6 +129,7 @@ public class Hardware3415 {
         if (autonomous) {
             fl.setDirection(DcMotor.Direction.REVERSE);
             bl.setDirection(DcMotor.Direction.REVERSE);
+            changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         liftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         liftRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -170,7 +171,7 @@ public class Hardware3415 {
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
 
             //Define all sensors
-            //colorSensor = hwMap.colorSensor.get(colorSensorName);
+            colorSensor = hwMap.colorSensor.get(colorSensorName);
             //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);
@@ -640,7 +641,7 @@ public class Hardware3415 {
         opMode.telemetry.update();
         return odsReading;
     }
-/*
+
     public int[] getRGB() {
         int red = colorSensor.red(); // store the values the color sensor returns
         int blue = colorSensor.blue();
@@ -649,8 +650,8 @@ public class Hardware3415 {
         int[] rgb = {red, green, blue};
         return rgb;
     }
-    */
-}
+
+
    /* public int[] getRGBF(){
         int red = lineTrackerF.red();
         int blue = lineTrackerF.blue();
@@ -658,13 +659,13 @@ public class Hardware3415 {
         int[] rgb ={red, green, blue};
         return rgb;
     }*/
-    /*public int[] getRGBB(){
+   /* public int[] getRGBB(){
         int red = lineTrackerB.red();
         int blue = lineTrackerB.blue();
         int green = lineTrackerB.green();
         int[] rgb = {red, green, blue};
         return rgb;
-
+*/
     public boolean detectAColor(){
         int rgb[] = getRGB();
         if(rgb[0]> 1 && rgb[2]>1){
@@ -679,4 +680,4 @@ public class Hardware3415 {
         return color;
     }
 
-} */
+}
