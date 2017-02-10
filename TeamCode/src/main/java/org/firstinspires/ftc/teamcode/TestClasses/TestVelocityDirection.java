@@ -4,6 +4,7 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -31,6 +32,8 @@ public class TestVelocityDirection extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while(opModeIsActive()) {
+             double heading = balin.navx_device.getCompassHeading();
+            telemetry.addData("heading" , heading);
             telemetry.addData("X Velocity", velocity.xVeloc);
             telemetry.addData("Y Velocity", velocity.yVeloc);
             double numerator = velocity.xVeloc * velocity.yVeloc;
