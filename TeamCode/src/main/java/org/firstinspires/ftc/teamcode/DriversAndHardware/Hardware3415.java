@@ -172,6 +172,7 @@ public class Hardware3415 {
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
+            colorSensor.enableLed(false);
             //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);

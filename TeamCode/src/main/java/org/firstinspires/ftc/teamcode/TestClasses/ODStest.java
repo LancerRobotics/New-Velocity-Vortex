@@ -34,7 +34,9 @@ public class ODStest extends LinearOpMode{
         balin.navx_device.zeroYaw();
 while(opModeIsActive()) {
     double reflectance = balin.ods.getLightDetected();
+    double rawreflectance = balin.ods.getRawLightDetected();
     telemetry.addData("reflectance", reflectance);
+    telemetry.addData("reflectance Raw", rawreflectance);
     telemetry.update();
 }
     }
