@@ -184,6 +184,7 @@ public class Hardware3415 {
             bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         } else {
 
             beaconPushLeftPos = 1;
