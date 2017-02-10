@@ -39,8 +39,8 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
             balin.bl.setPower(.9);
             balin.fr.setPower(.9);
-            balin.br.setPower(-.35);
-            balin.fl.setPower(-.35);
+            balin.br.setPower(-.05);
+            balin.fl.setPower(-.05);
             double reflectance = balin.ods.getLightDetected();
             telemetry.addData("reflectance", reflectance);
             telemetry.update();

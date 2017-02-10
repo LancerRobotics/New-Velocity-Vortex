@@ -169,6 +169,10 @@ public class Hardware3415 {
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
