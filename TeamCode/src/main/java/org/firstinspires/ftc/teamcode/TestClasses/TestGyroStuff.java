@@ -28,7 +28,6 @@ public class TestGyroStuff extends LinearOpMode {
         telemetry.addData("Ready?", "Yes. Please Turn The Bot To The Correct Orientation");
         telemetry.update();
         waitForStart();
-        turnToOriginalAngle();
     }
 
     public void turnToOriginalAngle() {
