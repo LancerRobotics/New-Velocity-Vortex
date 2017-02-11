@@ -49,11 +49,12 @@ public class Hardware3415 {
     //public ColorSensor lineTrackerB = null;
     //
     public OpticalDistanceSensor ods = null;
+    public boolean beaconBlue;
 
     public static final double LEFT_BEACON_INITIAL_STATE = 156.0 / 255;
     public static final double LEFT_BEACON_PUSH = 1.0 / 255;
-    public static final double RIGHT_BEACON_INITIAL_STATE = 155.0 / 255;
-    public static final double RIGHT_BEACON_PUSH = 0;
+    public static final double RIGHT_BEACON_PUSH= 155.0 / 255;
+    public static final double RIGHT_BEACON_INITIAL_STATE = 0.0;
     public static final double LEFT_CLAMP_INITIAL_STATE = 1;
     public static final double LEFT_CLAMP_UP = 0;
     public static final double LEFT_CLAMP_CLAMP = 70.0 / 255;
@@ -354,7 +355,7 @@ public class Hardware3415 {
                 fr.setTargetPosition(targetTick);
                 fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick)) {
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(.5);
                 opMode.telemetry.addData("Encoders Reset?", motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
@@ -369,7 +370,7 @@ public class Hardware3415 {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(.5);
                 waitForTick(40);
             }
@@ -394,7 +395,7 @@ public class Hardware3415 {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 opMode.telemetry.addData("Encoders Reset?", motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
@@ -409,7 +410,7 @@ public class Hardware3415 {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while ((!motorsTarget(targetTick) && opMode.opModeIsActive())) {
+            while ((!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested())) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -428,7 +429,7 @@ public class Hardware3415 {
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
         if (!backwards) {
-            while (opMode.opModeIsActive() && !motorsReset()) {
+            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset()) {
                 opMode.telemetry.addLine("Waiting For Motors To Reset");
                 opMode.telemetry.update();
             }
@@ -438,7 +439,7 @@ public class Hardware3415 {
             opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
             opMode.telemetry.update();
             changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 opMode.telemetry.addData("Encoders Reset?", motorsReset());
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
@@ -449,7 +450,7 @@ public class Hardware3415 {
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } else {
-            while (opMode.opModeIsActive() && !motorsReset()) {
+            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset()) {
                 opMode.telemetry.addLine("Waiting For Motors To Reset");
                 opMode.telemetry.update();
             }
@@ -459,7 +460,7 @@ public class Hardware3415 {
             opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
             opMode.telemetry.update();
             changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                 waitForTick(40);
             }
@@ -481,7 +482,7 @@ public class Hardware3415 {
             if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-                while (!motorsTarget(targetTick) && opMode.opModeIsActive()) {
+                while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     //setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                     setDrivePower(.3);
                     opMode.telemetry.addData("Encoders Reset?", motorsReset());
@@ -499,7 +500,7 @@ public class Hardware3415 {
             if (motorsReset()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-                while ((fl.getCurrentPosition() < (fl.getTargetPosition() - 50) || bl.getCurrentPosition() < (bl.getTargetPosition() - 50) || br.getCurrentPosition() < (br.getTargetPosition() - 50) || fr.getCurrentPosition() < (fr.getTargetPosition() - 50)) && opMode.opModeIsActive()) {
+                while ((fl.getCurrentPosition() < (fl.getTargetPosition() - 50) || bl.getCurrentPosition() < (bl.getTargetPosition() - 50) || br.getCurrentPosition() < (br.getTargetPosition() - 50) || fr.getCurrentPosition() < (fr.getTargetPosition() - 50)) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     //setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                     setDrivePower(-.3);
                     waitForTick(40);
@@ -575,9 +576,9 @@ public class Hardware3415 {
 
         // calculate error in -179 to +180 range  (
         robotError = targetAngle - navx_device.getYaw();
-        while (robotError > 180 && opMode.opModeIsActive()) robotError -= 360;
+        while (robotError > 180 && opMode.opModeIsActive() && !opMode.isStopRequested()) robotError -= 360;
         waitForTick(40);
-        while (robotError <= -180 && opMode.opModeIsActive()) robotError += 360;
+        while (robotError <= -180 && opMode.opModeIsActive() && !opMode.isStopRequested()) robotError += 360;
         waitForTick(40);
         return robotError;
     }
@@ -617,7 +618,7 @@ public class Hardware3415 {
         }
 
         // Send desired speeds to motors.
-        if (opMode.opModeIsActive()) turn(rightSpeed);
+        if (opMode.opModeIsActive() && !opMode.isStopRequested()) turn(rightSpeed);
 
         // Display information for the driver.
         opMode.telemetry.addData("Target", "%5.2f", angle);
@@ -632,20 +633,20 @@ public class Hardware3415 {
         //Zero's the gyro value
         navx_device.zeroYaw();
         //Turns the robot
-        if (opMode.opModeIsActive()) {
+        if (opMode.opModeIsActive() && !opMode.isStopRequested()) {
             // keep looping while we are still active, and not on heading.
-            while (opMode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
+            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
                 // Update telemetry & Allow time for other processes to run.
                 opMode.telemetry.update();
                 waitForTick(40);
             }
         }
         //Brakes all motors
-        if (opMode.opModeIsActive()) rest();
+        if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
     }
 
     public void restAndSleep(LinearOpMode opMode) {
-        if (opMode.opModeIsActive()) rest();
+        if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
         opMode.sleep(100);
         opMode.telemetry.update();
     }

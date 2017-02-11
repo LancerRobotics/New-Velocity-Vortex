@@ -32,7 +32,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
         boolean white_line = false;
 
-        while ((!(white_line)) && opModeIsActive()) {
+        while ((!(white_line)) && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .6) {
                 white_line = true;
             }
@@ -51,7 +51,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
 
 
-        while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive()) {
+        while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive() && !isStopRequested()) {
             balin.fr.setPower(-.35);
             balin.br.setPower(.35);
             balin.fl.setPower(.35);
@@ -64,7 +64,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(500);
         //BEACON CODE GOES HERE:
 
-        while(!(balin.colorSensor.red()> balin.colorSensor.blue())&&!(balin.colorSensor.blue()>balin.colorSensor.red())){
+        while(opModeIsActive() && !isStopRequested() && !(balin.colorSensor.red()> balin.colorSensor.blue())&&!(balin.colorSensor.blue()>balin.colorSensor.red())){
             balin.setDrivePower(.2);
         }
         if(detectColor()){
@@ -78,7 +78,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
 
         white_line = false;
 
-        while ((!(white_line)) && opModeIsActive()) {
+        while ((!(white_line)) && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .6) {
                 white_line = true;
             }
@@ -94,7 +94,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         balin.setDrivePower(0);
         sleep(500);
 
-        while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive()) {
+        while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive() && !isStopRequested()) {
             balin.fr.setPower(-.35);
             balin.br.setPower(.35);
             balin.fl.setPower(.35);
@@ -105,7 +105,33 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(500);
         turnToOriginalAngle();
         sleep(500);
-
+        while(opModeIsActive() && !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)) {
+            balin.setDrivePower(.15);
+        }
+        balin.restAndSleep(this);
+        if(balin.colorSensor.blue() > balin.colorSensor.red()) {
+            balin.beaconBlue = true;
+        }
+        else {
+            balin.beaconBlue = false;
+        }
+        balin.setDrivePower(-.15);
+        sleep(1000);
+        balin.restAndSleep(this);
+        if(balin.beaconBlue) {
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
+        }
+        else {
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
+        }
+        balin.setDrivePower(.15);
+        sleep(2000);
+        balin.restAndSleep(this);
+        balin.setDrivePower(-.15);
+        sleep(1000);
+        balin.restAndSleep(this);
     }
     public void followWhiteLine(){
         double adjustment = .2 - balin.ods.getLightDetected();
