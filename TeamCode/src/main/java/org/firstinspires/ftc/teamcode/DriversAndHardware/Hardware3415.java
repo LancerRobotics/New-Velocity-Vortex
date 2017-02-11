@@ -129,7 +129,6 @@ public class Hardware3415 {
         if (autonomous) {
             fl.setDirection(DcMotor.Direction.REVERSE);
             bl.setDirection(DcMotor.Direction.REVERSE);
-            changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         liftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         liftRight.setDirection(DcMotorSimple.Direction.REVERSE);

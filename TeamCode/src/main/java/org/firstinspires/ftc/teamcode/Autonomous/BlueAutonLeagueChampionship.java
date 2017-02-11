@@ -64,6 +64,18 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(500);
         //BEACON CODE GOES HERE:
 
+        while(!(balin.colorSensor.red()> balin.colorSensor.blue())&&!(balin.colorSensor.blue()>balin.colorSensor.red())){
+            balin.setDrivePower(.2);
+        }
+        if(detectColor()){
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
+        }
+        else{
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
+        }
+        balin.setDrivePower(.3);
+        sleep(2000);
+
         white_line = false;
 
         while ((!(white_line)) && opModeIsActive()) {
@@ -81,9 +93,6 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         }
         balin.setDrivePower(0);
         sleep(500);
-
-
-
 
         while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive()) {
             balin.fr.setPower(-.35);
@@ -125,8 +134,8 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
     }
     */
     public boolean detectColor(){ //for blue
-    int [] rgb = balin.getRGB();
-        if(rgb[0] > rgb[2]){
+    //int [] rgb = balin.getRGB();
+        if(balin.colorSensor.red() > balin.colorSensor.blue()){
             return false;
         }
         return true;
