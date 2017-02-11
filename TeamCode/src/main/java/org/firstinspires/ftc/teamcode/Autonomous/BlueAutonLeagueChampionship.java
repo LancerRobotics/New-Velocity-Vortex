@@ -83,22 +83,27 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(1500);
         balin.restAndSleep(this);
         balin.setDrivePower(-.1);
-        sleep(750);
+        sleep(1000);
         balin.restAndSleep(this);
-
-
-        /*
+        balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
+        balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
         white_line = false;
-
+        balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        balin.bl.setPower(.4);
+        balin.fr.setPower(.4);
+        balin.br.setPower(-.4);
+        balin.fl.setPower(-.4);
+        sleep(1500);
+        balin.gyroAngle(-balin.navx_device.getYaw() - 5, .2, this);
         while ((!(white_line)) && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .6) {
                 white_line = true;
             }
 
-            balin.bl.setPower(.5);
-            balin.fr.setPower(.5);
-            balin.br.setPower(-.5);
-            balin.fl.setPower(-.5);
+            balin.bl.setPower(.4);
+            balin.fr.setPower(.4);
+            balin.br.setPower(-.4);
+            balin.fl.setPower(-.4);
             double reflectance = balin.ods.getLightDetected();
             telemetry.addData("reflectance", reflectance);
             telemetry.update();
@@ -107,17 +112,40 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(500);
 
         while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive() && !isStopRequested()) {
-            balin.fr.setPower(-.35);
-            balin.br.setPower(.35);
-            balin.fl.setPower(.35);
-            balin.bl.setPower(-.35);
+            balin.fr.setPower(-.25);
+            balin.br.setPower(.25);
+            balin.fl.setPower(.25);
+            balin.bl.setPower(-.25);
         }
 
         balin.setDrivePower(0);
         sleep(500);
-        turnToOriginalAngle();
+        while(opModeIsActive() && !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)) {
+            balin.setDrivePower(.05);
+        }
+        balin.restAndSleep(this);
+        if(balin.colorSensor.blue() > balin.colorSensor.red()) {
+            balin.beaconBlue = true;
+        }
+        else {
+            balin.beaconBlue = false;
+        }
+        balin.restAndSleep(this);
+        if(balin.beaconBlue) {
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
+        }
+        else {
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
+        }
         sleep(500);
-        */
+        balin.setDrivePower(.1);
+        sleep(1500);
+        balin.restAndSleep(this);
+        balin.setDrivePower(-.1);
+        sleep(750);
+        balin.restAndSleep(this);
     }
     public void followWhiteLine(){
         double adjustment = (.2 - balin.ods.getLightDetected())*.15;

@@ -88,7 +88,7 @@ public class Hardware3415 {
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
     public static final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
-    public static final double HEADING_THRESHOLD = 1.5;      // As tight as we can make it with an integer gyro
+    public static final double HEADING_THRESHOLD = 1.2;      // As tight as we can make it with an integer gyro
     public static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
     public static final double P_DRIVE_COEFF = 0.15;
     public static final double MAX_MOTOR_SPEED = 0.86;
