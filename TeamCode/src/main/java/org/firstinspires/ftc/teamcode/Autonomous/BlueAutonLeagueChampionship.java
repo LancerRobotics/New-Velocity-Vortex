@@ -47,10 +47,9 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         }
         balin.setDrivePower(0);
         sleep(500);
-
-
-
-
+        turnToOriginalAngle();
+        balin.restAndSleep(this);
+        sleep(500);
         while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive() && !isStopRequested()) {
             balin.fr.setPower(-.35);
             balin.br.setPower(.35);
@@ -61,20 +60,35 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         balin.setDrivePower(0);
         sleep(500);
         turnToOriginalAngle();
+        balin.restAndSleep(this);
         sleep(500);
-        //BEACON CODE GOES HERE:
-
-        while(opModeIsActive() && !isStopRequested() && !(balin.colorSensor.red()> balin.colorSensor.blue())&&!(balin.colorSensor.blue()>balin.colorSensor.red())){
-            balin.setDrivePower(.2);
+        while(opModeIsActive() && !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)) {
+            followWhiteLine();
         }
-        if(detectColor()){
+        balin.restAndSleep(this);
+        /*if(balin.colorSensor.blue() > balin.colorSensor.red()) {
+            balin.beaconBlue = true;
+        }
+        else {
+            balin.beaconBlue = false;
+        }
+        balin.setDrivePower(-.1);
+        sleep(1000);
+        balin.restAndSleep(this);
+        if(balin.beaconBlue) {
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
             balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
         }
-        else{
+        else {
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
         }
-        balin.setDrivePower(.3);
+        balin.setDrivePower(.1);
         sleep(2000);
+        balin.restAndSleep(this);
+        balin.setDrivePower(-.1);
+        sleep(1000);
+        balin.restAndSleep(this);
 
         white_line = false;
 
@@ -105,53 +119,26 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         sleep(500);
         turnToOriginalAngle();
         sleep(500);
-        while(opModeIsActive() && !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)) {
-            balin.setDrivePower(.15);
-        }
-        balin.restAndSleep(this);
-        if(balin.colorSensor.blue() > balin.colorSensor.red()) {
-            balin.beaconBlue = true;
-        }
-        else {
-            balin.beaconBlue = false;
-        }
-        balin.setDrivePower(-.15);
-        sleep(1000);
-        balin.restAndSleep(this);
-        if(balin.beaconBlue) {
-            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
-            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
-        }
-        else {
-            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
-            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
-        }
-        balin.setDrivePower(.15);
-        sleep(2000);
-        balin.restAndSleep(this);
-        balin.setDrivePower(-.15);
-        sleep(1000);
-        balin.restAndSleep(this);
+        */
     }
     public void followWhiteLine(){
-        double adjustment = .2 - balin.ods.getLightDetected();
+        double adjustment = (.2 - balin.ods.getLightDetected())*.5;
         if(adjustment <=0){
-            balin.fl.setPower(.3-adjustment);
-            balin.fr.setPower(.3);
-            balin.bl.setPower(.3-adjustment);
-            balin.br.setPower(.3);
+            balin.fl.setPower(.1-adjustment);
+            balin.fr.setPower(.1);
+            balin.bl.setPower(.1-adjustment);
+            balin.br.setPower(.1);
         }
         else{
-            balin.fl.setPower(.3);
-            balin.fr.setPower(.3+adjustment);
-            balin.bl.setPower(.3);
-            balin.br.setPower(.3+adjustment);
+            balin.fl.setPower(.1);
+            balin.fr.setPower(.1+adjustment);
+            balin.bl.setPower(.1);
+            balin.br.setPower(.1+adjustment);
         }
     }
     public void turnToOriginalAngle() {
         double AngleToTurnTo = balin.navx_device.getYaw() * -1;
-        balin.gyroAngle(AngleToTurnTo, .2, this);
-        balin.navx_device.zeroYaw();
+        balin.gyroAngle(AngleToTurnTo, .175, this);
     }
    /* public void detectBeaconhit{
         if(balin.detectAColor()){

@@ -88,7 +88,7 @@ public class Hardware3415 {
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
     public static final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
-    public static final double HEADING_THRESHOLD = 2;      // As tight as we can make it with an integer gyro
+    public static final double HEADING_THRESHOLD = 1.5;      // As tight as we can make it with an integer gyro
     public static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
     public static final double P_DRIVE_COEFF = 0.15;
     public static final double MAX_MOTOR_SPEED = 0.86;
@@ -631,6 +631,7 @@ public class Hardware3415 {
     // Method that is called to turn the robot goes from -180 to 180 degrees
     public void gyroAngle(double angle, double speed, LinearOpMode opMode) {
         //Zero's the gyro value
+        changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         navx_device.zeroYaw();
         //Turns the robot
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) {
@@ -643,6 +644,7 @@ public class Hardware3415 {
         }
         //Brakes all motors
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
+        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void restAndSleep(LinearOpMode opMode) {
