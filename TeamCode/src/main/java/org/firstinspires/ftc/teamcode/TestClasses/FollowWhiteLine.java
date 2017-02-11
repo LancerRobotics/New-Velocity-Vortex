@@ -29,13 +29,13 @@ public class FollowWhiteLine extends LinearOpMode {
         //balin.turn();
         balin.navx_device.zeroYaw();
         while(opModeIsActive() &&  !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)){
-            followWhiteLine();
+            balin.setDrivePower(.05);
         }
 
     }
     public void followWhiteLine() {
 
-        double adjustment = (.2 - balin.ods.getLightDetected()) * .5;
+        double adjustment = (.2 - balin.ods.getLightDetected()) * .15;
         if (adjustment <= 0) {
             balin.fl.setPower(.1 - adjustment);
             balin.fr.setPower(.1);
@@ -47,5 +47,7 @@ public class FollowWhiteLine extends LinearOpMode {
             balin.bl.setPower(.1);
             balin.br.setPower(.1 + adjustment);
         }
+        telemetry.addData("adjustment", adjustment);
+        telemetry.update();
     }
 }

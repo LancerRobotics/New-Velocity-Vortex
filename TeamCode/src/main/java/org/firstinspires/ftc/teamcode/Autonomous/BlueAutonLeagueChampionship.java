@@ -47,14 +47,11 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         }
         balin.setDrivePower(0);
         sleep(500);
-        turnToOriginalAngle();
-        balin.restAndSleep(this);
-        sleep(500);
         while (white_line && balin.ods.getRawLightDetected() <= .6 && opModeIsActive() && !isStopRequested()) {
-            balin.fr.setPower(-.35);
-            balin.br.setPower(.35);
-            balin.fl.setPower(.35);
-            balin.bl.setPower(-.35);
+            balin.fr.setPower(-.25);
+            balin.br.setPower(.25);
+            balin.fl.setPower(.25);
+            balin.bl.setPower(-.25);
         }
 
         balin.setDrivePower(0);
@@ -63,17 +60,15 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         balin.restAndSleep(this);
         sleep(500);
         while(opModeIsActive() && !isStopRequested() && (balin.colorSensor.red() == 0 || balin.colorSensor.blue() == 0)) {
-            followWhiteLine();
+            balin.setDrivePower(.05);
         }
         balin.restAndSleep(this);
-        /*if(balin.colorSensor.blue() > balin.colorSensor.red()) {
+        if(balin.colorSensor.blue() > balin.colorSensor.red()) {
             balin.beaconBlue = true;
         }
         else {
             balin.beaconBlue = false;
         }
-        balin.setDrivePower(-.1);
-        sleep(1000);
         balin.restAndSleep(this);
         if(balin.beaconBlue) {
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
@@ -83,13 +78,16 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
             balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
         }
+        sleep(500);
         balin.setDrivePower(.1);
-        sleep(2000);
+        sleep(1500);
         balin.restAndSleep(this);
         balin.setDrivePower(-.1);
-        sleep(1000);
+        sleep(750);
         balin.restAndSleep(this);
 
+
+        /*
         white_line = false;
 
         while ((!(white_line)) && opModeIsActive() && !isStopRequested()) {
@@ -122,7 +120,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
         */
     }
     public void followWhiteLine(){
-        double adjustment = (.2 - balin.ods.getLightDetected())*.5;
+        double adjustment = (.2 - balin.ods.getLightDetected())*.15;
         if(adjustment <=0){
             balin.fl.setPower(.1-adjustment);
             balin.fr.setPower(.1);
@@ -138,7 +136,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
     }
     public void turnToOriginalAngle() {
         double AngleToTurnTo = balin.navx_device.getYaw() * -1;
-        balin.gyroAngle(AngleToTurnTo, .175, this);
+        balin.gyroAngle(AngleToTurnTo, .2, this);
     }
    /* public void detectBeaconhit{
         if(balin.detectAColor()){
