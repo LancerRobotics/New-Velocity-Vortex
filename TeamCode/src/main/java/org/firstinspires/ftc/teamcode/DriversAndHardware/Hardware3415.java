@@ -333,6 +333,12 @@ public class Hardware3415 {
 
     }
 
+    public boolean motorsBusy(){
+        if(fl.isBusy() && fr.isBusy() && bl.isBusy() && br.isBusy())
+            return true;
+        return false;
+    }
+
     public boolean motorsReset() {
         if (fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0)
             return true;
