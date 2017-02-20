@@ -183,8 +183,8 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
             if(gamepad2.a) {
-                Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_CLAMP);
-                Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_CLAMP);
+                Balin.clampLeft.setPosition(122.0/255); //CLAMP_CLAMP Positions need to be changed
+                Balin.clampRight.setPosition(123.0/255);
             }
             else if (gamepad2.y) {
                 Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_UP);
