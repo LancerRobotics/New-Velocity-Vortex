@@ -139,7 +139,7 @@ public class BlueAutonLeagueChampionship extends LinearOpMode {
             if(opModeIsActive()) balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
             if(opModeIsActive()) balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
         }
-        if(opModeIsActive()) sleep(500);
+            if(opModeIsActive()) sleep(500);
         if(opModeIsActive()) balin.setDrivePower(.1);
         if(opModeIsActive()) sleep(1500);
         if(opModeIsActive()) balin.restAndSleep(this);

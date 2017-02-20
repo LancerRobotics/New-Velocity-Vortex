@@ -42,7 +42,8 @@ public class Hardware3415 {
     public DcMotor liftLeft = null;
     public DcMotor liftRight = null;
     public DcMotor piston = null;
-    public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null, clampRight = null, rollerRelease = null;
+    public Servo beaconPushLeft = null, beaconPushRight = null, clampLeft = null,
+            clampRight = null, rollerRelease = null, door = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
     //public ColorSensor lineTrackerF = null;
@@ -63,6 +64,8 @@ public class Hardware3415 {
     public static final double RIGHT_CLAMP_CLAMP = 180.0 / 255;
     public static final double ROLLER_RELEASE_IN = 245.0 / 255;
     public static final double ROLLER_RELEASE_OUT = 0.0;
+    public static final double DOOR_OPEN = 100 / 255; //FIND VALUES FOR THIS
+    public static final double DOOR_CLOSED = 0.0;
 
 
     //Motor, Servo, and Sensor Names
@@ -72,6 +75,7 @@ public class Hardware3415 {
     public static final String clampLeftName = "clamp_left";
     public static final String clampRightName = "clamp_right";
     public static final String rollerReleaseName = "roller_release";
+    public static final String doorName = "door";
     public static final String frName = "front_right";
     public static final String flName = "front_left";
     public static final String brName = "back_right";
@@ -163,12 +167,15 @@ public class Hardware3415 {
         rollerRelease = hwMap.servo.get(rollerReleaseName);
         clampLeft = hwMap.servo.get(clampLeftName);
         clampRight = hwMap.servo.get(clampRightName);
+        door = hwMap.servo.get(doorName);
+
         if (autonomous) {
             beaconPushLeft.setPosition(LEFT_BEACON_PUSH);
             beaconPushRight.setPosition(RIGHT_BEACON_PUSH);
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
+            door.setPosition(DOOR_CLOSED);
             fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -194,6 +201,7 @@ public class Hardware3415 {
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
+            door.setPosition(DOOR_CLOSED);
         }
     }
 
