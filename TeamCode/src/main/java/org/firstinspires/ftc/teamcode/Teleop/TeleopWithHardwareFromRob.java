@@ -173,7 +173,7 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
                 }
             }
 
-            //Control servo toggling for beacon pushers and clamps
+            //Control servo toggling for beacon pushers and door
             Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed);
             Balin.beaconPushLeftPos = Balin.beaconPushLeftToggleReturnArray[0];
             Balin.beaconPushLeftButtonPressed = Balin.beaconPushLeftToggleReturnArray[1] == 1;
