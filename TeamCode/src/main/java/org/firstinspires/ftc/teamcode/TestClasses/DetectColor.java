@@ -23,9 +23,11 @@ public class DetectColor extends LinearOpMode {
         balin.setDrivePower(0);
         if(color.equals("Red")){
             balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
             telemetry.addData("Color: ", color);
             telemetry.update();
         } else if(color.equals("Blue")) {
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
             telemetry.addData("Color: ", color);
             telemetry.update();

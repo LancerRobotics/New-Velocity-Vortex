@@ -64,7 +64,7 @@ public class Hardware3415 {
     public static final double RIGHT_CLAMP_CLAMP = 180.0 / 255;
     public static final double ROLLER_RELEASE_IN = 245.0 / 255;
     public static final double ROLLER_RELEASE_OUT = 0.0;
-    public static final double DOOR_OPEN = 100 / 255; //FIND VALUES FOR THIS
+    public static final double DOOR_OPEN = 100.0 / 255; //FIND VALUES FOR THIS
     public static final double DOOR_CLOSED = 0.0;
 
 
