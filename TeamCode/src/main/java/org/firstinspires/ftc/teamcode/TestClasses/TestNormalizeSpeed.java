@@ -13,34 +13,37 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 
 @Autonomous(name="Test Normalize Speed", group = "Test")
 public class TestNormalizeSpeed extends LinearOpMode {
-    Hardware3415 Balin = new Hardware3415();
+    Hardware3415 balin = new Hardware3415();
     public void runOpMode() {
-        Balin.init(hardwareMap, true);
+        balin.init(hardwareMap, true);
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
         waitForStart();
-        Balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Balin.setDrivePower(.3);
+        balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(opModeIsActive()) balin.fr.setPower(-.25);
+        if(opModeIsActive()) balin.br.setPower(.25);
+        if(opModeIsActive()) balin.fl.setPower(.25);
+        if(opModeIsActive()) balin.bl.setPower(-.25);
         sleep(200);
-        normalizeSpeedFourMotorsForward(Balin.fl.getPower());
+        normalizeSpeedStrafe();
         sleep(2000);
-        Balin.restAndSleep(this);
+        balin.restAndSleep(this);
     }
 
-    public void normalizeSpeedFourMotorsForward(double power) {
+    public void normalizeSpeedFourMotorsForward() {
         ElapsedTime timer = new ElapsedTime();
         double timeBeforeChange = timer.time();
         sleep(150);
-        float flEncoderBefore = Balin.fl.getCurrentPosition();
-        float frEncoderBefore = Balin.fr.getCurrentPosition();
-        float blEncoderBefore = Balin.bl.getCurrentPosition();
-        float brEncoderBefore = Balin.br.getCurrentPosition();
+        float flEncoderBefore = balin.fl.getCurrentPosition();
+        float frEncoderBefore = balin.fr.getCurrentPosition();
+        float blEncoderBefore = balin.bl.getCurrentPosition();
+        float brEncoderBefore = balin.br.getCurrentPosition();
         sleep(100);
-        float flEncoderAfter = Balin.fl.getCurrentPosition();
-        float frEncoderAfter = Balin.fr.getCurrentPosition();
-        float blEncoderAfter = Balin.bl.getCurrentPosition();
-        float brEncoderAfter = Balin.br.getCurrentPosition();
+        float flEncoderAfter = balin.fl.getCurrentPosition();
+        float frEncoderAfter = balin.fr.getCurrentPosition();
+        float blEncoderAfter = balin.bl.getCurrentPosition();
+        float brEncoderAfter = balin.br.getCurrentPosition();
         double timeAfterChange = timer.time();
         float flChangeInTick = flEncoderAfter - flEncoderBefore;
         float frChangeInTick = frEncoderAfter - frEncoderBefore;
@@ -54,10 +57,10 @@ public class TestNormalizeSpeed extends LinearOpMode {
         double frAngVel = frChangeInRad / (timeAfterChange - timeBeforeChange);
         double blAngVel = blChangeInRad / (timeAfterChange - timeBeforeChange);
         double brAngVel = brChangeInRad / (timeAfterChange - timeBeforeChange);
-        double flTranVel = flAngVel * (Balin.WHEEL_DIAMETER/2);
-        double frTranVel = frAngVel * (Balin.WHEEL_DIAMETER/2);
-        double blTranVel = blAngVel * (Balin.WHEEL_DIAMETER/2);
-        double brTranVel = brAngVel * (Balin.WHEEL_DIAMETER/2);
+        double flTranVel = flAngVel * (balin.WHEEL_DIAMETER/2);
+        double frTranVel = frAngVel * (balin.WHEEL_DIAMETER/2);
+        double blTranVel = blAngVel * (balin.WHEEL_DIAMETER/2);
+        double brTranVel = brAngVel * (balin.WHEEL_DIAMETER/2);
         telemetry.addData("FL TRAN VEL", flTranVel);
         telemetry.addData("FR TRAN VEL", frTranVel);
         telemetry.addData("BL TRAN VEL", blTranVel);
@@ -65,14 +68,14 @@ public class TestNormalizeSpeed extends LinearOpMode {
         telemetry.update();
         if(!isStopRequested() && opModeIsActive() && (flTranVel != frTranVel || flTranVel != blTranVel || flTranVel != brTranVel)) {
             double biggestTranVel = biggestDouble(flTranVel, frTranVel, blTranVel, brTranVel);
-            double flAdjustedPower = (Balin.fl.getPower() * biggestTranVel)/flTranVel;
-            double frAdjustedPower = (Balin.fr.getPower() * biggestTranVel)/frTranVel;
-            double blAdjustedPower = (Balin.bl.getPower() * biggestTranVel)/blTranVel;
-            double brAdjustedPower = (Balin.br.getPower() * biggestTranVel)/brTranVel;
-            Balin.fl.setPower(flAdjustedPower);
-            Balin.fr.setPower(frAdjustedPower);
-            Balin.bl.setPower(blAdjustedPower);
-            Balin.br.setPower(brAdjustedPower);
+            double flAdjustedPower = (balin.fl.getPower() * biggestTranVel)/flTranVel;
+            double frAdjustedPower = (balin.fr.getPower() * biggestTranVel)/frTranVel;
+            double blAdjustedPower = (balin.bl.getPower() * biggestTranVel)/blTranVel;
+            double brAdjustedPower = (balin.br.getPower() * biggestTranVel)/brTranVel;
+            balin.fl.setPower(flAdjustedPower);
+            balin.fr.setPower(frAdjustedPower);
+            balin.bl.setPower(blAdjustedPower);
+            balin.br.setPower(brAdjustedPower);
             telemetry.addData("FL Power", flAdjustedPower);
             telemetry.addData("FR Power", frAdjustedPower);
             telemetry.addData("BL Power", blAdjustedPower);
@@ -95,5 +98,58 @@ public class TestNormalizeSpeed extends LinearOpMode {
             biggest = Math.abs(d);
         }
         return biggest;
+    }
+
+    public void normalizeSpeedStrafe() {
+        ElapsedTime timer = new ElapsedTime();
+        double timeBeforeChange = timer.time();
+        sleep(150);
+        float flEncoderBefore = Math.abs(balin.fl.getCurrentPosition());
+        float frEncoderBefore = Math.abs(balin.fr.getCurrentPosition());
+        float blEncoderBefore = Math.abs(balin.bl.getCurrentPosition());
+        float brEncoderBefore = Math.abs(balin.br.getCurrentPosition());
+        sleep(100);
+        float flEncoderAfter = Math.abs(balin.fl.getCurrentPosition());
+        float frEncoderAfter = Math.abs(balin.fr.getCurrentPosition());
+        float blEncoderAfter = Math.abs(balin.bl.getCurrentPosition());
+        float brEncoderAfter = Math.abs(balin.br.getCurrentPosition());
+        double timeAfterChange = timer.time();
+        float flChangeInTick = flEncoderAfter - flEncoderBefore;
+        float frChangeInTick = frEncoderAfter - frEncoderBefore;
+        float blChangeInTick = blEncoderAfter - blEncoderBefore;
+        float brChangeInTick = brEncoderAfter - brEncoderBefore;
+        double flChangeInRad = (2.0 * Math.PI * flChangeInTick) / 560.0;
+        double frChangeInRad = (2.0 * Math.PI * frChangeInTick) / 560.0;
+        double blChangeInRad = (2.0 * Math.PI * blChangeInTick) / 560.0;
+        double brChangeInRad = (2.0 * Math.PI * brChangeInTick) / 560.0;
+        double flAngVel = flChangeInRad / (timeAfterChange - timeBeforeChange);
+        double frAngVel = frChangeInRad / (timeAfterChange - timeBeforeChange);
+        double blAngVel = blChangeInRad / (timeAfterChange - timeBeforeChange);
+        double brAngVel = brChangeInRad / (timeAfterChange - timeBeforeChange);
+        double flTranVel = flAngVel * (balin.WHEEL_DIAMETER/2);
+        double frTranVel = frAngVel * (balin.WHEEL_DIAMETER/2);
+        double blTranVel = blAngVel * (balin.WHEEL_DIAMETER/2);
+        double brTranVel = brAngVel * (balin.WHEEL_DIAMETER/2);
+        telemetry.addData("FL TRAN VEL", flTranVel);
+        telemetry.addData("FR TRAN VEL", frTranVel);
+        telemetry.addData("BL TRAN VEL", blTranVel);
+        telemetry.addData("BR TRAN VEL", brTranVel);
+        telemetry.update();
+        if(!isStopRequested() && opModeIsActive() && (flTranVel != frTranVel || flTranVel != blTranVel || flTranVel != brTranVel)) {
+            double biggestTranVel = biggestDouble(flTranVel, frTranVel, blTranVel, brTranVel);
+            double flAdjustedPower = (balin.fl.getPower() * biggestTranVel)/flTranVel;
+            double frAdjustedPower = (balin.fr.getPower() * biggestTranVel)/frTranVel;
+            double blAdjustedPower = (balin.bl.getPower() * biggestTranVel)/blTranVel;
+            double brAdjustedPower = (balin.br.getPower() * biggestTranVel)/brTranVel;
+            balin.fl.setPower(flAdjustedPower);
+            balin.fr.setPower(frAdjustedPower);
+            balin.bl.setPower(blAdjustedPower);
+            balin.br.setPower(brAdjustedPower);
+            telemetry.addData("FL Power", flAdjustedPower);
+            telemetry.addData("FR Power", frAdjustedPower);
+            telemetry.addData("BL Power", blAdjustedPower);
+            telemetry.addData("BR Power", brAdjustedPower);
+            telemetry.update();
+        }
     }
 }
