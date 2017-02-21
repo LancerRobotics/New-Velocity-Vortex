@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
 
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  */
 
 @TeleOp(name = "Teleop With Perpective Drive WITH PROTECTION", group = "Competition")
-
+@Disabled
 public class WithProtectionTeleopWithHardwareFromRob extends LinearOpMode{
     /* Declare OpMode members. */
     Hardware3415 Balin           = new Hardware3415();

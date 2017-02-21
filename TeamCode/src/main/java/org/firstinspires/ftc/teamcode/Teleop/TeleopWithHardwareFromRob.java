@@ -123,9 +123,9 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
 
             //Sets controls for collector
             if (gamepad1.right_trigger > 0.15) {
-                Balin.collector.setPower(-0.99);
-            } else if (gamepad1.right_bumper) {
                 Balin.collector.setPower(0.99);
+            } else if (gamepad1.right_bumper) {
+                Balin.collector.setPower(-0.99);
             } else {
                 Balin.collector.setPower(0);
             }

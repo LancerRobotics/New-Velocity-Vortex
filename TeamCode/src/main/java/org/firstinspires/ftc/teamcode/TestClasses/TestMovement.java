@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  */
 
 @Autonomous(name = "TestMovement", group = "Tests")
+@Disabled
 public class TestMovement extends LinearOpMode {
 
     Hardware3415 balin = new Hardware3415();

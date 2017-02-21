@@ -33,6 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode.TestClasses;
 
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -58,7 +59,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  */
 
 @TeleOp(name="Teleop With Velocity Test", group="Test")
-
+@Disabled
 public class TeleopWithVelocityTest extends LinearOpMode {
 
     /* Declare OpMode members. */

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TestClasses;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  * Created by shlok.khandelwal on 1/23/2017.
  */
 @Autonomous(name="Encoder Drive", group="Tests")
+@Disabled
 public class MoveStraight extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
     public void runOpMode(){
