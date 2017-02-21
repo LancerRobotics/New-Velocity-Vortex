@@ -40,10 +40,10 @@ public class DetectColor extends LinearOpMode {
 
     }
     public String detectColor(){
-        if(balin.colorSensor.red()>balin.colorSensor.blue()){
+        if(balin.colorSensor.red()>9){
             return "Red";
         }
-        else if(balin.colorSensor.blue()>balin.colorSensor.red()){
+        else if(balin.colorSensor.blue()>9){
             return "Blue";
         }
         else{

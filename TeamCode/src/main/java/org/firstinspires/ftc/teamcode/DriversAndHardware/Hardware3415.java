@@ -64,8 +64,8 @@ public class Hardware3415 {
     public static final double RIGHT_CLAMP_CLAMP = 180.0 / 255;
     public static final double ROLLER_RELEASE_IN = 245.0 / 255;
     public static final double ROLLER_RELEASE_OUT = 0.0;
-    public static final double DOOR_OPEN = 100.0 / 255; //FIND VALUES FOR THIS
-    public static final double DOOR_CLOSED = 0.0;
+    public static final double DOOR_CLOSED = 230.0 / 255; //FIND VALUES FOR THIS
+    public static final double DOOR_OPEN = 0.0;
 
 
     //Motor, Servo, and Sensor Names
@@ -112,6 +112,10 @@ public class Hardware3415 {
     public static double[] beaconPushRightPositions = {RIGHT_BEACON_INITIAL_STATE, RIGHT_BEACON_PUSH};
     public static int beaconPushRightPos;
     public static int beaconPushRightToggleReturnArray[] = new int[2];
+    public static boolean doorButtonPressed = false;
+    public static double[] doorPositions = {DOOR_CLOSED, DOOR_OPEN};
+    public static int doorPos;
+    public static int doorToggleReturnArray[] = new int[2];
 
     /* Constructor */
     public Hardware3415() {
@@ -198,10 +202,11 @@ public class Hardware3415 {
             beaconPushLeft.setPosition(beaconPushLeftPositions[0]);
             beaconPushRightPos = 1;
             beaconPushRight.setPosition(beaconPushRightPositions[0]);
+            doorPos = 1;
             clampLeft.setPosition(LEFT_CLAMP_INITIAL_STATE);
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
-            door.setPosition(DOOR_CLOSED);
+            door.setPosition(doorPositions[0]);
         }
     }
 
