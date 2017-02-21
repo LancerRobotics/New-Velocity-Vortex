@@ -21,25 +21,32 @@ public class TestNormalizeSpeed extends LinearOpMode {
         waitForStart();
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if(opModeIsActive()) balin.fr.setPower(-.25);
-        if(opModeIsActive()) balin.br.setPower(.25);
-        if(opModeIsActive()) balin.fl.setPower(.25);
-        if(opModeIsActive()) balin.bl.setPower(-.25);
+        if(opModeIsActive()) balin.fr.setPower(.25);
+        if(opModeIsActive()) balin.br.setPower(-.25);
+        if(opModeIsActive()) balin.fl.setPower(-.25);
+        if(opModeIsActive()) balin.bl.setPower(.25);
         sleep(200);
         normalizeSpeedStrafe();
         sleep(2000);
         balin.restAndSleep(this);
+        balin.setDrivePower(.3);
+        sleep(200);
+        normalizeSpeedFourMotorsForward();
+        sleep(2000);
+        balin.restAndSleep(this);
+
     }
 
     public void normalizeSpeedFourMotorsForward() {
         ElapsedTime timer = new ElapsedTime();
         double timeBeforeChange = timer.time();
-        sleep(150);
         float flEncoderBefore = balin.fl.getCurrentPosition();
         float frEncoderBefore = balin.fr.getCurrentPosition();
         float blEncoderBefore = balin.bl.getCurrentPosition();
         float brEncoderBefore = balin.br.getCurrentPosition();
-        sleep(100);
+        while(balin.br.getCurrentPosition() == frEncoderBefore) {
+            sleep(1);
+        }
         float flEncoderAfter = balin.fl.getCurrentPosition();
         float frEncoderAfter = balin.fr.getCurrentPosition();
         float blEncoderAfter = balin.bl.getCurrentPosition();
@@ -103,12 +110,13 @@ public class TestNormalizeSpeed extends LinearOpMode {
     public void normalizeSpeedStrafe() {
         ElapsedTime timer = new ElapsedTime();
         double timeBeforeChange = timer.time();
-        sleep(150);
         float flEncoderBefore = Math.abs(balin.fl.getCurrentPosition());
         float frEncoderBefore = Math.abs(balin.fr.getCurrentPosition());
         float blEncoderBefore = Math.abs(balin.bl.getCurrentPosition());
         float brEncoderBefore = Math.abs(balin.br.getCurrentPosition());
-        sleep(100);
+        while(balin.br.getCurrentPosition() == frEncoderBefore) {
+            sleep(1);
+        }
         float flEncoderAfter = Math.abs(balin.fl.getCurrentPosition());
         float frEncoderAfter = Math.abs(balin.fr.getCurrentPosition());
         float blEncoderAfter = Math.abs(balin.bl.getCurrentPosition());
