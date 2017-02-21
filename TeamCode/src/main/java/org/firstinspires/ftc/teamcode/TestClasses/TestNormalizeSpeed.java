@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TestClasses;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
@@ -18,6 +19,8 @@ public class TestNormalizeSpeed extends LinearOpMode {
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
         waitForStart();
+        Balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Balin.setDrivePower(.3);
         sleep(200);
         normalizeSpeedFourMotorsForward(Balin.fl.getPower());
@@ -92,21 +95,5 @@ public class TestNormalizeSpeed extends LinearOpMode {
             biggest = Math.abs(d);
         }
         return biggest;
-    }
-
-    public double smallestDouble(double a, double b, double c, double d) {
-        double smallest;
-        if (Math.abs(a) > Math.abs(b)) {
-            smallest = Math.abs(b);
-        } else {
-            smallest = Math.abs(a);
-        }
-        if (smallest > Math.abs(c)) {
-            smallest = Math.abs(c);
-        }
-        if (smallest > Math.abs(d)) {
-            smallest = Math.abs(d);
-        }
-        return smallest;
     }
 }
