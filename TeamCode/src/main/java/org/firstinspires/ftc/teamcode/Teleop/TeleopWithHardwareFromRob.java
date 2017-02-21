@@ -81,7 +81,7 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
                 AHRS.DeviceDataType.kProcessedData,
                 Balin.NAVX_DEVICE_UPDATE_RATE_HZ);
         //Prevents Balin from running before callibration is complete
-        while (Balin.navx_device.isCalibrating()) {
+        while (Balin.navx_device.isCalibrating() && !isStopRequested()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }

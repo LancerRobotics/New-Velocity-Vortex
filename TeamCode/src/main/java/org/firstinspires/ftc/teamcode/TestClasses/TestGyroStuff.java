@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  * Created by andrew.keenan on 1/25/2017.
  */
 @Autonomous(name="Gyro Testing Stuff", group="Test")
-@Disabled
+
 public class TestGyroStuff extends LinearOpMode {
     Hardware3415 Balin = new Hardware3415();
     public void runOpMode() {
@@ -21,7 +21,7 @@ public class TestGyroStuff extends LinearOpMode {
                 AHRS.DeviceDataType.kProcessedData,
                 Balin.NAVX_DEVICE_UPDATE_RATE_HZ);
         //Prevents Balin from running before callibration is complete
-        while (Balin.navx_device.isCalibrating()) {
+        while (Balin.navx_device.isCalibrating() && !isStopRequested()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }
@@ -29,6 +29,10 @@ public class TestGyroStuff extends LinearOpMode {
         telemetry.addData("Ready?", "Yes. Please Turn The Bot To The Correct Orientation");
         telemetry.update();
         waitForStart();
+        while (opModeIsActive() && opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("yaw", Balin.navx_device.getYaw());
+            telemetry.update();
+        }
     }
 
     public void turnToOriginalAngle() {

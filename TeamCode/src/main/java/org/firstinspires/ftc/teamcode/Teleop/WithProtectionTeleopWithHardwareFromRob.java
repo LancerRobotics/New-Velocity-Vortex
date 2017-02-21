@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  */
 
 @TeleOp(name = "Teleop With Perpective Drive WITH PROTECTION", group = "Competition")
-@Disabled
+
 public class WithProtectionTeleopWithHardwareFromRob extends LinearOpMode{
     /* Declare OpMode members. */
     Hardware3415 Balin           = new Hardware3415();
@@ -38,7 +38,7 @@ public class WithProtectionTeleopWithHardwareFromRob extends LinearOpMode{
                 AHRS.DeviceDataType.kProcessedData,
                 Balin.NAVX_DEVICE_UPDATE_RATE_HZ);
         //Prevents Balin from running before callibration is complete
-        while (Balin.navx_device.isCalibrating()) {
+        while (Balin.navx_device.isCalibrating() && opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }
