@@ -26,18 +26,22 @@ public class DetectColor extends LinearOpMode {
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
             telemetry.addData("Color: ", color);
             telemetry.update();
+            sleep(500);
         } else if(color.equals("Blue")) {
             balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
             balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
             telemetry.addData("Color: ", color);
             telemetry.update();
+            sleep(500);
         } else{
             telemetry.addData("Color: ", color);
             telemetry.update();
+            sleep(500);
         }
-        telemetry.addLine("Ready to Hit Beacon");
-        telemetry.update();
-
+        while(opModeIsActive()) {
+            telemetry.addLine("Ready to Hit Beacon");
+            telemetry.update();
+        }
     }
     public String detectColor(){
         if(balin.colorSensor.red()>9){

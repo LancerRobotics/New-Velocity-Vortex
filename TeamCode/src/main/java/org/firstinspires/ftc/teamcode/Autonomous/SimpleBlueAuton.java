@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  * Created by andrew.keenan on 2/11/2017.
  */
 @Autonomous(name = "BlueSimple", group = "Auton")
-@Disabled
+
 public class SimpleBlueAuton extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
     public void runOpMode(){
@@ -33,14 +33,24 @@ public class SimpleBlueAuton extends LinearOpMode {
         //balin.turn();
         balin.navx_device.zeroYaw();
 
+        //Move forward
+        balin.setDrivePower(0.2);
+        sleep(500);
+
         //Shoot
         balin.shoot(1.0);
+        sleep(500);
+
+        //Get other particle into the shooter
         balin.door.setPosition(balin.DOOR_OPEN);
-        balin.collector.setPower(0.5);
-        sleep(100);
+        balin.collector.setPower(0.6);
+        sleep(2000);
         balin.collector.setPower(0);
         balin.door.setPosition(balin.DOOR_CLOSED);
+
+        //Shoot other particle
         balin.shoot(1.0);
+        sleep(500);
 
         //Driving Forward to knock the cap ball off
 

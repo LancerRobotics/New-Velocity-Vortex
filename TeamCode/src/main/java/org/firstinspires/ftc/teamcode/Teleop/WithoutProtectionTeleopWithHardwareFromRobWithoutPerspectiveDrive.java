@@ -106,6 +106,10 @@ public class WithoutProtectionTeleopWithHardwareFromRobWithoutPerspectiveDrive e
             Balin.beaconPushRightPos = Balin.beaconPushRightToggleReturnArray[0];
             Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
+            Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed);
+            Balin.doorPos = Balin.doorToggleReturnArray[0];
+            Balin.doorButtonPressed = Balin.doorToggleReturnArray[1] == 1;
+
             if(gamepad2.a) {
                 Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_CLAMP);
                 Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_CLAMP);
