@@ -19,28 +19,21 @@ public class TestNormalizeSpeed extends LinearOpMode {
         telemetry.update();
         waitForStart();
         Balin.setDrivePower(.3);
-        sleep(100);
-        normalizeSpeedFourMotorsForward(Balin.fl.getPower(), false);
+        sleep(200);
+        normalizeSpeedFourMotorsForward(Balin.fl.getPower());
         sleep(2000);
         Balin.restAndSleep(this);
     }
 
-    public void normalizeSpeedFourMotorsForward(double power, boolean backwards) {
-        if (backwards) {
-            power = power * -1;
-        }
-        Balin.fl.setPower(power);
-        Balin.fr.setPower(power);
-        Balin.bl.setPower(power);
-        Balin.br.setPower(power);
+    public void normalizeSpeedFourMotorsForward(double power) {
         ElapsedTime timer = new ElapsedTime();
         double timeBeforeChange = timer.time();
+        sleep(150);
         float flEncoderBefore = Balin.fl.getCurrentPosition();
         float frEncoderBefore = Balin.fr.getCurrentPosition();
         float blEncoderBefore = Balin.bl.getCurrentPosition();
         float brEncoderBefore = Balin.br.getCurrentPosition();
-        Balin.waitForTick(40);
-        Balin.waitForTick(40);
+        sleep(100);
         float flEncoderAfter = Balin.fl.getCurrentPosition();
         float frEncoderAfter = Balin.fr.getCurrentPosition();
         float blEncoderAfter = Balin.bl.getCurrentPosition();
@@ -77,6 +70,11 @@ public class TestNormalizeSpeed extends LinearOpMode {
             Balin.fr.setPower(frAdjustedPower);
             Balin.bl.setPower(blAdjustedPower);
             Balin.br.setPower(brAdjustedPower);
+            telemetry.addData("FL Power", flAdjustedPower);
+            telemetry.addData("FR Power", frAdjustedPower);
+            telemetry.addData("BL Power", blAdjustedPower);
+            telemetry.addData("BR Power", brAdjustedPower);
+            telemetry.update();
         }
     }
 
