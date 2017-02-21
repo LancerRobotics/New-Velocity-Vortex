@@ -33,17 +33,16 @@ public class SimpleBlueAuton extends LinearOpMode {
         //balin.turn();
         balin.navx_device.zeroYaw();
 
-        balin.setDrivePower(.4);
-        sleep(800);
-        balin.setDrivePower(.0);
-        sleep(1000);
-        balin.shoot(.8);
-        sleep(1000);
-        balin.collector.setPower(1.0);
-        sleep(10000);
-        balin.collector.setPower(0);
+        //Shoot
         balin.shoot(1.0);
-        sleep(1000);
+        balin.door.setPosition(balin.DOOR_OPEN);
+        balin.collector.setPower(0.5);
+        sleep(100);
+        balin.collector.setPower(0);
+        balin.door.setPosition(balin.DOOR_CLOSED);
+        balin.shoot(1.0);
+
+        //Driving Forward to knock the cap ball off
 
     }
 }
