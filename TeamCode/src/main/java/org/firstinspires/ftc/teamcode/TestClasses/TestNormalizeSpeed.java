@@ -116,7 +116,8 @@ public class TestNormalizeSpeed extends LinearOpMode {
 
     public void normalizeSpeedStrafe() {
         ElapsedTime timer = new ElapsedTime();
-        double timeBeforeChange = timer.time();
+        timer.reset();
+        double timeBeforeChange = timer.startTime();
         float flEncoderBefore = (balin.fl.getCurrentPosition());
         float frEncoderBefore = (balin.fr.getCurrentPosition());
         float blEncoderBefore = (balin.bl.getCurrentPosition());
