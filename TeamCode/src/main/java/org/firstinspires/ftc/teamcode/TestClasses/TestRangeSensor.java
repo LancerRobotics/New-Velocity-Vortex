@@ -13,14 +13,12 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 @Autonomous(name="Test Sonar", group="Test")
 public class TestRangeSensor extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
-    ModernRoboticsI2cRangeSensor sonar;
     public void runOpMode() {
         balin.init(hardwareMap, true);
-        sonar = (ModernRoboticsI2cRangeSensor) hardwareMap.get("sonar");
         waitForStart();
         while(opModeIsActive()) {
-            telemetry.addData("Ultrasonic Data", sonar.cmUltrasonic());
-            telemetry.addData("ODS Data", sonar.cmOptical());
+            telemetry.addData("Ultrasonic Data", balin.readSonar1());
+            telemetry.addData("Ultrasonic Data 2", balin.readSonar2());
             telemetry.update();
         }
     }

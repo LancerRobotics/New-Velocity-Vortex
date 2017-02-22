@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -103,6 +107,24 @@ public class Hardware3415 {
     public static final double WHEEL_DIAMETER = 3.93701;
     public static final String cdim = "dim";
 
+    byte[] range1Cache; //The read will return an array of bytes. They are stored in this variable
+
+    I2cAddr RANGE1ADDRESS = new I2cAddr(0x28); //Default I2C address for MR Range (7-bit)
+    public static final int RANGE1_REG_START = 0x04; //Register to start reading
+    public static final int RANGE1_READ_LENGTH = 2; //Number of byte to read
+
+    public I2cDevice RANGE1 = null;
+    public I2cDeviceSynch RANGE1Reader = null;
+
+    byte[] range2Cache;
+
+    I2cAddr RANGE2ADDRESS = new I2cAddr(0x38);
+    public static final int RANGE2_REG_START = 0x04;
+    public static final int RANGE2_READ_LENGTH = 2;
+
+    public I2cDevice RANGE2 = null;
+    public I2cDeviceSynch RANGE2Reader = null;
+
     /* Local OpMode members. */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
@@ -195,7 +217,14 @@ public class Hardware3415 {
             //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);
-            sonar = (ModernRoboticsI2cRangeSensor) hwMap.get("sonar");
+            RANGE1 = hwMap.i2cDevice.get(sonarName);
+            RANGE1Reader = new I2cDeviceSynchImpl(RANGE1, RANGE1ADDRESS, false);
+            RANGE1Reader.engage();
+
+            RANGE2 = hwMap.i2cDevice.get(sonarName2);
+            RANGE2Reader = new I2cDeviceSynchImpl(RANGE2, RANGE2ADDRESS, false);
+            RANGE2Reader.engage();
+
             fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -848,8 +877,15 @@ public class Hardware3415 {
         }
     }
 
-    public double readSonar(ModernRoboticsI2cRangeSensor sonar) {
-        double sonarData = sonar.cmUltrasonic();
+    public double readSonar1() {
+        range1Cache = RANGE1Reader.read(RANGE1_REG_START, RANGE1_READ_LENGTH);
+        double sonarData = range1Cache[0] & 0xFF;
+        return sonarData;
+    }
+
+    public double readSonar2() {
+        range2Cache = RANGE2Reader.read(RANGE2_REG_START, RANGE2_READ_LENGTH);
+        double sonarData = range2Cache[0] & 0xFF;
         return sonarData;
     }
 
