@@ -722,4 +722,99 @@ public class Hardware3415 {
         return color;
     }
 
+    public double biggestDouble(double a, double b, double c, double d) {
+        double biggest;
+        if (Math.abs(a) < Math.abs(b)) {
+            biggest = Math.abs(b);
+        } else {
+            biggest = Math.abs(a);
+        }
+        if (biggest < Math.abs(c)) {
+            biggest = Math.abs(c);
+        }
+        if (biggest < Math.abs(d)) {
+            biggest = Math.abs(d);
+        }
+        return biggest;
+    }
+
+    public void normalizeSpeedStrafe(LinearOpMode opMode) {
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        float flEncoderBefore = Math.abs(fl.getCurrentPosition());
+        double flTimeBefore = timer.time();
+        float frEncoderBefore = Math.abs(fr.getCurrentPosition());
+        double frTimeBefore = timer.time();
+        float blEncoderBefore = Math.abs(bl.getCurrentPosition());
+        double blTimeBefore = timer.time();
+        float brEncoderBefore = Math.abs(br.getCurrentPosition());
+        double brTimeBefore = timer.time();
+        opMode.sleep(200);
+        float flEncoderAfter = Math.abs(fl.getCurrentPosition());
+        double flTimeAfter = timer.time();
+        float frEncoderAfter = Math.abs(fr.getCurrentPosition());
+        double frTimeAfter = timer.time();
+        float blEncoderAfter = Math.abs(bl.getCurrentPosition());
+        double blTimeAfter = timer.time();
+        float brEncoderAfter = Math.abs(br.getCurrentPosition());
+        double brTimeAfter = timer.time();
+        float flChangeInTick = Math.abs(flEncoderAfter - flEncoderBefore);
+        float frChangeInTick = Math.abs(frEncoderAfter - frEncoderBefore);
+        float blChangeInTick = Math.abs(blEncoderAfter - blEncoderBefore);
+        float brChangeInTick = Math.abs(brEncoderAfter - brEncoderBefore);
+        double flChangeInRad = (2.0 * Math.PI * flChangeInTick) / 560.0;
+        double frChangeInRad = (2.0 * Math.PI * frChangeInTick) / 560.0;
+        double blChangeInRad = (2.0 * Math.PI * blChangeInTick) / 560.0;
+        double brChangeInRad = (2.0 * Math.PI * brChangeInTick) / 560.0;
+        double flAngVel = flChangeInRad / (flTimeAfter - flTimeBefore);
+        double frAngVel = frChangeInRad / (frTimeAfter - frTimeBefore);
+        double blAngVel = blChangeInRad / (blTimeAfter - blTimeBefore);
+        double brAngVel = brChangeInRad / (brTimeAfter - brTimeBefore);
+        double flTranVel = flAngVel * (WHEEL_DIAMETER/2.0);
+        double frTranVel = frAngVel * (WHEEL_DIAMETER/2.0);
+        double blTranVel = blAngVel * (WHEEL_DIAMETER/2.0);
+        double brTranVel = brAngVel * (WHEEL_DIAMETER/2.0);
+        opMode.telemetry.addData("FL TRAN VEL", flTranVel);
+        opMode.telemetry.addData("FR TRAN VEL", frTranVel);
+        opMode.telemetry.addData("BL TRAN VEL", blTranVel);
+        opMode.telemetry.addData("BR TRAN VEL", brTranVel);
+        opMode.telemetry.update();
+        if(!opMode.isStopRequested() && opMode.opModeIsActive() && (flTranVel != frTranVel || flTranVel != blTranVel || flTranVel != brTranVel)) {
+            double biggestTranVel = biggestDouble(flTranVel, frTranVel, blTranVel, brTranVel), flAdjustedPower, frAdjustedPower, blAdjustedPower, brAdjustedPower;
+            if(flTranVel != biggestTranVel) {
+                flAdjustedPower = (fl.getPower() * biggestTranVel)/flTranVel;
+            }
+            else {
+                flAdjustedPower = fl.getPower();
+            }
+            if(frTranVel != biggestTranVel) {
+                frAdjustedPower = (fr.getPower() * biggestTranVel)/frTranVel;
+            }
+            else {
+                frAdjustedPower = fr.getPower();
+            }
+            if(blTranVel != biggestTranVel) {
+                blAdjustedPower = (bl.getPower() * biggestTranVel)/blTranVel;
+            }
+            else {
+                blAdjustedPower = bl.getPower();
+            }
+            if(brTranVel != biggestTranVel) {
+                brAdjustedPower = (br.getPower() * biggestTranVel)/brTranVel;
+            }
+            else {
+                brAdjustedPower = br.getPower();
+            }
+            fl.setPower(Range.clip(flAdjustedPower,-1,1));
+            fr.setPower(Range.clip(frAdjustedPower,-1,1));
+            bl.setPower(Range.clip(blAdjustedPower,-1,1));
+            br.setPower(Range.clip(brAdjustedPower,-1,1));
+            opMode.telemetry.addData("FL Power", flAdjustedPower);
+            opMode.telemetry.addData("FR Power", frAdjustedPower);
+            opMode.telemetry.addData("BL Power", blAdjustedPower);
+            opMode.telemetry.addData("BR Power", brAdjustedPower);
+            opMode.telemetry.update();
+        }
+    }
+
 }
