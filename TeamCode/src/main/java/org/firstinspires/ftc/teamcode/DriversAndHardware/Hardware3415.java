@@ -180,10 +180,10 @@ public class Hardware3415 {
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
             door.setPosition(DOOR_CLOSED);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             //Define all sensors
             colorSensor = hwMap.colorSensor.get(colorSensorName);
@@ -650,7 +650,7 @@ public class Hardware3415 {
     // Method that is called to turn the robot goes from -180 to 180 degrees
     public void gyroAngle(double angle, double speed, LinearOpMode opMode) {
         //Zero's the gyro value
-        changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         navx_device.zeroYaw();
         //Turns the robot
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) {
@@ -663,7 +663,7 @@ public class Hardware3415 {
         }
         //Brakes all motors
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
-        changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     public void restAndSleep(LinearOpMode opMode) {

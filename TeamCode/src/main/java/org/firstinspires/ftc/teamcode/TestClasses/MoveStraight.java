@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  * Created by shlok.khandelwal on 1/23/2017.
  */
 @Autonomous(name="Encoder Drive", group="Tests")
-@Disabled
+
 public class MoveStraight extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
     public void runOpMode(){
@@ -20,13 +20,15 @@ public class MoveStraight extends LinearOpMode {
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        balin.fr.setPower(.6);
-        balin.fl.setPower(-.6);
-        balin.bl.setPower(.6);
-        balin.br.setPower(-.6);
+        balin.moveStraight1(12, false, this);
         sleep(1000);
-        balin.setDrivePower(0);
-        sleep(0);
+        balin.moveStraight(12, false, this);
+        sleep(1000);
+        balin.moveStraightWithOr(12, false, this);
+        sleep(1000);
+        balin.newMoveStraight(12, false, this);
+        sleep(1000);
+
        /* balin.moveStraight(12, false, this);
         balin.restAndSleep(this);
         sleep(2000);
