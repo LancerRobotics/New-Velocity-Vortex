@@ -21,7 +21,7 @@ public class TestNormalizeSpeed extends LinearOpMode {
                 balin.NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 balin.NAVX_DEVICE_UPDATE_RATE_HZ);
-        while (balin.navx_device.isCalibrating()) {
+        while (!isStopRequested() && balin.navx_device.isCalibrating()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }
@@ -30,26 +30,20 @@ public class TestNormalizeSpeed extends LinearOpMode {
         waitForStart();
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if(opModeIsActive()) balin.fr.setPower(.25);
-        if(opModeIsActive()) balin.br.setPower(-.25);
-        if(opModeIsActive()) balin.fl.setPower(-.25);
-        if(opModeIsActive()) balin.bl.setPower(.25);
+        balin.fr.setPower(.25);
+        balin.br.setPower(-.25);
+        balin.fl.setPower(-.25);
+        balin.bl.setPower(.25);
         sleep(200);
         normalizeSpeedStrafe();
-        for(int i = 0; i < 2000; i++) {
-            gyroHold(balin.fl.getPower(), true);
-            sleep(1);
-        }
+        sleep(2000);
         balin.restAndSleep(this);
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         balin.setDrivePower(.3);
         sleep(200);
         normalizeSpeedFourMotorsForward();
-        for(int i = 0; i < 2000; i++) {
-            gyroHold(balin.fl.getPower(), false);
-            sleep(1);
-        }
+        sleep(2000);
         balin.restAndSleep(this);
 
     }
@@ -175,42 +169,6 @@ public class TestNormalizeSpeed extends LinearOpMode {
             telemetry.addData("BL Power", blAdjustedPower);
             telemetry.addData("BR Power", brAdjustedPower);
             telemetry.update();
-        }
-    }
-
-    public void gyroHold(double flCurrPower, boolean strafe) {
-        if(Math.abs(balin.navx_device.getYaw()) > balin.HEADING_THRESHOLD) {
-            balin.gyroAngle(0, .25, this);
-            if(strafe) {
-                if(flCurrPower < 0) {
-                    strafe(flCurrPower, false);
-                }
-                else {
-                    strafe(flCurrPower, true);
-                }
-                sleep(200);
-                normalizeSpeedStrafe();
-            }
-            else {
-                balin.setDrivePower(flCurrPower);
-                sleep(200);
-                normalizeSpeedFourMotorsForward();
-            }
-        }
-    }
-
-    public void strafe(double power, boolean right) {
-        if(right) {
-            if(opModeIsActive()) balin.fr.setPower(power);
-            if(opModeIsActive()) balin.br.setPower(-power);
-            if(opModeIsActive()) balin.fl.setPower(-power);
-            if(opModeIsActive()) balin.bl.setPower(power);
-        }
-        else {
-            if(opModeIsActive()) balin.fr.setPower(-power);
-            if(opModeIsActive()) balin.br.setPower(power);
-            if(opModeIsActive()) balin.fl.setPower(power);
-            if(opModeIsActive()) balin.bl.setPower(-power);
         }
     }
 }
