@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 
@@ -116,15 +117,15 @@ public class TestNormalizeSpeed extends LinearOpMode {
     public void normalizeSpeedStrafe() {
         ElapsedTime timer = new ElapsedTime();
         double timeBeforeChange = timer.time();
-        float flEncoderBefore = Math.abs(balin.fl.getCurrentPosition());
-        float frEncoderBefore = Math.abs(balin.fr.getCurrentPosition());
-        float blEncoderBefore = Math.abs(balin.bl.getCurrentPosition());
-        float brEncoderBefore = Math.abs(balin.br.getCurrentPosition());
+        float flEncoderBefore = (balin.fl.getCurrentPosition());
+        float frEncoderBefore = (balin.fr.getCurrentPosition());
+        float blEncoderBefore = (balin.bl.getCurrentPosition());
+        float brEncoderBefore = (balin.br.getCurrentPosition());
         sleep(200);
-        float flEncoderAfter = Math.abs(balin.fl.getCurrentPosition());
-        float frEncoderAfter = Math.abs(balin.fr.getCurrentPosition());
-        float blEncoderAfter = Math.abs(balin.bl.getCurrentPosition());
-        float brEncoderAfter = Math.abs(balin.br.getCurrentPosition());
+        float flEncoderAfter = (balin.fl.getCurrentPosition());
+        float frEncoderAfter = (balin.fr.getCurrentPosition());
+        float blEncoderAfter = (balin.bl.getCurrentPosition());
+        float brEncoderAfter = (balin.br.getCurrentPosition());
         double timeAfterChange = timer.time();
         float flChangeInTick = flEncoderAfter - flEncoderBefore;
         float frChangeInTick = frEncoderAfter - frEncoderBefore;
@@ -153,10 +154,10 @@ public class TestNormalizeSpeed extends LinearOpMode {
             double frAdjustedPower = (balin.fr.getPower() * biggestTranVel)/frTranVel;
             double blAdjustedPower = (balin.bl.getPower() * biggestTranVel)/blTranVel;
             double brAdjustedPower = (balin.br.getPower() * biggestTranVel)/brTranVel;
-            balin.fl.setPower(flAdjustedPower);
-            balin.fr.setPower(frAdjustedPower);
-            balin.bl.setPower(blAdjustedPower);
-            balin.br.setPower(brAdjustedPower);
+            balin.fl.setPower(Range.clip(flAdjustedPower, -1, 1));
+            balin.fr.setPower(Range.clip(frAdjustedPower, -1, 1));
+            balin.bl.setPower(Range.clip(blAdjustedPower, -1, 1));
+            balin.br.setPower(Range.clip(brAdjustedPower, -1, 1));
             telemetry.addData("FL Power", flAdjustedPower);
             telemetry.addData("FR Power", frAdjustedPower);
             telemetry.addData("BL Power", blAdjustedPower);
