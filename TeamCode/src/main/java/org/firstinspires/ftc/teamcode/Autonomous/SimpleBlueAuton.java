@@ -35,22 +35,32 @@ public class SimpleBlueAuton extends LinearOpMode {
 
         //Move forward
         balin.setDrivePower(0.2);
-        sleep(500);
+        sleep(1300);
+        balin.setDrivePower(0);
 
-        //Shoot
-        balin.shoot(1.0);
-        sleep(500);
-
-        //Get other particle into the shooter
+        //Get first particle into the shooter
         balin.door.setPosition(balin.DOOR_OPEN);
-        balin.collector.setPower(0.6);
+        balin.collector.setPower(1.0);
         sleep(2000);
         balin.collector.setPower(0);
         balin.door.setPosition(balin.DOOR_CLOSED);
 
-        //Shoot other particle
+        //Shoot first particle
         balin.shoot(1.0);
-        sleep(500);
+        sleep(600);
+        balin.shoot(0);
+
+        //Get second particle into the shooter
+        balin.door.setPosition(balin.DOOR_OPEN);
+        balin.collector.setPower(1.0);
+        sleep(2000);
+        balin.collector.setPower(0);
+        balin.door.setPosition(balin.DOOR_CLOSED);
+
+        //Shoot second particle
+        balin.shoot(1.0);
+        sleep(600);
+        balin.shoot(0);
 
         //Driving Forward to knock the cap ball off
 

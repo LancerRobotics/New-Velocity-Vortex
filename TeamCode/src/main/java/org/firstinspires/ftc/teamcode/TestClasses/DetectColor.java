@@ -18,7 +18,7 @@ public class DetectColor extends LinearOpMode {
         String color = detectColor();
         while(color.equals("N/A")&& opModeIsActive()){
             color = detectColor();
-            balin.setDrivePower(.2);
+            balin.setDrivePower(.15);
         }
         balin.setDrivePower(0);
         if(color.equals("Red")){

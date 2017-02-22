@@ -21,7 +21,7 @@ public class WhiteLine extends LinearOpMode{
         }
     }
     public void followLine() {
-        double adjustment = (.2 - balin.ods.getLightDetected()) * .15;
+        double adjustment = (.15- balin.ods.getLightDetected()) * .15;
         if (adjustment <= 0) {
             balin.fl.setPower(.1 - adjustment);
             balin.fr.setPower(.1);
