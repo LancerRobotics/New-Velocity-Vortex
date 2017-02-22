@@ -23,7 +23,7 @@ public class TestAdjustToDistance extends LinearOpMode {
 
     public void adjustToDistance(double distance, double power) {
         double currDistance = readSonar();
-        while (!(distance - 2 < currDistance) && !(currDistance < distance + 2) && opModeIsActive() && !isStopRequested()) {
+        while (opModeIsActive() && !isStopRequested() && currDistance > distance + 2 && currDistance < distance - 2) {
             if(currDistance < distance) {
                 balin.setDrivePower(-power);
                 while(currDistance < distance && opModeIsActive() && !isStopRequested()) {
