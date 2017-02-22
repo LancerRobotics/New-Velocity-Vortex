@@ -48,6 +48,7 @@ public class TestNormalizeSpeed extends LinearOpMode {
 
     public void normalizeSpeedFourMotorsForward() {
         ElapsedTime timer = new ElapsedTime();
+        timer.reset();
         double timeBeforeChange = timer.time();
         float flEncoderBefore = balin.fl.getCurrentPosition();
         float frEncoderBefore = balin.fr.getCurrentPosition();
@@ -117,21 +118,21 @@ public class TestNormalizeSpeed extends LinearOpMode {
     public void normalizeSpeedStrafe() {
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
-        double timeBeforeChange = timer.startTime();
-        float flEncoderBefore = (balin.fl.getCurrentPosition());
-        float frEncoderBefore = (balin.fr.getCurrentPosition());
-        float blEncoderBefore = (balin.bl.getCurrentPosition());
-        float brEncoderBefore = (balin.br.getCurrentPosition());
+        double timeBeforeChange = timer.time();
+        float flEncoderBefore = Math.abs(balin.fl.getCurrentPosition());
+        float frEncoderBefore = Math.abs(balin.fr.getCurrentPosition());
+        float blEncoderBefore = Math.abs(balin.bl.getCurrentPosition());
+        float brEncoderBefore = Math.abs(balin.br.getCurrentPosition());
         sleep(200);
-        float flEncoderAfter = (balin.fl.getCurrentPosition());
-        float frEncoderAfter = (balin.fr.getCurrentPosition());
-        float blEncoderAfter = (balin.bl.getCurrentPosition());
-        float brEncoderAfter = (balin.br.getCurrentPosition());
+        float flEncoderAfter = Math.abs(balin.fl.getCurrentPosition());
+        float frEncoderAfter = Math.abs(balin.fr.getCurrentPosition());
+        float blEncoderAfter = Math.abs(balin.bl.getCurrentPosition());
+        float brEncoderAfter = Math.abs(balin.br.getCurrentPosition());
         double timeAfterChange = timer.time();
-        float flChangeInTick = flEncoderAfter - flEncoderBefore;
-        float frChangeInTick = frEncoderAfter - frEncoderBefore;
-        float blChangeInTick = blEncoderAfter - blEncoderBefore;
-        float brChangeInTick = brEncoderAfter - brEncoderBefore;
+        float flChangeInTick = Math.abs(flEncoderAfter - flEncoderBefore);
+        float frChangeInTick = Math.abs(frEncoderAfter - frEncoderBefore);
+        float blChangeInTick = Math.abs(blEncoderAfter - blEncoderBefore);
+        float brChangeInTick = Math.abs(brEncoderAfter - brEncoderBefore);
         double flChangeInRad = (2.0 * Math.PI * flChangeInTick) / 560.0;
         double frChangeInRad = (2.0 * Math.PI * frChangeInTick) / 560.0;
         double blChangeInRad = (2.0 * Math.PI * blChangeInTick) / 560.0;
