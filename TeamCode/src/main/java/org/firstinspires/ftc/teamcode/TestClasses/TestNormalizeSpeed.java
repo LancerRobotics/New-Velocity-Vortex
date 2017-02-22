@@ -22,11 +22,11 @@ public class TestNormalizeSpeed extends LinearOpMode {
         waitForStart();
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        balin.fr.setPower(.25);
-        balin.br.setPower(-.25);
-        balin.fl.setPower(-.25);
-        balin.bl.setPower(.25);
-        sleep(200);
+        balin.fr.setPower(.35);
+        balin.br.setPower(-.35);
+        balin.fl.setPower(-.35);
+        balin.bl.setPower(.35);
+        sleep(300);
         normalizeSpeedStrafe();
         sleep(2000);
         balin.restAndSleep(this);
@@ -47,9 +47,7 @@ public class TestNormalizeSpeed extends LinearOpMode {
         float frEncoderBefore = balin.fr.getCurrentPosition();
         float blEncoderBefore = balin.bl.getCurrentPosition();
         float brEncoderBefore = balin.br.getCurrentPosition();
-        while(balin.br.getCurrentPosition() == frEncoderBefore) {
-            sleep(1);
-        }
+        sleep(200);
         float flEncoderAfter = balin.fl.getCurrentPosition();
         float frEncoderAfter = balin.fr.getCurrentPosition();
         float blEncoderAfter = balin.bl.getCurrentPosition();
@@ -117,9 +115,7 @@ public class TestNormalizeSpeed extends LinearOpMode {
         float frEncoderBefore = Math.abs(balin.fr.getCurrentPosition());
         float blEncoderBefore = Math.abs(balin.bl.getCurrentPosition());
         float brEncoderBefore = Math.abs(balin.br.getCurrentPosition());
-        while(balin.br.getCurrentPosition() == frEncoderBefore) {
-            sleep(1);
-        }
+        sleep(200);
         float flEncoderAfter = Math.abs(balin.fl.getCurrentPosition());
         float frEncoderAfter = Math.abs(balin.fr.getCurrentPosition());
         float blEncoderAfter = Math.abs(balin.bl.getCurrentPosition());
@@ -129,10 +125,10 @@ public class TestNormalizeSpeed extends LinearOpMode {
         float frChangeInTick = frEncoderAfter - frEncoderBefore;
         float blChangeInTick = blEncoderAfter - blEncoderBefore;
         float brChangeInTick = brEncoderAfter - brEncoderBefore;
-        double flChangeInRad = (2.0 * Math.PI * flChangeInTick) / 560.0;
-        double frChangeInRad = (2.0 * Math.PI * frChangeInTick) / 560.0;
-        double blChangeInRad = (2.0 * Math.PI * blChangeInTick) / 560.0;
-        double brChangeInRad = (2.0 * Math.PI * brChangeInTick) / 560.0;
+        double flChangeInRad = (2.0 * Math.PI * flChangeInTick) / 230.0;
+        double frChangeInRad = (2.0 * Math.PI * frChangeInTick) / 230.0;
+        double blChangeInRad = (2.0 * Math.PI * blChangeInTick) / 230.0;
+        double brChangeInRad = (2.0 * Math.PI * brChangeInTick) / 230.0;
         double flAngVel = flChangeInRad / (timeAfterChange - timeBeforeChange);
         double frAngVel = frChangeInRad / (timeAfterChange - timeBeforeChange);
         double blAngVel = blChangeInRad / (timeAfterChange - timeBeforeChange);
