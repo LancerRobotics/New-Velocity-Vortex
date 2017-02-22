@@ -56,6 +56,7 @@ public class TestNormalizeSpeed extends LinearOpMode {
                 white_line = true;
             }
             normalizeSpeedDiaganol();
+            sleep(150);
         }
         balin.restAndSleep(this);
     }
