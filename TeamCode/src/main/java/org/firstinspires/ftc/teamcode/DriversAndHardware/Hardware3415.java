@@ -822,4 +822,9 @@ public class Hardware3415 {
         }
     }
 
+    public double readSonar(ModernRoboticsI2cRangeSensor sonar) {
+        double sonarData = sonar.cmUltrasonic();
+        return sonarData;
+    }
+
 }
