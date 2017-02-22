@@ -74,7 +74,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         while(!white_line && opModeIsActive()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
-            }
+             }
 
             telemetry.addData("Following White Line: ", balin.ods.getLightDetected());
             telemetry.addData("FL: ", balin.fl.getPower());
