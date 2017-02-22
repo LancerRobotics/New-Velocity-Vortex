@@ -30,7 +30,6 @@ public class TestNormalizeSpeed extends LinearOpMode {
         waitForStart();
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         if(opModeIsActive()) balin.fr.setPower(.25);
         if(opModeIsActive()) balin.br.setPower(-.25);
         if(opModeIsActive()) balin.fl.setPower(-.25);
@@ -44,7 +43,6 @@ public class TestNormalizeSpeed extends LinearOpMode {
         balin.restAndSleep(this);
         balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        balin.changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         balin.setDrivePower(.3);
         sleep(200);
         normalizeSpeedFourMotorsForward();
