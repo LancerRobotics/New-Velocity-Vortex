@@ -47,15 +47,15 @@ public class TestNormalizeSpeed extends LinearOpMode {
         */
         balin.bl.setPower(.9);
         balin.fr.setPower(.9);
-        balin.br.setPower(-.05);
-        balin.fl.setPower(-.05);
+        balin.br.setPower(-.1);
+        balin.fl.setPower(-.1);
         sleep(150);
-        normalizeSpeedDiaganol();
         boolean white_line = false;
         while ((!(white_line)) && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .6) {
                 white_line = true;
             }
+            normalizeSpeedDiaganol();
         }
         balin.restAndSleep(this);
     }
