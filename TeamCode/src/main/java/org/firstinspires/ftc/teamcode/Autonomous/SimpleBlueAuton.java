@@ -44,7 +44,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         sleep(2000);
         balin.collector.setPower(0);
         balin.door.setPosition(balin.DOOR_CLOSED);
-
+        sleep(500);
         //Shoot first particle
         balin.shoot(1.0);
         sleep(600);
@@ -56,7 +56,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         sleep(2000);
         balin.collector.setPower(0);
         balin.door.setPosition(balin.DOOR_CLOSED);
-
+        sleep(500);
         //Shoot second particle
         balin.shoot(1.0);
         sleep(600);
