@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriversAndHardware;
 
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -46,6 +47,7 @@ public class Hardware3415 {
             clampRight = null, rollerRelease = null, door = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
+    public ModernRoboticsI2cRangeSensor sonar = null, sonar2 = null;
     //public ColorSensor lineTrackerF = null;
     //public ColorSensor lineTrackerB = null;
     //
@@ -88,6 +90,8 @@ public class Hardware3415 {
     //public static final String lineTrackerFName = "lineTrackerF";
     //public static final String lineTrackerBName = "lineTrackerB";
     public static final String odsName = "ods";
+    public static final String sonarName = "sonar";
+    public static final String sonarName2 = "sonar2";
 
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
@@ -191,6 +195,7 @@ public class Hardware3415 {
             //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);
+            sonar = (ModernRoboticsI2cRangeSensor) hwMap.get("sonar");
             fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

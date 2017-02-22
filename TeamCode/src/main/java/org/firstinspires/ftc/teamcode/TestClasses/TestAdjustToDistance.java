@@ -13,10 +13,8 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 @Autonomous(name="Adjust To Distance Test", group="Test")
 public class TestAdjustToDistance extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
-    ModernRoboticsI2cRangeSensor sonar;
     public void runOpMode() {
         balin.init(hardwareMap, true);
-        sonar = (ModernRoboticsI2cRangeSensor) hardwareMap.get("sonar");
         waitForStart();
         adjustToDistance(12.0, .3);
     }
@@ -42,7 +40,7 @@ public class TestAdjustToDistance extends LinearOpMode {
     }
 
     public double readSonar() {
-        double sonarData = sonar.cmUltrasonic();
+        double sonarData = balin.sonar.cmUltrasonic();
         return sonarData;
     }
 }
