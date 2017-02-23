@@ -51,7 +51,6 @@ public class Hardware3415 {
             clampRight = null, rollerRelease = null, door = null;
     public AHRS navx_device = null;
     public ColorSensor colorSensor = null;
-    public ModernRoboticsI2cRangeSensor sonar = null, sonar2 = null;
     //public ColorSensor lineTrackerF = null;
     //public ColorSensor lineTrackerB = null;
     //
