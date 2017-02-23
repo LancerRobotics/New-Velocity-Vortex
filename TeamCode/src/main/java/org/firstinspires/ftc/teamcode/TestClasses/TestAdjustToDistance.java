@@ -16,31 +16,19 @@ public class TestAdjustToDistance extends LinearOpMode {
     public void runOpMode() {
         balin.init(hardwareMap, true);
         waitForStart();
-        adjustToDistance(12.0, .3);
+        adjustToDistance(12.0, .25);
     }
 
     public void adjustToDistance(double distance, double power) {
-        double currDistance = readSonar();
-        while (opModeIsActive() && !isStopRequested() && currDistance > distance + 2 && currDistance < distance - 2) {
-            if(currDistance < distance) {
+        if (balin.readSonar1() < distance - 2) {
+            while (balin.readSonar1() < distance - 2) {
                 balin.setDrivePower(-power);
-                while(currDistance < distance && opModeIsActive() && !isStopRequested()) {
-                    currDistance = readSonar();
-                }
             }
-            else if (currDistance > distance) {
+        } else if (balin.readSonar1() > distance + 2) {
+            while (balin.readSonar1() > distance + 2) {
                 balin.setDrivePower(power);
-                while(currDistance > distance && opModeIsActive() && !isStopRequested()) {
-                    currDistance = readSonar();
-                }
             }
-            currDistance = readSonar();
         }
         balin.restAndSleep(this);
-    }
-
-    public double readSonar() {
-        double sonarData = balin.sonar.cmUltrasonic();
-        return sonarData;
     }
 }

@@ -36,7 +36,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.navx_device.zeroYaw();
 
         //Move forward
-        balin.moveStraightnew(12, this);
+        balin.moveStraightnew(8, this);
 
         sleep(1400);
         balin.setDrivePower(0);
@@ -67,10 +67,10 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.shoot(0);
 
         sleep(200);
-        balin.gyroAngle(34, .25, this);
+        balin.gyroAngle(30, .25, this);
         sleep(200);
         boolean white_line = false;
-        balin.setDrivePower(.3);
+        balin.setDrivePower(.2);
         while(!white_line && opModeIsActive()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
@@ -85,7 +85,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         }
 
         balin.setDrivePower(0);
-        balin.gyroAngle(90-balin.getYaw(), .25, this);
+        balin.gyroAngle(43, .25, this);
         sleep(200);
         white_line = false;
         while (white_line  && opModeIsActive()) {

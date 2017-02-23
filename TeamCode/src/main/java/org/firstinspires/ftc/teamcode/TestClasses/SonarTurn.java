@@ -14,22 +14,23 @@ import java.lang.*;
 @Autonomous(name = "SonarTurn", group = "Competition")
 public class SonarTurn extends LinearOpMode {
     Hardware3415 balin = new Hardware3415();
+
     public void runOpMode() {
-            double currentDistance1 = balin.readSonar1();
-            double currentDistance2 = balin.readSonar2();
-            long roundDistance1 = Math.round(currentDistance1);
-            long roundDistance2 = Math.round(currentDistance2);
-
-
+        balin.init(hardwareMap, true);
+        waitForStart();
+        double currentDistance1 = balin.readSonar1();
+        double currentDistance2 = balin.readSonar2();
+        long roundDistance1 = Math.round(currentDistance1);
+        long roundDistance2 = Math.round(currentDistance2);
         while (roundDistance1 != roundDistance2) {
             if (roundDistance1 < roundDistance2) {
-                balin.turn(0.1);
+                balin.turn(0.2);
                 currentDistance1 = balin.readSonar1();
                 currentDistance2 = balin.readSonar2();
                 roundDistance1 = Math.round(currentDistance1);
                 roundDistance2 = Math.round(currentDistance2);
             } else if (roundDistance1 > roundDistance2) {
-                balin.turn(-0.1);
+                balin.turn(-0.2);
                 currentDistance1 = balin.readSonar1();
                 currentDistance2 = balin.readSonar2();
                 roundDistance1 = Math.round(currentDistance1);

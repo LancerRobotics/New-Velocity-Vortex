@@ -99,7 +99,7 @@ public class Hardware3415 {
     /* Other Important Data */
     public static final int NAVX_DIM_I2C_PORT = 0;
     public static final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
-    public static final double HEADING_THRESHOLD = 1.2;      // As tight as we can make it with an integer gyro
+    public static final double HEADING_THRESHOLD = 1;      // As tight as we can make it with an integer gyro
     public static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
     public static final double P_DRIVE_COEFF = 0.15;
     public static final double MAX_MOTOR_SPEED = 0.86;
@@ -108,7 +108,6 @@ public class Hardware3415 {
 
     byte[] range1Cache; //The read will return an array of bytes. They are stored in this variable
 
-    I2cAddr RANGE1ADDRESS = new I2cAddr(0x28); //Default I2C address for MR Range (7-bit)
     public static final int RANGE1_REG_START = 0x04; //Register to start reading
     public static final int RANGE1_READ_LENGTH = 2; //Number of byte to read
 
@@ -117,7 +116,6 @@ public class Hardware3415 {
 
     byte[] range2Cache;
 
-    I2cAddr RANGE2ADDRESS = new I2cAddr(0x38);
     public static final int RANGE2_REG_START = 0x04;
     public static final int RANGE2_READ_LENGTH = 2;
 
@@ -217,11 +215,11 @@ public class Hardware3415 {
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);
             RANGE1 = hwMap.i2cDevice.get(sonarName);
-            RANGE1Reader = new I2cDeviceSynchImpl(RANGE1, RANGE1ADDRESS, false);
+            RANGE1Reader = new I2cDeviceSynchImpl(RANGE1, I2cAddr.create8bit(0x28), false);
             RANGE1Reader.engage();
 
             RANGE2 = hwMap.i2cDevice.get(sonarName2);
-            RANGE2Reader = new I2cDeviceSynchImpl(RANGE2, RANGE2ADDRESS, false);
+            RANGE2Reader = new I2cDeviceSynchImpl(RANGE2, I2cAddr.create8bit(0x38), false);
             RANGE2Reader.engage();
 
             fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -886,6 +884,19 @@ public class Hardware3415 {
         range2Cache = RANGE2Reader.read(RANGE2_REG_START, RANGE2_READ_LENGTH);
         double sonarData = range2Cache[0] & 0xFF;
         return sonarData;
+    }
+
+    public void adjustToDistance(double distance, double power, LinearOpMode opMode) {
+        if (readSonar1() < distance - 2) {
+            while (readSonar1() < distance - 2) {
+                setDrivePower(-power);
+            }
+        } else if (readSonar1() > distance + 2) {
+            while (readSonar1() > distance + 2) {
+                setDrivePower(power);
+            }
+        }
+        restAndSleep(opMode);
     }
 
 }
