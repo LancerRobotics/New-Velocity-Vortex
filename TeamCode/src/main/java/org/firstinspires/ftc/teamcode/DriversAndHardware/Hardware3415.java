@@ -396,7 +396,33 @@ public class Hardware3415 {
             return true;
         return false;
     }
+    public boolean moveStraightnew(double inches, LinearOpMode opMode){
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        fr.setTargetPosition(targetTick);
+        setDrivePower(.3);
+        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive()){
 
+        }
+        setDrivePower(0);
+        return true;
+    }
+    public boolean turnNew(double inches, LinearOpMode opMode){
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
+        fr.setTargetPosition(targetTick);
+        fr.setPower(-.25);
+        fl.setPower(.25);
+        br.setPower(-.25);
+        bl.setPower(.25);
+        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive()){
+
+        }
+        setDrivePower(0);
+        return true;
+    }
     public void moveStraight1(int inches, boolean backwards, LinearOpMode opMode) {
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

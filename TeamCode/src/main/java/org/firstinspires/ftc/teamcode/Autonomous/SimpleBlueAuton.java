@@ -36,12 +36,12 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.navx_device.zeroYaw();
 
         //Move forward
-        balin.setDrivePower(0.2);
+        balin.moveStraightnew(12, this);
 
         sleep(1400);
         balin.setDrivePower(0);
         sleep(100);
-        /*
+
         //Get first particle into the shooter
         balin.door.setPosition(balin.DOOR_OPEN);
         balin.collector.setPower(1.0);
@@ -65,7 +65,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.shoot(1.0);
         sleep(600);
         balin.shoot(0);
-        */
+
         sleep(200);
         balin.gyroAngle(34, .25, this);
         sleep(200);
