@@ -889,15 +889,32 @@ public class Hardware3415 {
     }
 
     public void adjustToDistance(double distance, double power, LinearOpMode opMode) {
-        if (readSonar1() < distance - 2) {
-            while (readSonar1() < distance - 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
-                setDrivePower(-power);
+        boolean done = false;
+        while(opMode.opModeIsActive() && !opMode.isStopRequested() && !done) {
+            if (readSonar1() < distance - 1) {
+                while (readSonar1() < distance - 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                    setDrivePower(-power);
+                }
+            } else if (readSonar1() > distance + 1) {
+                while (readSonar1() > distance + 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                    setDrivePower(power);
+                }
+            } else {
+                done = true;
             }
-        } else if (readSonar1() > distance + 2) {
-            while (readSonar1() > distance + 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
-                setDrivePower(power);
-            }
+            restAndSleep(opMode);
         }
-        if(opMode.opModeIsActive() && !opMode.isStopRequested()) restAndSleep(opMode);
+    }
+
+    public String detectColor(){
+        if(colorSensor.red()>9){
+            return "Red";
+        }
+        else if(colorSensor.blue()>9){
+            return "Blue";
+        }
+        else{
+            return "N/A";
+        }
     }
 }

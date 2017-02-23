@@ -36,6 +36,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.navx_device.zeroYaw();
         balin.moveStraightnew(8, this);
         balin.setDrivePower(0);
+        balin.collector.setPower(0);
         sleep(500);
 
         //Shoot first particle
@@ -58,6 +59,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.gyroAngle(37, .25, this);
         balin.restAndSleep(this);
         boolean white_line = false;
+        balin.collector.setPower(-1.0);
         balin.setDrivePower(.2);
         while(!white_line && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
@@ -70,30 +72,63 @@ public class SimpleBlueAuton extends LinearOpMode {
             telemetry.addData("BL:", balin.bl.getPower());
             telemetry.update();
         }
-
+        balin.collector.setPower(0);
         balin.setDrivePower(0);
         balin.rest();
         sleep(150);
         balin.navx_device.zeroYaw();
-        balin.gyroAngle(41, .25, this);
+        balin.gyroAngle(42, .25, this);
         balin.rest();
-        sleep(150);
+        sleep(200);
         telemetry.addLine("Moving To Strafe");
         telemetry.update();
         white_line = false;
-        while (white_line  && opModeIsActive() && !isStopRequested()) {
+        while (!white_line  && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
             }
-            balin.fr.setPower(-.25);
-            balin.br.setPower(.25);
-            balin.fl.setPower(.25);
-            balin.bl.setPower(-.25);
+            balin.fr.setPower(-.3);
+            balin.br.setPower(.3);
+            balin.fl.setPower(.3);
+            balin.bl.setPower(-.3);
         }
+        balin.rest();
         telemetry.addLine("Strafe Complete");
-        sleep(1000);
-        //Driving Forward to knock the cap ball off
         balin.restAndSleep(this);
+        telemetry.addLine("Starting Adjust to 12 cm");
+        telemetry.update();
+        balin.adjustToDistance(12, .18, this);
+        telemetry.addLine("Detecting Color");
+        telemetry.update();
+        String color = balin.detectColor();
+        balin.setDrivePower(0);
+        if(color.equals("Red")){
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_PUSH);
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_INITIAL_STATE);
+            telemetry.addData("Color: ", color);
+            telemetry.update();
+            sleep(500);
+        } else if(color.equals("Blue")) {
+            balin.beaconPushLeft.setPosition(balin.LEFT_BEACON_INITIAL_STATE);
+            balin.beaconPushRight.setPosition(balin.RIGHT_BEACON_PUSH);
+            telemetry.addData("Color: ", color);
+            telemetry.update();
+            sleep(500);
+        } else{
+            telemetry.addData("Color: ", color);
+            telemetry.update();
+            sleep(500);
+        }
+        telemetry.addLine("Hitting Beacon");
+        telemetry.update();
+        if(color.equals("Red") || color.equals("Blue")) {
+            balin.moveStraightnew(4, this);
+        }
+        balin.rest();
+        sleep(250);
+        telemetry.addLine("Preppring For Next Strafe");
+        balin.adjustToDistance(15, .18, this);
+        balin.rest();
     }
     public void turnToOriginalAngle() {
         double AngleToTurnTo = balin.navx_device.getYaw() * -1;
