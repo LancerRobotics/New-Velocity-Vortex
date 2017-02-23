@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
             Balin.rollerRelease.setPosition(Balin.ROLLER_RELEASE_OUT);
 
             // run until the end of the match (driver presses STOP)
-            while (opModeIsActive()) {
+            while (opModeIsActive() && !isStopRequested()) {
 
                 limitState = limit.getState();
 

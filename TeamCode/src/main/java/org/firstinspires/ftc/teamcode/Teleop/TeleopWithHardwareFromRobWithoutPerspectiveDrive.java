@@ -56,7 +56,6 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
  */
 
 @TeleOp(name="Teleop Without Perspective Drive", group="Competition")
-
 public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMode {
 
     /* Declare OpMode members. */

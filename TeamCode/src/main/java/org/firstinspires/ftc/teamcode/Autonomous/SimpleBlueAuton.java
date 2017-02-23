@@ -33,45 +33,36 @@ public class SimpleBlueAuton extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         //balin.turn();
-        if(opModeIsActive() && !isStopRequested()) balin.navx_device.zeroYaw();
-        //Move forward
-        if(opModeIsActive() && !isStopRequested()) balin.moveStraightnew(8, this);
-        if(opModeIsActive() && !isStopRequested()) sleep(1400);
-        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(0);
-        if(opModeIsActive() && !isStopRequested()) sleep(100);
-        //Get first particle into the shooter
-        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_OPEN);
-        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(1.0);
-        if(opModeIsActive() && !isStopRequested()) sleep(2000);
-        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(0);
-        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_CLOSED);
-        if(opModeIsActive() && !isStopRequested()) sleep(500);
+        balin.navx_device.zeroYaw();
+        balin.moveStraightnew(8, this);
+        balin.setDrivePower(0);
+        sleep(500);
+
         //Shoot first particle
-        if(opModeIsActive() && !isStopRequested()) balin.shoot(1.0);
-        if(opModeIsActive() && !isStopRequested()) sleep(600);
-        if(opModeIsActive() && !isStopRequested()) balin.shoot(0);
+        balin.shoot(1.0);
+        sleep(600);
+        balin.shoot(0);
 
         //Get second particle into the shooter
-        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_OPEN);
-        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(1.0);
-        if(opModeIsActive() && !isStopRequested()) sleep(2000);
-        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(0);
-        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_CLOSED);
-        if(opModeIsActive() && !isStopRequested()) sleep(500);
+        balin.door.setPosition(balin.DOOR_OPEN);
+        balin.collector.setPower(1.0);
+        sleep(2000);
+        balin.collector.setPower(0);
+        balin.door.setPosition(balin.DOOR_CLOSED);
+        sleep(500);
         //Shoot second particle
-        if(opModeIsActive() && !isStopRequested()) balin.shoot(1.0);
-        if(opModeIsActive() && !isStopRequested()) sleep(600);
-        if(opModeIsActive() && !isStopRequested()) balin.shoot(0);
-        if(opModeIsActive() && !isStopRequested()) sleep(200);
-        if(opModeIsActive() && !isStopRequested()) balin.gyroAngle(31, .25, this);
-        if(opModeIsActive() && !isStopRequested()) balin.restAndSleep(this);
+        balin.shoot(1.0);
+        sleep(600);
+        balin.shoot(0);
+        sleep(200);
+        balin.gyroAngle(37, .25, this);
+        balin.restAndSleep(this);
         boolean white_line = false;
-        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(.2);
+        balin.setDrivePower(.2);
         while(!white_line && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
              }
-
             telemetry.addData("Following White Line: ", balin.ods.getLightDetected());
             telemetry.addData("FL: ", balin.fl.getPower());
             telemetry.addData("FR: ", balin.fr.getPower());
@@ -80,10 +71,15 @@ public class SimpleBlueAuton extends LinearOpMode {
             telemetry.update();
         }
 
-        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(0);
-        if(opModeIsActive() && !isStopRequested()) balin.restAndSleep(this);
-        if(opModeIsActive() && !isStopRequested()) balin.gyroAngle(43, .25, this);
-        if(opModeIsActive() && !isStopRequested()) sleep(200);
+        balin.setDrivePower(0);
+        balin.rest();
+        sleep(150);
+        balin.navx_device.zeroYaw();
+        balin.gyroAngle(41, .25, this);
+        balin.rest();
+        sleep(150);
+        telemetry.addLine("Moving To Strafe");
+        telemetry.update();
         white_line = false;
         while (white_line  && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
@@ -94,8 +90,10 @@ public class SimpleBlueAuton extends LinearOpMode {
             balin.fl.setPower(.25);
             balin.bl.setPower(-.25);
         }
+        telemetry.addLine("Strafe Complete");
+        sleep(1000);
         //Driving Forward to knock the cap ball off
-
+        balin.restAndSleep(this);
     }
     public void turnToOriginalAngle() {
         double AngleToTurnTo = balin.navx_device.getYaw() * -1;

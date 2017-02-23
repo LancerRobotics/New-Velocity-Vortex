@@ -714,6 +714,8 @@ public class Hardware3415 {
             // keep looping while we are still active, and not on heading.
             while (opMode.opModeIsActive() && !opMode.isStopRequested() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
                 // Update telemetry & Allow time for other processes to run.
+                opMode.telemetry.addData("Current Yaw", navx_device.getYaw());
+                opMode.telemetry.addData("Target Yaw", angle);
                 opMode.telemetry.update();
                 waitForTick(40, opMode);
             }
@@ -898,5 +900,4 @@ public class Hardware3415 {
         }
         if(opMode.opModeIsActive() && !opMode.isStopRequested()) restAndSleep(opMode);
     }
-
 }
