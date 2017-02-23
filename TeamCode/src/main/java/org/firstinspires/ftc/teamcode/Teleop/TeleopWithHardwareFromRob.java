@@ -95,7 +95,7 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
         Balin.rollerRelease.setPosition(Balin.ROLLER_RELEASE_OUT);
 
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !isStopRequested()) {
 
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
             if (gamepad1.right_stick_button && gamepad1.left_stick_button) {
@@ -174,15 +174,15 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             }
 
             //Control servo toggling for beacon pushers and door
-            Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed);
+            Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed, this);
             Balin.beaconPushLeftPos = Balin.beaconPushLeftToggleReturnArray[0];
             Balin.beaconPushLeftButtonPressed = Balin.beaconPushLeftToggleReturnArray[1] == 1;
 
-            Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed);
+            Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed, this);
             Balin.beaconPushRightPos = Balin.beaconPushRightToggleReturnArray[0];
             Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
-            Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed);
+            Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed, this);
             Balin.doorPos = Balin.doorToggleReturnArray[0];
             Balin.doorButtonPressed = Balin.doorToggleReturnArray[1] == 1;
 
@@ -193,6 +193,10 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             else if (gamepad2.y) {
                 Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_UP);
                 Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_UP);
+            }
+            if(gamepad2.b) {
+                Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_INITIAL_STATE);
+                Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_INITIAL_STATE);
             }
 
             //Returns important data to the driver.
@@ -208,7 +212,7 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            Balin.waitForTick(40);
+            Balin.waitForTick(40, this);
         }
     }
 }

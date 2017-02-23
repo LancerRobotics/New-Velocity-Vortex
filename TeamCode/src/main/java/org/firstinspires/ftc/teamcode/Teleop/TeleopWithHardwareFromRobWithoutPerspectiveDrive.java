@@ -81,31 +81,31 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
         Balin.rollerRelease.setPosition(Balin.ROLLER_RELEASE_OUT);
 
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !isStopRequested()) {
 
             //Sets controls for linear slides on forklift
             if (Math.abs(gamepad2.right_stick_y) > .15) {
-                if(opModeIsActive()) Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-                if(opModeIsActive()) Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
             } else {
-                if(opModeIsActive()) Balin.liftLeft.setPower(0);
-                if(opModeIsActive()) Balin.liftRight.setPower(0);
+                Balin.liftLeft.setPower(0);
+                Balin.liftRight.setPower(0);
             }
 
             //Sets controls for shooter
             if (gamepad1.left_trigger > .15) {
-                if(opModeIsActive()) Balin.shoot(1);
+                Balin.shoot(1);
             } else if (gamepad1.left_bumper) {
-                if(opModeIsActive()) Balin.shoot(0);
+                Balin.shoot(0);
             }
 
             //Sets controls for collector
             if (gamepad1.right_trigger > 0.15) {
-                if(opModeIsActive()) Balin.collector.setPower(0.99);
+                Balin.collector.setPower(0.99);
             } else if (gamepad1.right_bumper) {
-                if(opModeIsActive()) Balin.collector.setPower(-0.99);
+                Balin.collector.setPower(-0.99);
             } else {
-                if(opModeIsActive()) Balin.collector.setPower(0);
+                Balin.collector.setPower(0);
             }
 
             //Sets the gamepad values to x, y, and z
@@ -121,63 +121,69 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
             brPower = Range.scale((x - y - z), -1, 1, -Balin.MAX_MOTOR_SPEED, Balin.MAX_MOTOR_SPEED);
 
             //Sets each motor power to the correct power
-            if(opModeIsActive()) Balin.fl.setPower(flPower);
-            if(opModeIsActive()) Balin.fr.setPower(frPower);
-            if(opModeIsActive()) Balin.bl.setPower(blPower);
-            if(opModeIsActive()) Balin.br.setPower(brPower);
+            Balin.fl.setPower(flPower);
+            Balin.fr.setPower(frPower);
+            Balin.bl.setPower(blPower);
+            Balin.br.setPower(brPower);
 
             //Backup movement if the above method fails
+            /*
             if (x == 0 && y == 0 && z == 0) {
                 if (gamepad1.dpad_right) {
-                    if(opModeIsActive()) Balin.bl.setPower(Balin.MAX_MOTOR_SPEED);
-                    if(opModeIsActive()) Balin.fl.setPower(Balin.MAX_MOTOR_SPEED);
+                    Balin.bl.setPower(Balin.MAX_MOTOR_SPEED);
+                    Balin.fl.setPower(Balin.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_up) {
-                    if(opModeIsActive()) Balin.bl.setPower(-Balin.MAX_MOTOR_SPEED);
-                    if(opModeIsActive()) Balin.fl.setPower(-Balin.MAX_MOTOR_SPEED);
+                    Balin.bl.setPower(-Balin.MAX_MOTOR_SPEED);
+                    Balin.fl.setPower(-Balin.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_down) {
-                    if(opModeIsActive()) Balin.br.setPower(Balin.MAX_MOTOR_SPEED);
-                    if(opModeIsActive()) Balin.fr.setPower(Balin.MAX_MOTOR_SPEED);
+                    Balin.br.setPower(Balin.MAX_MOTOR_SPEED);
+                    Balin.fr.setPower(Balin.MAX_MOTOR_SPEED);
                 } else if (gamepad1.dpad_left) {
-                    if(opModeIsActive()) Balin.br.setPower(-Balin.MAX_MOTOR_SPEED);
-                    if(opModeIsActive()) Balin.fr.setPower(-Balin.MAX_MOTOR_SPEED);
+                    Balin.br.setPower(-Balin.MAX_MOTOR_SPEED);
+                    Balin.fr.setPower(-Balin.MAX_MOTOR_SPEED);
                 }
             }
+            */
 
             //Control servo toggling for beacon pushers and clamps
-            Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed);
+            Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed, this);
             Balin.beaconPushLeftPos = Balin.beaconPushLeftToggleReturnArray[0];
             Balin.beaconPushLeftButtonPressed = Balin.beaconPushLeftToggleReturnArray[1] == 1;
 
-            Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed);
+            Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed, this);
             Balin.beaconPushRightPos = Balin.beaconPushRightToggleReturnArray[0];
             Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
-            Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed);
+            Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed, this);
             Balin.doorPos = Balin.doorToggleReturnArray[0];
             Balin.doorButtonPressed = Balin.doorToggleReturnArray[1] == 1;
 
             if(gamepad2.a) {
-                if(opModeIsActive()) Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_CLAMP);
-                if(opModeIsActive()) Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_CLAMP);
+                Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_CLAMP);
+                Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_CLAMP);
             }
             else if (gamepad2.y) {
-                if(opModeIsActive()) Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_UP);
-                if(opModeIsActive()) Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_UP);
+                Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_UP);
+                Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_UP);
+            }
+            if(gamepad2.b) {
+                Balin.clampLeft.setPosition(Balin.LEFT_CLAMP_INITIAL_STATE);
+                Balin.clampRight.setPosition(Balin.RIGHT_CLAMP_INITIAL_STATE);
             }
 
             //Returns important data to the driver.
-            if(opModeIsActive()) telemetry.addData("GamePad 1 Right Stick X Actual", gamepad1.right_stick_x);
-            if(opModeIsActive()) telemetry.addData("GamePad 1 Left Stick Y Actual", gamepad1.left_stick_y);
-            if(opModeIsActive()) telemetry.addData("GamePad 1 Left Stick X Actual", gamepad1.left_stick_x);
-            if(opModeIsActive()) telemetry.addData("GamePad 1 X", gamepad1.x);
-            if(opModeIsActive()) telemetry.addData("FR Power", Balin.fr.getPower());
-            if(opModeIsActive()) telemetry.addData("FL Power", Balin.fl.getPower());
-            if(opModeIsActive()) telemetry.addData("BR Power", Balin.br.getPower());
-            if(opModeIsActive()) telemetry.addData("BL Power", Balin.bl.getPower());
-            if(opModeIsActive()) telemetry.update();
+            telemetry.addData("GamePad 1 Right Stick X Actual", gamepad1.right_stick_x);
+            telemetry.addData("GamePad 1 Left Stick Y Actual", gamepad1.left_stick_y);
+            telemetry.addData("GamePad 1 Left Stick X Actual", gamepad1.left_stick_x);
+            telemetry.addData("GamePad 1 X", gamepad1.x);
+            telemetry.addData("FR Power", Balin.fr.getPower());
+            telemetry.addData("FL Power", Balin.fl.getPower());
+            telemetry.addData("BR Power", Balin.br.getPower());
+            telemetry.addData("BL Power", Balin.bl.getPower());
+            telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            if(opModeIsActive()) Balin.waitForTick(40);
+            Balin.waitForTick(40, this);
         }
     }
 }

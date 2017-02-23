@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDevice;
@@ -248,12 +249,12 @@ public class Hardware3415 {
      *
      * @param periodMs Length of wait cycle in mSec.
      */
-    public void waitForTick(long periodMs) {
+    public void waitForTick(long periodMs, LinearOpMode opMode) {
 
         long remaining = periodMs - (long) period.milliseconds();
 
         // sleep for the remaining portion of the regular cycle period.
-        if (remaining > 0) {
+        if (remaining > 0 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
             try {
                 Thread.sleep(remaining);
             } catch (InterruptedException e) {
@@ -283,48 +284,48 @@ public class Hardware3415 {
         piston.setPower(0);
     }
 
-    public int[] servoToggle(boolean button, Servo servo, double[] positions, int currentPos, boolean pressed) {
+    public int[] servoToggle(boolean button, Servo servo, double[] positions, int currentPos, boolean pressed, LinearOpMode opMode) {
         //Creates a variable saying the number of servo positions
         int servoPositions = positions.length;
 
         //Checks to see if a button is pressed
-        if (button) {
+        if (button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
             pressed = true;
         }
 
         //If the button is pressed, the servo is set to the value following the previous servo value in the values array.
         //The method also t ells us what is the current position (1, 2, or 3) of the servo and will say if the button is no longer pressed
-        if (pressed) {
-            if (servoPositions == 2) {
-                if (currentPos == 1) {
+        if (pressed && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            if (servoPositions == 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                if (currentPos == 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     servo.setPosition(positions[1]);
-                    if (!button) {
+                    if (!button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                         pressed = false;
                         currentPos = 2;
                     }
-                } else if (currentPos == 2) {
+                } else if (currentPos == 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     servo.setPosition(positions[0]);
-                    if (!button) {
+                    if (!button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                         pressed = false;
                         currentPos = 1;
                     }
                 }
-            } else if (servoPositions == 3) {
-                if (currentPos == 1) {
+            } else if (servoPositions == 3 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                if (currentPos == 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     servo.setPosition(positions[1]);
-                    if (!button) {
+                    if (!button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                         pressed = false;
                         currentPos = 2;
                     }
-                } else if (currentPos == 2) {
+                } else if (currentPos == 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     servo.setPosition(positions[2]);
-                    if (!button) {
+                    if (!button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                         pressed = false;
                         currentPos = 3;
                     }
-                } else if (currentPos == 3) {
+                } else if (currentPos == 3 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     servo.setPosition(positions[0]);
-                    if (!button) {
+                    if (!button && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                         pressed = false;
                         currentPos = 1;
                     }
@@ -333,11 +334,9 @@ public class Hardware3415 {
         }
 
         //Returns values for toggle return arrays
-        int boolPressed;
-        if (pressed) {
+        int boolPressed = 0;
+        if (pressed && opMode.opModeIsActive() && !opMode.isStopRequested()) {
             boolPressed = 1;
-        } else {
-            boolPressed = 0;
         }
         int returnArray[] = new int[2];
         returnArray[0] = currentPos;
@@ -377,20 +376,20 @@ public class Hardware3415 {
 
     }
 
-    public boolean motorsBusy(){
-        if(fl.isBusy() && fr.isBusy() && bl.isBusy() && br.isBusy())
+    public boolean motorsBusy(LinearOpMode opMode){
+        if(fl.isBusy() && fr.isBusy() && bl.isBusy() && br.isBusy() && opMode.opModeIsActive() && !opMode.isStopRequested())
             return true;
         return false;
     }
 
-    public boolean motorsReset() {
-        if (fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0)
+    public boolean motorsReset(LinearOpMode opMode) {
+        if (fr.getCurrentPosition() == 0 && bl.getCurrentPosition() == 0 && fl.getCurrentPosition() == 0 && br.getCurrentPosition() == 0 && opMode.opModeIsActive() && !opMode.isStopRequested())
             return true;
         return false;
     }
 
-    public boolean motorsTarget(int targetTick) {
-        if ((fl.getCurrentPosition() < (targetTick - 50) || bl.getCurrentPosition() < (targetTick - 50) || br.getCurrentPosition() < (targetTick - 50) || fr.getCurrentPosition() < (targetTick - 50)))
+    public boolean motorsTarget(int targetTick, LinearOpMode opMode) {
+        if ((fl.getCurrentPosition() < (targetTick - 50) || bl.getCurrentPosition() < (targetTick - 50) || br.getCurrentPosition() < (targetTick - 50) || fr.getCurrentPosition() < (targetTick - 50)) && opMode.opModeIsActive() && !opMode.isStopRequested())
             return true;
         return false;
     }
@@ -400,7 +399,7 @@ public class Hardware3415 {
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
         fr.setTargetPosition(targetTick);
         setDrivePower(.3);
-        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive()){
+        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive() && !opMode.isStopRequested()){
 
         }
         setDrivePower(0);
@@ -415,7 +414,7 @@ public class Hardware3415 {
         fl.setPower(.25);
         br.setPower(-.25);
         bl.setPower(.25);
-        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive()){
+        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive() && !opMode.isStopRequested()){
 
         }
         setDrivePower(0);
@@ -425,30 +424,30 @@ public class Hardware3415 {
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
-        if (!backwards) {
+        if (!backwards && opMode.opModeIsActive() && !opMode.isStopRequested()) {
 
-            if (motorsReset()) {
+            if (motorsReset(opMode)) {
                 fr.setTargetPosition(targetTick);
                 fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(.5);
-                opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                opMode.telemetry.addData("Encoders Reset?", motorsReset(opMode));
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             setDrivePower(0.0);
             fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } else {
-            if (motorsReset()) {
+            if (motorsReset(opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(.5);
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -465,30 +464,30 @@ public class Hardware3415 {
         bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
-        if (!backwards) {
+        if (!backwards && opMode.opModeIsActive() && !opMode.isStopRequested()) {
 
-            if (motorsReset()) {
+            if (motorsReset(opMode)) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                opMode.telemetry.addData("Encoders Reset?", motorsReset(opMode));
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } else {
-            if (motorsReset()) {
+            if (motorsReset(opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            while ((!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested())) {
+            while ((!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested())) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -504,8 +503,8 @@ public class Hardware3415 {
         opMode.telemetry.update();
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
-        if (!backwards) {
-            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset()) {
+        if (!backwards && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset(opMode)) {
                 opMode.telemetry.addLine("Waiting For Motors To Reset");
                 opMode.telemetry.update();
             }
@@ -515,18 +514,18 @@ public class Hardware3415 {
             opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
             opMode.telemetry.update();
             changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                opMode.telemetry.addData("Encoders Reset?", motorsReset(opMode));
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } else {
-            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset()) {
+            while (opMode.opModeIsActive() && !opMode.isStopRequested() && !motorsReset(opMode)) {
                 opMode.telemetry.addLine("Waiting For Motors To Reset");
                 opMode.telemetry.update();
             }
@@ -536,9 +535,9 @@ public class Hardware3415 {
             opMode.telemetry.addLine("Changing Motor Mode To Run To Position");
             opMode.telemetry.update();
             changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -553,38 +552,35 @@ public class Hardware3415 {
         changeDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
-        if (!backwards) {
-
-            if (motorsReset()) {
+        if (!backwards && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            if (motorsReset(opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
-                while (!motorsTarget(targetTick) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     //setDrivePower(coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                     setDrivePower(.3);
-                    opMode.telemetry.addData("Encoders Reset?", motorsReset());
+                    opMode.telemetry.addData("Encoders Reset?", motorsReset(opMode));
                     opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                     opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                     opMode.telemetry.update();
-                    waitForTick(40);
+                    waitForTick(40, opMode);
                 }
             }
             changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
             rest();
         } else {
-            if (motorsReset()) {
+            if (motorsReset(opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDriveTarget(targetTick);
                 changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
                 while ((fl.getCurrentPosition() < (fl.getTargetPosition() - 50) || bl.getCurrentPosition() < (bl.getTargetPosition() - 50) || br.getCurrentPosition() < (br.getTargetPosition() - 50) || fr.getCurrentPosition() < (fr.getTargetPosition() - 50)) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     //setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                     setDrivePower(-.3);
-                    waitForTick(40);
+                    waitForTick(40, opMode);
                 }
             }
             changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
             rest();
         }
     }
@@ -615,18 +611,20 @@ public class Hardware3415 {
     }
 
     public void timeMove(int seconds, boolean backwards, LinearOpMode opMode) {
-        if (!backwards) {
+        if (!backwards && opMode.opModeIsActive() && !opMode.isStopRequested()) {
             fr.setPower(.4);
             fl.setPower(.4);
             br.setPower(.4);
             bl.setPower(.4);
             opMode.sleep(seconds * 1000);
         } else {
-            fr.setPower(-.4);
-            fl.setPower(-.4);
-            br.setPower(-.4);
-            bl.setPower(-.4);
-            opMode.sleep(seconds * 1000);
+            if(opMode.opModeIsActive() && !opMode.isStopRequested()) {
+                fr.setPower(-.4);
+                fl.setPower(-.4);
+                br.setPower(-.4);
+                bl.setPower(-.4);
+                opMode.sleep(seconds * 1000);
+            }
         }
     }
 
@@ -652,10 +650,12 @@ public class Hardware3415 {
 
         // calculate error in -179 to +180 range  (
         robotError = targetAngle - navx_device.getYaw();
-        while (robotError > 180 && opMode.opModeIsActive() && !opMode.isStopRequested()) robotError -= 360;
-        waitForTick(40);
-        while (robotError <= -180 && opMode.opModeIsActive() && !opMode.isStopRequested()) robotError += 360;
-        waitForTick(40);
+        while (robotError > 180 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            robotError -= 360;
+        }
+        while (robotError <= -180 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            robotError += 360;
+        }
         return robotError;
     }
 
@@ -681,7 +681,7 @@ public class Hardware3415 {
         error = getError(angle, opMode);
 
         //Tells the robot to move according to the angle of the robot
-        if (Math.abs(error) <= HEADING_THRESHOLD) { //Allows the bot to reach an angle within the range of heading_threshold
+        if (Math.abs(error) <= HEADING_THRESHOLD && opMode.opModeIsActive() && !opMode.isStopRequested()) { //Allows the bot to reach an angle within the range of heading_threshold
             rest(); // stops all motors if navx returns a heading that is within
             steer = 0.0;
             leftSpeed = 0.0;
@@ -715,7 +715,7 @@ public class Hardware3415 {
             while (opMode.opModeIsActive() && !opMode.isStopRequested() && !onHeading(speed, angle, P_TURN_COEFF, opMode)) {
                 // Update telemetry & Allow time for other processes to run.
                 opMode.telemetry.update();
-                waitForTick(40);
+                waitForTick(40, opMode);
             }
         }
         //Brakes all motors
@@ -888,15 +888,15 @@ public class Hardware3415 {
 
     public void adjustToDistance(double distance, double power, LinearOpMode opMode) {
         if (readSonar1() < distance - 2) {
-            while (readSonar1() < distance - 2) {
+            while (readSonar1() < distance - 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(-power);
             }
         } else if (readSonar1() > distance + 2) {
-            while (readSonar1() > distance + 2) {
+            while (readSonar1() > distance + 2 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(power);
             }
         }
-        restAndSleep(opMode);
+        if(opMode.opModeIsActive() && !opMode.isStopRequested()) restAndSleep(opMode);
     }
 
 }

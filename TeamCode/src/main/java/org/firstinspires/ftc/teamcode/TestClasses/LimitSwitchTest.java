@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.TestClasses;
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.Range;
 
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
 /**
  * Created by dina.brustein on 2/23/2017.
  */
-
+@TeleOp(name="Limit Switch Test", group="Test")
     public class LimitSwitchTest extends LinearOpMode{
 
         /* Declare OpMode members. */
@@ -54,10 +55,6 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
             while (opModeIsActive()) {
 
                 limitState = limit.getState();
-                if (limitState == true){
-                    Balin.liftLeft.setPower(0);
-                    Balin.liftRight.setPower(0);
-                }
 
                 // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
                 if (gamepad1.right_stick_button && gamepad1.left_stick_button) {
@@ -65,9 +62,12 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
                 }
 
                 //Sets controls for linear slides on forklift
-                if (Math.abs(gamepad2.right_stick_y) > .15) {
+                if (Math.abs(gamepad2.right_stick_y) > .15 && !limitState) {
                     Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
                     Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                } else if(gamepad2.right_stick_y < .15 && limitState) {
+                    Balin.liftLeft.setPower(0);
+                    Balin.liftRight.setPower(0);
                 } else {
                     Balin.liftLeft.setPower(0);
                     Balin.liftRight.setPower(0);
@@ -136,15 +136,15 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
                 }
 
                 //Control servo toggling for beacon pushers and door
-                Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed);
+                Balin.beaconPushLeftToggleReturnArray = Balin.servoToggle(gamepad2.left_trigger > .15, Balin.beaconPushLeft, Balin.beaconPushLeftPositions, Balin.beaconPushLeftPos, Balin.beaconPushLeftButtonPressed, this);
                 Balin.beaconPushLeftPos = Balin.beaconPushLeftToggleReturnArray[0];
                 Balin.beaconPushLeftButtonPressed = Balin.beaconPushLeftToggleReturnArray[1] == 1;
 
-                Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed);
+                Balin.beaconPushRightToggleReturnArray = Balin.servoToggle(gamepad2.right_trigger > .15, Balin.beaconPushRight, Balin.beaconPushRightPositions, Balin.beaconPushRightPos, Balin.beaconPushRightButtonPressed, this);
                 Balin.beaconPushRightPos = Balin.beaconPushRightToggleReturnArray[0];
                 Balin.beaconPushRightButtonPressed = Balin.beaconPushRightToggleReturnArray[1] == 1;
 
-                Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed);
+                Balin.doorToggleReturnArray = Balin.servoToggle(gamepad1.a, Balin.door, Balin.doorPositions, Balin.doorPos, Balin.doorButtonPressed, this);
                 Balin.doorPos = Balin.doorToggleReturnArray[0];
                 Balin.doorButtonPressed = Balin.doorToggleReturnArray[1] == 1;
 
@@ -171,12 +171,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
                 telemetry.update();
 
                 // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-                Balin.waitForTick(40);
-
-
-
-
-
+                Balin.waitForTick(40, this);
             }
         }
     }

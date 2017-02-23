@@ -23,7 +23,7 @@ public class SimpleBlueAuton extends LinearOpMode {
                 balin.NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 balin.NAVX_DEVICE_UPDATE_RATE_HZ);
-        while (balin.navx_device.isCalibrating()) {
+        while (balin.navx_device.isCalibrating() && !isStopRequested()) {
             telemetry.addData("Ready?", "No");
             telemetry.update();
         }
@@ -33,45 +33,41 @@ public class SimpleBlueAuton extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         //balin.turn();
-        balin.navx_device.zeroYaw();
-
+        if(opModeIsActive() && !isStopRequested()) balin.navx_device.zeroYaw();
         //Move forward
-        balin.moveStraightnew(8, this);
-
-        sleep(1400);
-        balin.setDrivePower(0);
-        sleep(100);
-
+        if(opModeIsActive() && !isStopRequested()) balin.moveStraightnew(8, this);
+        if(opModeIsActive() && !isStopRequested()) sleep(1400);
+        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(0);
+        if(opModeIsActive() && !isStopRequested()) sleep(100);
         //Get first particle into the shooter
-        balin.door.setPosition(balin.DOOR_OPEN);
-        balin.collector.setPower(1.0);
-        sleep(2000);
-        balin.collector.setPower(0);
-        balin.door.setPosition(balin.DOOR_CLOSED);
-        sleep(500);
+        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_OPEN);
+        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(1.0);
+        if(opModeIsActive() && !isStopRequested()) sleep(2000);
+        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(0);
+        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_CLOSED);
+        if(opModeIsActive() && !isStopRequested()) sleep(500);
         //Shoot first particle
-        balin.shoot(1.0);
-        sleep(600);
-        balin.shoot(0);
+        if(opModeIsActive() && !isStopRequested()) balin.shoot(1.0);
+        if(opModeIsActive() && !isStopRequested()) sleep(600);
+        if(opModeIsActive() && !isStopRequested()) balin.shoot(0);
 
         //Get second particle into the shooter
-        balin.door.setPosition(balin.DOOR_OPEN);
-        balin.collector.setPower(1.0);
-        sleep(2000);
-        balin.collector.setPower(0);
-        balin.door.setPosition(balin.DOOR_CLOSED);
-        sleep(500);
+        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_OPEN);
+        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(1.0);
+        if(opModeIsActive() && !isStopRequested()) sleep(2000);
+        if(opModeIsActive() && !isStopRequested()) balin.collector.setPower(0);
+        if(opModeIsActive() && !isStopRequested()) balin.door.setPosition(balin.DOOR_CLOSED);
+        if(opModeIsActive() && !isStopRequested()) sleep(500);
         //Shoot second particle
-        balin.shoot(1.0);
-        sleep(600);
-        balin.shoot(0);
-
-        sleep(200);
-        balin.gyroAngle(30, .25, this);
-        sleep(200);
+        if(opModeIsActive() && !isStopRequested()) balin.shoot(1.0);
+        if(opModeIsActive() && !isStopRequested()) sleep(600);
+        if(opModeIsActive() && !isStopRequested()) balin.shoot(0);
+        if(opModeIsActive() && !isStopRequested()) sleep(200);
+        if(opModeIsActive() && !isStopRequested()) balin.gyroAngle(31, .25, this);
+        if(opModeIsActive() && !isStopRequested()) balin.restAndSleep(this);
         boolean white_line = false;
-        balin.setDrivePower(.2);
-        while(!white_line && opModeIsActive()) {
+        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(.2);
+        while(!white_line && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
              }
@@ -84,11 +80,12 @@ public class SimpleBlueAuton extends LinearOpMode {
             telemetry.update();
         }
 
-        balin.setDrivePower(0);
-        balin.gyroAngle(43, .25, this);
-        sleep(200);
+        if(opModeIsActive() && !isStopRequested()) balin.setDrivePower(0);
+        if(opModeIsActive() && !isStopRequested()) balin.restAndSleep(this);
+        if(opModeIsActive() && !isStopRequested()) balin.gyroAngle(43, .25, this);
+        if(opModeIsActive() && !isStopRequested()) sleep(200);
         white_line = false;
-        while (white_line  && opModeIsActive()) {
+        while (white_line  && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
                 white_line = true;
             }
