@@ -77,7 +77,8 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.rest();
         sleep(150);
         balin.navx_device.zeroYaw();
-        balin.gyroAngle(42, .25, this);
+        sleep(100);
+        balin.gyroAngle(49, .25, this);
         balin.rest();
         sleep(200);
         telemetry.addLine("Moving To Strafe");
@@ -97,7 +98,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         balin.restAndSleep(this);
         telemetry.addLine("Starting Adjust to 12 cm");
         telemetry.update();
-        balin.adjustToDistance(12, .18, this);
+        balin.adjustToDistance(12, .17, this);
         telemetry.addLine("Detecting Color");
         telemetry.update();
         String color = balin.detectColor();
@@ -122,12 +123,12 @@ public class SimpleBlueAuton extends LinearOpMode {
         telemetry.addLine("Hitting Beacon");
         telemetry.update();
         if(color.equals("Red") || color.equals("Blue")) {
-            balin.moveStraightnew(4, this);
+            balin.moveStraightnew(2.25, this);
         }
         balin.rest();
         sleep(250);
         telemetry.addLine("Preppring For Next Strafe");
-        balin.adjustToDistance(15, .18, this);
+        balin.adjustToDistance(15, .17, this);
         balin.rest();
     }
     public void turnToOriginalAngle() {

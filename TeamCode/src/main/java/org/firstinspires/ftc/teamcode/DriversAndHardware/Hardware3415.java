@@ -631,7 +631,7 @@ public class Hardware3415 {
     //Stops all motors on the drive train
     public void rest() {
         setDrivePower(0);
-        setDrivePower(0);
+
     }
 
     //Sets the DIRECTION the robot is going, based on the error, for gyro turn
@@ -891,12 +891,12 @@ public class Hardware3415 {
     public void adjustToDistance(double distance, double power, LinearOpMode opMode) {
         boolean done = false;
         while(opMode.opModeIsActive() && !opMode.isStopRequested() && !done) {
-            if (readSonar1() < distance - 1) {
-                while (readSonar1() < distance - 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            if (readSonar1() < distance - 1.5) {
+                while (readSonar1() < distance - 1.5 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     setDrivePower(-power);
                 }
-            } else if (readSonar1() > distance + 1) {
-                while (readSonar1() > distance + 1 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            } else if (readSonar1() > distance + 1.5) {
+                while (readSonar1() > distance + 1.5 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     setDrivePower(power);
                 }
             } else {
@@ -907,10 +907,10 @@ public class Hardware3415 {
     }
 
     public String detectColor(){
-        if(colorSensor.red()>9){
+        if(colorSensor.red()>colorSensor.blue()){
             return "Red";
         }
-        else if(colorSensor.blue()>9){
+        else if(colorSensor.blue()>colorSensor.red()){
             return "Blue";
         }
         else{
