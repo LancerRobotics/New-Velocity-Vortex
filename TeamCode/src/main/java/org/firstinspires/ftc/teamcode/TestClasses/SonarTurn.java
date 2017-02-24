@@ -18,25 +18,19 @@ public class SonarTurn extends LinearOpMode {
     public void runOpMode() {
         balin.init(hardwareMap, true);
         waitForStart();
-        double currentDistance1 = balin.readSonar1();
-        double currentDistance2 = balin.readSonar2();
-        long roundDistance1 = Math.round(currentDistance1);
-        long roundDistance2 = Math.round(currentDistance2);
-        while (roundDistance1 != roundDistance2) {
-            if (roundDistance1 < roundDistance2) {
-                balin.turn(0.2);
-                currentDistance1 = balin.readSonar1();
-                currentDistance2 = balin.readSonar2();
-                roundDistance1 = Math.round(currentDistance1);
-                roundDistance2 = Math.round(currentDistance2);
-            } else if (roundDistance1 > roundDistance2) {
-                balin.turn(-0.2);
-                currentDistance1 = balin.readSonar1();
-                currentDistance2 = balin.readSonar2();
-                roundDistance1 = Math.round(currentDistance1);
-                roundDistance2 = Math.round(currentDistance2);
+        Straighten();
+    }
+    public void Straighten(){
+        while(Math.abs(Math.round(balin.readSonar1()) - Math.round(balin.readSonar2()))> 1 ){
+            if(balin.readSonar1()< balin.readSonar2()){
+                balin.fl.setPower(-.15);
+                balin.bl.setPower(-.15);
+            }
+            if(balin.readSonar1() > balin.readSonar2()){
+                balin.fr.setPower(- .15);
+                balin.br.setPower(- .15);
             }
         }
-        balin.turn(0);
+        balin.setDrivePower(0);
     }
 }

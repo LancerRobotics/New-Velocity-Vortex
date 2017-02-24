@@ -917,4 +917,18 @@ public class Hardware3415 {
             return "N/A";
         }
     }
+
+    public void Straighten(){
+        while(Math.abs(Math.round(readSonar1()) - Math.round(readSonar2()))> 1 ){
+            if(readSonar1()< readSonar2()){
+                fl.setPower(-.21);
+                bl.setPower(-.21);
+            }
+            if(readSonar1() > readSonar2()){
+                fr.setPower(- .21);
+                br.setPower(- .21);
+            }
+        }
+        setDrivePower(0);
+    }
 }

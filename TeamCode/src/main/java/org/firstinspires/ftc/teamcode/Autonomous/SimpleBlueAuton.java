@@ -56,7 +56,7 @@ public class SimpleBlueAuton extends LinearOpMode {
         sleep(600);
         balin.shoot(0);
         sleep(200);
-        balin.gyroAngle(37, .25, this);
+        balin.gyroAngle(39, .25, this);
         balin.restAndSleep(this);
         boolean white_line = false;
         balin.collector.setPower(-1.0);
@@ -83,6 +83,9 @@ public class SimpleBlueAuton extends LinearOpMode {
         sleep(200);
         telemetry.addLine("Moving To Strafe");
         telemetry.update();
+        balin.Straighten();
+        balin.Straighten();
+        balin.adjustToDistance(15, .17, this);
         white_line = false;
         while (!white_line  && opModeIsActive() && !isStopRequested()) {
             if (balin.ods.getRawLightDetected() >= .5) {
@@ -123,13 +126,41 @@ public class SimpleBlueAuton extends LinearOpMode {
         telemetry.addLine("Hitting Beacon");
         telemetry.update();
         if(color.equals("Red") || color.equals("Blue")) {
-            balin.moveStraightnew(2.25, this);
+            balin.moveStraightnew(3.75, this);
         }
         balin.rest();
         sleep(250);
         telemetry.addLine("Preppring For Next Strafe");
-        balin.adjustToDistance(15, .17, this);
+        balin.adjustToDistance(10, .17, this);
         balin.rest();
+        sleep(150);
+        white_line = false;
+        balin.fr.setPower(.5);
+        balin.br.setPower(-.5);
+        balin.fl.setPower(-.5);
+        balin.bl.setPower(.5);
+        sleep(786);
+        while (!white_line  && opModeIsActive() && !isStopRequested()) {
+            if (balin.ods.getRawLightDetected() >= .5) {
+                white_line = true;
+            }
+        }
+        balin.setDrivePower(0);
+        balin.Straighten();
+        balin.Straighten();
+        balin.adjustToDistance(15, .17, this);
+        sleep(150);
+        white_line = false;
+        while (!white_line  && opModeIsActive() && !isStopRequested()) {
+            if (balin.ods.getRawLightDetected() >= .5) {
+                white_line = true;
+            }
+            balin.fr.setPower(-.3);
+            balin.br.setPower(.3);
+            balin.fl.setPower(.3);
+            balin.bl.setPower(-.3);
+        }
+        balin.setDrivePower(0);
     }
     public void turnToOriginalAngle() {
         double AngleToTurnTo = balin.navx_device.getYaw() * -1;
