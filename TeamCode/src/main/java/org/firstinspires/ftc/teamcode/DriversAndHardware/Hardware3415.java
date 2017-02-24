@@ -249,12 +249,12 @@ public class Hardware3415 {
      *
      * @param periodMs Length of wait cycle in mSec.
      */
-    public void waitForTick(long periodMs, LinearOpMode opMode) {
+    public void waitForTick(long periodMs) {
 
         long remaining = periodMs - (long) period.milliseconds();
 
         // sleep for the remaining portion of the regular cycle period.
-        if (remaining > 0 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+        if (remaining > 0) {
             try {
                 Thread.sleep(remaining);
             } catch (InterruptedException e) {
@@ -436,7 +436,7 @@ public class Hardware3415 {
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             setDrivePower(0.0);
             fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -447,7 +447,7 @@ public class Hardware3415 {
             }
             while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(.5);
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -476,7 +476,7 @@ public class Hardware3415 {
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -487,7 +487,7 @@ public class Hardware3415 {
             }
             while ((!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested())) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -520,7 +520,7 @@ public class Hardware3415 {
                 opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                 opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                 opMode.telemetry.update();
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -537,7 +537,7 @@ public class Hardware3415 {
             changeDriveMode(DcMotor.RunMode.RUN_TO_POSITION);
             while (!motorsTarget(targetTick, opMode) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                 setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
             rest();
             changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -563,7 +563,7 @@ public class Hardware3415 {
                     opMode.telemetry.addData("Current tick values", fl.getCurrentPosition());
                     opMode.telemetry.addData("Current tick values", br.getCurrentPosition());
                     opMode.telemetry.update();
-                    waitForTick(40, opMode);
+                    waitForTick(40);
                 }
             }
             changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -576,7 +576,7 @@ public class Hardware3415 {
                 while ((fl.getCurrentPosition() < (fl.getTargetPosition() - 50) || bl.getCurrentPosition() < (bl.getTargetPosition() - 50) || br.getCurrentPosition() < (br.getTargetPosition() - 50) || fr.getCurrentPosition() < (fr.getTargetPosition() - 50)) && opMode.opModeIsActive() && !opMode.isStopRequested()) {
                     //setDrivePower(-coast(targetTick, smallest(fl.getCurrentPosition(), bl.getCurrentPosition(), fr.getCurrentPosition(), br.getCurrentPosition())));
                     setDrivePower(-.3);
-                    waitForTick(40, opMode);
+                    waitForTick(40);
                 }
             }
             changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -717,7 +717,7 @@ public class Hardware3415 {
                 opMode.telemetry.addData("Current Yaw", navx_device.getYaw());
                 opMode.telemetry.addData("Target Yaw", angle);
                 opMode.telemetry.update();
-                waitForTick(40, opMode);
+                waitForTick(40);
             }
         }
         //Brakes all motors

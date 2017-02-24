@@ -182,7 +182,7 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            Balin.waitForTick(40, this);
+            Balin.waitForTick(40);
         }
     }
 }

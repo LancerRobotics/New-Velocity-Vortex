@@ -171,7 +171,7 @@ import org.firstinspires.ftc.teamcode.DriversAndHardware.Hardware3415;
                 telemetry.update();
 
                 // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-                Balin.waitForTick(40, this);
+                Balin.waitForTick(40);
             }
         }
     }
