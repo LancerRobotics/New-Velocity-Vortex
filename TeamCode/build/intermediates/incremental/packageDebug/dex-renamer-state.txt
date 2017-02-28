@@ -1,7 +1,0 @@
-#Sun Feb 26 10:27:24 EST 2017
-base.0=C\:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\TeamCode\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_29e1e8b785a4c0a8398e72a49362b2dfcd14cd64
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=C\:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\TeamCode\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_d9a0f6c1a56bacc617be0d962c36a67603ec8f23\\classes.dex
-base.1=C\:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\TeamCode\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_d9a0f6c1a56bacc617be0d962c36a67603ec8f23
-file.0=C\:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\TeamCode\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_29e1e8b785a4c0a8398e72a49362b2dfcd14cd64\\classes.dex
