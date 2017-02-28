@@ -3,6 +3,33 @@
 
     <item
         is-multidex="false"
+        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\ModernRobotics-release\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="01999c87afe3d10ffa06f3efa66f39e61e6aba0c">
+        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-ModernRobotics-release_e2c7f8c00cc98b76bc122401477969a263e21851.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\d2xx.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="04004e5f55992d1d8a105a4ade7be348986ed34e">
+        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\d2xx_3cfe1307b6bf1597d45b34d43c092e2f6a605f22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\Vuforia.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="58b9241fc73757cb6e0cdc32422a71a8e7e6d178">
+        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\Vuforia_5b08c7979503d3d9f3612ef7ffc32dfe31213c76.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\gson-2.7.jar"
         jumboMode="false"
         optimize="true"
@@ -66,42 +93,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8645f44944ec57b771a5794f7c27238009d0aa69">
-        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-navx_ftc-release_37dac402bc573a010eb6474e9477bc0a89a58923.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\ModernRobotics-release\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="01999c87afe3d10ffa06f3efa66f39e61e6aba0c">
-        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-ModernRobotics-release_e2c7f8c00cc98b76bc122401477969a263e21851.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\d2xx.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="04004e5f55992d1d8a105a4ade7be348986ed34e">
-        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\d2xx_3cfe1307b6bf1597d45b34d43c092e2f6a605f22.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\Vuforia.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="58b9241fc73757cb6e0cdc32422a71a8e7e6d178">
-        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\Vuforia_5b08c7979503d3d9f3612ef7ffc32dfe31213c76.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Blocks-release\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -126,6 +117,15 @@
         revision="23.0.3"
         sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
         <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-WirelessP2p-release_5d98b6c04a961c29d92b8c9049a2f58a053d3c8f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8645f44944ec57b771a5794f7c27238009d0aa69">
+        <dex dex="C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-navx_ftc-release_37dac402bc573a010eb6474e9477bc0a89a58923.jar" />
     </item>
 
 </items>

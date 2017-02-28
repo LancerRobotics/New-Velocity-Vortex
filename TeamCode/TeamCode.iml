@@ -92,12 +92,12 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/ModernRobotics-release/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/RobotCore-release/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/WirelessP2p-release/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/navx_ftc-release/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
@@ -119,9 +119,9 @@
     <orderEntry type="library" exported="" name="Analytics-release-" level="project" />
     <orderEntry type="library" exported="" name="Hardware-release-" level="project" />
     <orderEntry type="library" exported="" name="FtcCommon-release-" level="project" />
-    <orderEntry type="library" exported="" name="navx_ftc-release-" level="project" />
     <orderEntry type="module" module-name="FtcRobotController" exported="" />
     <orderEntry type="library" exported="" name="Inspection-release-" level="project" />
     <orderEntry type="library" exported="" name="Blocks-release-" level="project" />
+    <orderEntry type="library" exported="" name="navx_ftc-release-" level="project" />
   </component>
 </module>

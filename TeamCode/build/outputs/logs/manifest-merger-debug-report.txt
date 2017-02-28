@@ -18,10 +18,10 @@ ADDED from C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\src\main\
 MERGED from [New-Velocity-Vortex:FtcRobotController:unspecified] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\New-Velocity-Vortex\FtcRobotController\unspecified\AndroidManifest.xml:12:5-40:19
 MERGED from [:Inspection-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Inspection-release\AndroidManifest.xml:19:5-46:19
 MERGED from [:Blocks-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Blocks-release\AndroidManifest.xml:18:5-49:19
+MERGED from [:navx_ftc-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\AndroidManifest.xml:11:5-14:19
 MERGED from [:RobotCore-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\AndroidManifest.xml:61:5-93
 MERGED from [:FtcCommon-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\FtcCommon-release\AndroidManifest.xml:22:5-181:19
 MERGED from [:Analytics-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Analytics-release\AndroidManifest.xml:19:5-24:19
-MERGED from [:navx_ftc-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\AndroidManifest.xml:11:5-14:19
 	android:label
 		ADDED from [New-Velocity-Vortex:FtcRobotController:unspecified] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\New-Velocity-Vortex\FtcRobotController\unspecified\AndroidManifest.xml:15:9-41
 	android:exported
@@ -41,13 +41,13 @@ INJECTED from C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\src\ma
 MERGED from [New-Velocity-Vortex:FtcRobotController:unspecified] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\New-Velocity-Vortex\FtcRobotController\unspecified\AndroidManifest.xml:8:5-10:41
 MERGED from [:Inspection-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Inspection-release\AndroidManifest.xml:7:5-9:41
 MERGED from [:Blocks-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Blocks-release\AndroidManifest.xml:7:5-9:41
+MERGED from [:navx_ftc-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\AndroidManifest.xml:7:5-9:41
 MERGED from [:RobotCore-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\RobotCore-release\AndroidManifest.xml:5:5-7:41
 MERGED from [:Hardware-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Hardware-release\AndroidManifest.xml:5:5-7:41
 MERGED from [:FtcCommon-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\FtcCommon-release\AndroidManifest.xml:8:5-10:41
 MERGED from [:ModernRobotics-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\ModernRobotics-release\AndroidManifest.xml:5:5-7:41
 MERGED from [:Analytics-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\Analytics-release\AndroidManifest.xml:5:5-7:41
 MERGED from [:WirelessP2p-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\WirelessP2p-release\AndroidManifest.xml:5:5-7:41
-MERGED from [:navx_ftc-release:] C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\AndroidManifest.xml:7:5-9:41
 	android:targetSdkVersion
 		INJECTED from C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\andrew.keenan\Desktop\New-Velocity-Vortex\TeamCode\src\main\AndroidManifest.xml
