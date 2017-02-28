@@ -58,10 +58,10 @@ public class Hardware3415 {
     public OpticalDistanceSensor ods = null;
     public boolean beaconBlue;
 
-    public static final double LEFT_BEACON_INITIAL_STATE = 156.0 / 255;
-    public static final double LEFT_BEACON_PUSH = 1.0 / 255;
-    public static final double RIGHT_BEACON_PUSH= 155.0 / 255;
-    public static final double RIGHT_BEACON_INITIAL_STATE = 0.0;
+    public static final double LEFT_BEACON_INITIAL_STATE = 190.0 / 255;
+    public static final double LEFT_BEACON_PUSH = 24.0 / 255;
+    public static final double RIGHT_BEACON_PUSH= 220.0 / 255;
+    public static final double RIGHT_BEACON_INITIAL_STATE = 54.0/255;
     public static final double LEFT_CLAMP_INITIAL_STATE = 1;
     public static final double LEFT_CLAMP_UP = 0;
     public static final double LEFT_CLAMP_CLAMP = 70.0 / 255;
@@ -123,11 +123,14 @@ public class Hardware3415 {
     public I2cDevice RANGE2 = null;
     public I2cDeviceSynch RANGE2Reader = null;
 
+    public DigitalChannel limit = null;
+    public boolean limitState;
+
     /* Local OpMode members. */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
-     /*Toggle Stuff*/
+    /*Toggle Stuff*/
     public static boolean beaconPushLeftButtonPressed = false;
     public static double[] beaconPushLeftPositions = {LEFT_BEACON_INITIAL_STATE, LEFT_BEACON_PUSH};
     public static int beaconPushLeftPos;
@@ -239,6 +242,8 @@ public class Hardware3415 {
             clampRight.setPosition(RIGHT_CLAMP_INITIAL_STATE);
             rollerRelease.setPosition(ROLLER_RELEASE_IN);
             door.setPosition(doorPositions[0]);
+            limit = hwMap.digitalChannel.get("lift_switch");
+            limitState = limit.getState();
         }
     }
 
@@ -395,11 +400,12 @@ public class Hardware3415 {
     }
     public boolean moveStraightnew(double inches, LinearOpMode opMode){
         changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        changeDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         changeDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         int targetTick = (int) (inches * 1140.0 / (4.0 * Math.PI * 2.0));
-        fr.setTargetPosition(targetTick);
+        br.setTargetPosition(targetTick);
         setDrivePower(.3);
-        while(fr.getCurrentPosition()< targetTick && fr.isBusy() && opMode.opModeIsActive() && !opMode.isStopRequested()){
+        while(br.getCurrentPosition()< targetTick && br.isBusy() && opMode.opModeIsActive() && !opMode.isStopRequested()){
 
         }
         setDrivePower(0);
@@ -753,13 +759,13 @@ public class Hardware3415 {
     }
 
 
-   /* public int[] getRGBF(){
-        int red = lineTrackerF.red();
-        int blue = lineTrackerF.blue();
-        int green = lineTrackerF.green();
-        int[] rgb ={red, green, blue};
-        return rgb;
-    }*/
+    /* public int[] getRGBF(){
+         int red = lineTrackerF.red();
+         int blue = lineTrackerF.blue();
+         int green = lineTrackerF.green();
+         int[] rgb ={red, green, blue};
+         return rgb;
+     }*/
    /* public int[] getRGBB(){
         int red = lineTrackerB.red();
         int blue = lineTrackerB.blue();
@@ -891,12 +897,12 @@ public class Hardware3415 {
     public void adjustToDistance(double distance, double power, LinearOpMode opMode) {
         boolean done = false;
         while(opMode.opModeIsActive() && !opMode.isStopRequested() && !done) {
-            if (readSonar1() < distance - 1.5) {
-                while (readSonar1() < distance - 1.5 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            if (readSonar2() < distance - 2.5) {
+                while (readSonar2() < distance - 2.5 && opMode.opModeIsActive() && !opMode.isStopRequested() && readSonar2()<50) {
                     setDrivePower(-power);
                 }
-            } else if (readSonar1() > distance + 1.5) {
-                while (readSonar1() > distance + 1.5 && opMode.opModeIsActive() && !opMode.isStopRequested()) {
+            } else if (readSonar2() > distance + 2.5) {
+                while (readSonar2() > distance + 2.5 && opMode.opModeIsActive() && !opMode.isStopRequested() && readSonar2()<50) {
                     setDrivePower(power);
                 }
             } else {
@@ -918,15 +924,19 @@ public class Hardware3415 {
         }
     }
 
-    public void Straighten(){
-        while(Math.abs(Math.round(readSonar1()) - Math.round(readSonar2()))> 1 ){
-            if(readSonar1()< readSonar2()){
-                fl.setPower(-.21);
-                bl.setPower(-.21);
+    public void Straighten(double power){
+        while(Math.abs(Math.round(readSonar1()) - Math.round(readSonar2()))> 2 ){
+            if(readSonar1()< readSonar2() && ((readSonar1()<50) || (readSonar2()<50))){
+                fl.setPower(-power);
+                bl.setPower(-power);
+                fr.setPower(0);
+                br.setPower(0);
             }
-            if(readSonar1() > readSonar2()){
-                fr.setPower(- .21);
-                br.setPower(- .21);
+            if(readSonar1() > readSonar2() && ((readSonar1()<50) || (readSonar2()<50))){
+                fr.setPower(-power);
+                br.setPower(-power);
+                fl.setPower(0);
+                bl.setPower(0);
             }
         }
         setDrivePower(0);

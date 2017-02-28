@@ -70,6 +70,8 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
          */
         Balin.init(hardwareMap, false);
 
+        Balin.limitState = Balin.limit.getState();
+
         // Send telemetry message to signify Balin waiting;
         telemetry.addData("Ready?", "Yes");
         telemetry.update();
@@ -83,7 +85,13 @@ public class TeleopWithHardwareFromRobWithoutPerspectiveDrive extends LinearOpMo
         while (opModeIsActive() && !isStopRequested()) {
 
             //Sets controls for linear slides on forklift
-            if (Math.abs(gamepad2.right_stick_y) > .15) {
+            if (gamepad2.right_stick_y < -.15) {
+                Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+            } else if(gamepad2.right_stick_y > .15 && Balin.limitState) {
+                Balin.liftLeft.setPower(0);
+                Balin.liftRight.setPower(0);
+            } else if(gamepad2.right_stick_y > .15 && !Balin.limitState){
                 Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
                 Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
             } else {

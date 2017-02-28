@@ -97,13 +97,21 @@ public class TeleopWithHardwareFromRob extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive() && !isStopRequested()) {
 
+            Balin.limitState = Balin.limit.getState();
+
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
             if (gamepad1.right_stick_button && gamepad1.left_stick_button) {
                 Balin.navx_device.zeroYaw();
             }
 
             //Sets controls for linear slides on forklift
-            if (Math.abs(gamepad2.right_stick_y) > .15) {
+            if (gamepad2.right_stick_y < -.15) {
+                Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+                Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+            } else if(gamepad2.right_stick_y > .15 && Balin.limitState) {
+                Balin.liftLeft.setPower(0);
+                Balin.liftRight.setPower(0);
+            } else if(gamepad2.right_stick_y > .15 && !Balin.limitState){
                 Balin.liftLeft.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
                 Balin.liftRight.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
             } else {
