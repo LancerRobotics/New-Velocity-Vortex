@@ -24,12 +24,12 @@
         "source": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\servo_controller_banner.xml"
     },
     {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\banner_parent.xml",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\banner_parent.xml"
-    },
-    {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\header.xml",
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\src\\main\\res\\layout\\header.xml"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\banner_parent.xml",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\banner_parent.xml"
     },
     {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\activity_about.xml",
@@ -92,12 +92,12 @@
         "source": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\orange_warning.xml"
     },
     {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\analog_output_device.xml",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\analog_output_device.xml"
-    },
-    {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\motor_list.xml",
         "source": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\motor_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\analog_output_device.xml",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\analog_output_device.xml"
     },
     {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\layout\\analog_outputs.xml",

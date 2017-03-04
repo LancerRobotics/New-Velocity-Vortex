@@ -52,6 +52,7 @@ public class Hardware3415 {
     //public ColorSensor lineTrackerB = null;
     //
     public OpticalDistanceSensor ods = null;
+    //public OpticalDistanceSensor odsF = null;
     public boolean beaconBlue;
 
     public static final double LEFT_BEACON_INITIAL_STATE = 190.0 / 255;
@@ -90,6 +91,7 @@ public class Hardware3415 {
     //public static final String lineTrackerFName = "lineTrackerF";
     //public static final String lineTrackerBName = "lineTrackerB";
     public static final String odsName = "ods";
+    public static final String odsFName = "odsF";
     public static final String sonarName = "sonar";
     public static final String sonarName2 = "sonar2";
 
@@ -214,6 +216,7 @@ public class Hardware3415 {
             //lineTrackerF = hwMap.colorSensor.get(lineTrackerFName);
             //lineTrackerB = hwMap.colorSensor.get(lineTrackerBName);
             ods = hwMap.opticalDistanceSensor.get(odsName);
+            //odsF = hwMap.opticalDistanceSensor.get(odsFName);
             RANGE1 = hwMap.i2cDevice.get(sonarName);
             RANGE1Reader = new I2cDeviceSynchImpl(RANGE1, I2cAddr.create8bit(0x28), false);
             RANGE1Reader.engage();
@@ -726,6 +729,7 @@ public class Hardware3415 {
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
 
     }
+
 
     public void restAndSleep(LinearOpMode opMode) {
         if (opMode.opModeIsActive() && !opMode.isStopRequested()) rest();
