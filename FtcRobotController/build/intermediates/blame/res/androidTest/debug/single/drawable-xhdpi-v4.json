@@ -4,8 +4,16 @@
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_menu.png",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\icon_menu.png"
+    },
+    {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_menu.png",
         "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\icon_menu.png"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
@@ -14,6 +22,10 @@
     {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_robotcontroller.png",
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\icon_robotcontroller.png"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_robotcontroller.png",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\icon_robotcontroller.png"
     },
     {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_robotcontroller.png",

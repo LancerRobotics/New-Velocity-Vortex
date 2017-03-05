@@ -1,15 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\errormessage.wav",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\errormessage.wav"
     },
     {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\color_fragment_shader.glsl",
         "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\color_fragment_shader.glsl"
-    },
-    {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimeconnect.wav",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimeconnect.wav"
     },
     {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_vertex_shader.glsl",
@@ -28,6 +24,66 @@
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\warningmessage.wav"
     },
     {
+        "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\nxtstartupsound.wav",
+        "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\nxtstartupsound.wav"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimeconnect.wav",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimeconnect.wav"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\simple_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\cube_mesh_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\errormessage.wav",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\errormessage.wav"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\cube_mesh_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\cube_mesh_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimedisconnect.wav",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimedisconnect.wav"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\simple_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimeconnect.wav",
+        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimeconnect.wav"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\warningmessage.wav",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\warningmessage.wav"
+    },
+    {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\simple_vertex_shader.glsl",
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\simple_vertex_shader.glsl"
     },
@@ -44,8 +100,8 @@
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\nxtstartupsound.wav",
-        "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\nxtstartupsound.wav"
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\color_fragment_shader.glsl"
     },
     {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_fragment_shader.glsl",
@@ -56,35 +112,23 @@
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\errormessage.wav",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\errormessage.wav"
-    },
-    {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\cube_mesh_vertex_shader.glsl"
-    },
-    {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimeconnect.wav",
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimeconnect.wav"
-    },
-    {
-        "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_fragment_shader.glsl"
     },
     {
         "merged": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\chimedisconnect.wav",
         "source": "C:\\Users\\shlok.khandelwal\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\chimedisconnect.wav"
     },
     {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_vertex_shader.glsl"
-    },
-    {
-        "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
         "merged": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\warningmessage.wav",
         "source": "C:\\Users\\andrew.keenan\\Desktop\\Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\warningmessage.wav"
+    },
+    {
+        "merged": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\nxtstartupsound.wav",
+        "source": "C:\\Users\\Shlok\\Desktop\\New-Velocity-Vortex\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\raw\\nxtstartupsound.wav"
     }
 ]
